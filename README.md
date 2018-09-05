@@ -10,7 +10,7 @@ API's we'd like to pull from:
 - Ticketmaster
 - Google Maps
 - BandsInTown
-- Spotify
+- Last.fm
 (possible)  - live streaming
             - hotels.com
             - twitter
