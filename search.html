@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <style>
+        html{
+            height: 0
+        }
+        .container-fluid {
+          position:absolute;
+          height: 100%;
+          width: 100%;
+          margin: 0;
+          padding: 0
+
+        }
+        body{
+            margin: 0
+        }
+        .container{
+            height :100%;
+            width: 30%;
+            position:absolute;
+            z-index: 10;
+            background-color: white;
+            transition: left .5s;
+            left:0
+        }
+        #shrink{
+            position: absolute;
+            left: 100%;
+            transition-duration: 2s
+        }
+
+    </style>
+</head>
+
+<body>
+  
+    <div class='container-fluid' id='map'></div>
+    <div class = 'container'> Hi
+    <button id = 'shrink'>shrink</button>  
+    </div>
+    
+   
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXtwNcWQKwMAYBw-2F4T4FRAwWqj39dJE&callback=initMap" async
+    defer></script>
+
+
+    <script>
+
+
+
+        function initMap() {
+            var myLatLng = { lat: 39.106701, lng: -94.571297 };
+
+            // Create a map object and specify the DOM element
+            // for display.
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: myLatLng,
+                zoom: 3.5
+            });
+        }
+
+        $('#shrink').click(function(){
+            if ( $('#shrink').text() === 'shrink'){
+            $('.container').css('left','-30%')
+            $('#shrink').text('grow')
+            }
+            else{
+            $('.container').css('left','0')
+            $('#shrink').text('shrink')
+            }
+
+            
+
+        
+        })
+    </script>
+
+</body>
+
+</html>
