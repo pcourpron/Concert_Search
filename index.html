@@ -12,15 +12,8 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/styleMain.css">
 
-    <style>
-        body {
-            background-image: url("assets/images/bumperBG.jpg");
-            background-size: 100%;
-            background-attachment: fixed;
-            font-family: 'Baloo Tammudu', cursive;
-        }
-    </style>
     <title>EventMe | Main</title>
 </head>
 
@@ -32,11 +25,20 @@
                 <header>EventMe</header>
             </div>
         </div>
-        <div class="landingForm">
-            <form>
-                <button type="button" class="btn btn-dark">Submit</button>
-            </form>
+        <div class="landingForm form-row">
+            <div class="form-group col-sm-4">
+                <input class="form-control form-control-lg" type="text" placeholder="Location">
+            </div>
+            <div class="form-group col-sm-4">
+                <select class="form-control form-control-lg">
+                    <option>Date 1</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-4">
+                <button type="button" class="btn btn-outline-dark btn-primary btn-lg">Submit</button>
+            </div>
         </div>
+    </div>
     </div>
 
     <script></script>
