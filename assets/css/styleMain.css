@@ -3,14 +3,14 @@ html {
 }
 
 body {
-    margin: 0 auto;
     box-sizing: border-box;
     position: relative;
     background-image: url("../images/bumperBG.jpg");
-    background-size: 100%;
+    background-size: cover;
     background-attachment: fixed;
     font-family: 'Baloo Tammudu', cursive;
-    height: 90%;
+    height: 100vh;
+    background: no-repeat center cover;
 }
 
 #headTitle {
