@@ -1,7 +1,8 @@
 // Hotel Deals API Documentation: http://developer.hotwire.com/docs/read/Hotel_Deals_API
 
 
-var destination = "la"; // if spelled wrong, tries to find best match
+var latLong = "34.0522335,-118.243683" // Latitude/Longitude (of LA!)
+
 var withinRadius = 15; // miles
 
 var startDate = "08/08/2018" // Required
@@ -14,7 +15,7 @@ var minNightsStay = 3
 var maxNightsStay = 4
 // Right now this sets it to a 3 to 4 night stay.
 
-var queryURL = `http://api.hotwire.com/v1/deal/hotel?apikey=dkvkbmxbs5nzer7hmg6bfd26&limit=5&diversity=city&dest=${destination}&distance=*~${withinRadius}&startdate=${startDate}~${endDate}&duration=${minNightsStay}~${maxNightsStay}&format=JSON`
+var queryURL = `http://api.hotwire.com/v1/deal/hotel?apikey=dkvkbmxbs5nzer7hmg6bfd26&limit=5&diversity=city&dest==${latLong}&distance=*~${withinRadius}&startdate=${startDate}~${endDate}&duration=${minNightsStay}~${maxNightsStay}&format=JSON`
 
 console.log(queryURL)
 
