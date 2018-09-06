@@ -8,54 +8,112 @@
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <style>
-        html{
+        html {
             height: 0
         }
-        .container-fluid {
-          position:absolute;
-          height: 100%;
-          width: 100%;
-          margin: 0;
-          padding: 0
 
+        .container-fluid {
+            position: absolute;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            transition: .2s;
+            left: 408px;
+            right:0px;
+            top: 152px;
         }
-        body{
-            margin: 0
-        }
-        .container{
-            height :100%;
-            width: 30%;
-            position:absolute;
+
+        
+
+        .container {
+            height: 100%;
+            width: 408px;
+            position: absolute;
             z-index: 10;
             background-color: white;
-            transition: left .5s;
-            left:0
-        }
-        #shrink{
-            position: absolute;
-            left: 100%;
-            transition-duration: 2s
+            transition: left .2s;
+            overflow-y:scroll;
+            overflow-x:hidden;
+            top:152px;
+        
+         
+    
         }
 
+        #shrink {
+            transition-duration: .2s;
+            z-index: 20;
+            position:absolute;
+            left:408px;
+            top: 262px;
+        }
+        #results{
+            overflow-y:auto;
+            overflow-x: unset;
+            width: 100%
+           
+        }
+        .border{
+           border-width: 0  0 1px 0 ;
+            border-color: lightgrey;
+            border-style:solid;
+        }
+
+        #info{
+            z-index: -1;
+            height: 1000px;
+        }
+        #back {
+            margin: 0 auto;
+            width: 100%
+        }
     </style>
 </head>
+<header>
+        <div id="headTitle">
+            <h1>iConcert</h1>
+        </div>
+    </header>
+
 
 <body>
-  
-    <div class='container-fluid' id='map'></div>
-    <div class = 'container'> Hi
-    <button id = 'shrink'>shrink</button>  
-    </div>
-    
-   
+    <!-- <div class="container resultOverlay"> -->
+            <div class="row form-row searchBox">
+                    <div class="col-sm-3">
+                        <input class="form-group form-control form-control-sm align-middle locationInput" type="text" placeholder="By Location ...">
+                    </div>
+                    <div class="col-sm-3">
+                        <input class="form-group form-control form-control-sm align-middle bandInput" type="text" placeholder="By Band/Genre ...">
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="form-group form-control form-control-sm align-middle dateFromSelect">
+                            <option>Date From: </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="form-group form-control form-control-sm align-middle dateToSelect">
+                            <option>Date To: </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" class="form-group btn btn-primary btn-sm btn-outline-dark submitForm">Submit</button>
+                    </div>
+                </div>
+
+    <div class='container-fluid' id='map'> </div>
+    <button id='shrink'>shrink</button>
+    <div class='container' id = 'results-col'> </div>
+    <div class='container' id = 'info'>
+    <button id ='back' class = 'btn btn-primary'>Back to Results</button>
+
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXtwNcWQKwMAYBw-2F4T4FRAwWqj39dJE&callback=initMap" async
-    defer></script>
+        defer></script>
 
 
     <script>
-
-
 
         function initMap() {
             var myLatLng = { lat: 39.106701, lng: -94.571297 };
@@ -66,22 +124,150 @@
                 center: myLatLng,
                 zoom: 3.5
             });
+            console.log(map.zoom)
         }
 
-        $('#shrink').click(function(){
-            if ( $('#shrink').text() === 'shrink'){
-            $('.container').css('left','-30%')
-            $('#shrink').text('grow')
+        $('#shrink').click(function () {
+            if ($('#shrink').text() === 'shrink') {
+                $('.container').css('left', '-408px')
+                $('#shrink').css('left','0')
+                $('#shrink').text('grow')
+                $('.container-fluid').css('width', '100%').css('left', '0%')
             }
-            else{
-            $('.container').css('left','0')
-            $('#shrink').text('shrink')
+            else {
+                $('.container').css('left', '0')
+                $('#shrink').css('left','408px')
+                $('#shrink').text('shrink')
+                $('.container-fluid').css('width', '70%').css('left', '408px')
             }
 
+
+
+        })
+
+        $(document).on('click','.row',function(){
+            $('#info').css('z-index','1000')
+            var img = $('<img>')
+            img.attr('src',$(this).children('.col-sm-4').children().attr('src')).css('width','100%')
+            $('#info').append(img)
+    
+            var row = $(this)
+            var title = $('<h3>').text(row.children('.col-sm-8').children('.title').text())
+            $('#info').append(title)
             
 
-        
+
         })
+
+        $(document).on('click','#back',function(){
+            $('#info').css('z-index','-1')
+        })
+
+        function addMarkers(events) {
+            var map = new google.maps.Map(document.getElementById('map'), {
+            });
+            var marker
+            var bounds = new google.maps.LatLngBounds();
+
+            events.forEach(element => {
+                var location = element._embedded.venues['0'].location
+                var name = element.name
+                marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(location.latitude, location.longitude),
+                    map: map
+                })
+                bounds.extend(marker.position);
+
+
+
+            });
+
+            if (events.length <= 2) {
+                var location = events[0]._embedded.venues['0'].location
+                console.log(location.latitude)
+                var myLatLng = { lat: parseFloat(location.latitude), lng: parseFloat(location.longitude) };
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    center: myLatLng,
+                    zoom: 11
+                });
+                events.forEach(element => {
+                    var name = element.name
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(location.latitude, location.longitude),
+                        map: map
+                    })
+                    bounds.extend(marker.position);
+
+
+                })
+            }
+            else {
+                map.fitBounds(bounds)
+            }
+        }
+
+
+        $.ajax({
+            url: 'https://maps.googleapis.com/maps/api/geocode/json?address=los angeles&key=AIzaSyCXtwNcWQKwMAYBw-2F4T4FRAwWqj39dJE',
+            method: 'GET'
+        }).then(function (response) {
+            var latlong = response.results[0].geometry.location
+            var latitude = latlong.lat
+            var longitude = latlong.lng
+            var baseUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=yEtBYAcCK5MzWmE1UdE1NUheV74fQK8H'
+            var destination
+            var keyword = 'pink'
+            var queryUrl = baseUrl + '&keyword=' + keyword + '&radius=50'
+
+            $.ajax({
+                url: queryUrl,
+                method: 'GET'
+            }).then(function (response) {
+                console.log(response)
+                var events = response._embedded.events
+                var marker
+                addMarkers(events)
+
+                addResults(events)
+
+
+
+            })
+
+
+
+
+
+        })
+
+
+        function addResults(events){
+            var i = 1
+            events.forEach(element => {
+                var title = $('<h4>').text(element.name).css('text-align','center').addClass('title')
+                var date = $('<p>').text('Date: '+element.dates.start.localDate).addClass('date')
+                var time = $('<p>').text('Time: '+ element.dates.start.localTime).addClass('time')
+                var img = $('<img>').attr('src',element.images[6].url).css('width','100').css('display','block').css('margin','0 auto')
+                var row = $('<div>').addClass('row border')
+                var col = $('<div>').addClass('col-sm-8')
+                var imgCol = $('<div>').addClass('col-sm-4 d-flex align-items-center').css('height','111px')
+
+                imgCol.append(img)
+                if (i%2 ===0){
+                    row.css('background-color','lightgrey')
+                }
+                else{
+                    row.css('background-color','lemonchiffon')
+                }
+                col.append(title,date,time)
+                row.append(col,imgCol)
+                $('#results-col').append(row)
+                i++
+                
+            });
+
+        }
+
     </script>
 
 </body>
