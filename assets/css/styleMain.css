@@ -1,0 +1,55 @@
+html {
+    height: 90%;
+}
+
+body {
+    margin: 0 auto;
+    box-sizing: border-box;
+    position: relative;
+    background-image: url("../images/bumperBG.jpg");
+    background-size: 100%;
+    background-attachment: fixed;
+    font-family: 'Baloo Tammudu', cursive;
+    height: 90%;
+}
+
+#headTitle {
+    
+    text-align: center;
+    margin: auto;
+    text-shadow: 2px 2px 5px rgb(0, 0, 0);
+    border-bottom: 5px solid lightslategray;
+    background-color: rgba(240, 240, 240, 0.651);
+    height: 35px;
+    padding: 20px 0px 50px 0px;
+}
+
+h1 {
+    -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+    color: rgba(0, 0, 0, 0.1);
+    background-image: url("../images/bumperBG.jpg");
+}
+
+input, btn, select {
+    text-align: center;
+    margin: auto;
+}
+
+.searchArea {
+    padding-top: 12%;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+}
+
+label {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

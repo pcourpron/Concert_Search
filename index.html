@@ -12,26 +12,61 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/styleMain.css">
 
-    <style>
-        body {
-            background-image: url("assets/images/bumperBG.jpg");
-            background-size: 100%;
-            background-attachment: fixed;
-            font-family: 'Baloo Tammudu', cursive;
-        }
-    </style>
-    <title>EventMe | Main</title>
+    <title>iConcert | Main</title>
 </head>
+
+<!-- 
+
+_______________________________________________________________________________________________________ 
+
+So here's some of the preliminary information that can be linked up through js:
+
+.searchArea  - This is essentially the whole searchbox for the form.
+.formSearch  - This is the form itself - I had a good reason not to use <form>.
+.locationInput  - This is where the user can input a location to search.
+.bandInput  - This is where the user can input a band/genre to search.
+.dateFromSelect  - This is where user can search start date parameter.
+.dateToSelect  - This is where user can search end date parameter.
+.submitForm  - This is for on.click, for the submit of previous information.
+
+
+-------------------------------------------------------------------------------------------------------
+
+ -->
 
 <body>
 
-    <div class="container"></div>
-    <div class="container">
-        <div>
-
+    <header>
+        <div id="headTitle">
+            <h1>iConcert</h1>
         </div>
-    </div>
+    </header>
+
+    <div class="container searchArea align-items-center">
+            <div class="row form-row formSearch">
+                <div class="col-sm-3">
+                    <input class="form-group form-control form-control-lg align-middle locationInput" type="text" placeholder="By Location ...">
+                </div>
+                <div class="col-sm-3">
+                    <input class="form-group form-control form-control-lg align-middle bandInput" type="text" placeholder="By Band/Genre ...">
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-group form-control form-control-lg align-middle dateFromSelect">
+                        <option>Date From: </option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-group form-control form-control-lg align-middle dateToSelect">
+                        <option>Date To: </option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="form-group btn btn-primary btn-lg btn-outline-dark align-middle submitForm">Submit</button>
+                </div>
+            </div>
+            <label>Search by whatever you're feeling, or whenever you have time to get out and explore new concerts!</label>
     </div>
 
     <script></script>
