@@ -14,31 +14,59 @@
         crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/styleMain.css">
 
-    <title>EventMe | Main</title>
+    <title>iConcert | Main</title>
 </head>
+
+<!-- 
+
+_______________________________________________________________________________________________________ 
+
+So here's some of the preliminary information that can be linked up through js:
+
+.searchArea  - This is essentially the whole searchbox for the form.
+.formSearch  - This is the form itself - I had a good reason not to use <form>.
+.locationInput  - This is where the user can input a location to search.
+.bandInput  - This is where the user can input a band/genre to search.
+.dateFromSelect  - This is where user can search start date parameter.
+.dateToSelect  - This is where user can search end date parameter.
+.submitForm  - This is for on.click, for the submit of previous information.
+
+
+-------------------------------------------------------------------------------------------------------
+
+ -->
 
 <body>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <header>EventMe</header>
-            </div>
+    <header>
+        <div id="headTitle">
+            <h1>iConcert</h1>
         </div>
-        <div class="landingForm form-row">
-            <div class="form-group col-sm-4">
-                <input class="form-control form-control-lg" type="text" placeholder="Location">
+    </header>
+
+    <div class="container searchArea align-items-center">
+            <div class="row form-row formSearch">
+                <div class="col-sm-3">
+                    <input class="form-group form-control form-control-lg align-middle locationInput" type="text" placeholder="By Location ...">
+                </div>
+                <div class="col-sm-3">
+                    <input class="form-group form-control form-control-lg align-middle bandInput" type="text" placeholder="By Band/Genre ...">
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-group form-control form-control-lg align-middle dateFromSelect">
+                        <option>Date From: </option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <select class="form-group form-control form-control-lg align-middle dateToSelect">
+                        <option>Date To: </option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="form-group btn btn-primary btn-lg btn-outline-dark align-middle submitForm">Submit</button>
+                </div>
             </div>
-            <div class="form-group col-sm-4">
-                <select class="form-control form-control-lg">
-                    <option>Date 1</option>
-                </select>
-            </div>
-            <div class="form-group col-sm-4">
-                <button type="button" class="btn btn-outline-dark btn-primary btn-lg">Submit</button>
-            </div>
-        </div>
-    </div>
+            <label>Search by whatever you're feeling, or whenever you have time to get out and explore new concerts!</label>
     </div>
 
     <script></script>
