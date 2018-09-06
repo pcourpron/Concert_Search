@@ -1,33 +1,41 @@
 // Documentation link: https://docs.kiwi.com/#header-basic-flights-call
 // Locations API link to get airport codes/city codes: https://docs.kiwi.com/locations/#locations-collection
 
-// Search result strings to be converted into code
-var flyFromInput = "denver"
-var flyToInput = "new york city"
 
-// Variable set-up for later
+// Spelled wrong to test their corrections
+var flyFromInput = "denve" 
 var flyFromFinal;
-var flyToFinal;
 
-// ‘dateFrom=01/05/2016’ and ‘dateTo=30/05/2016’ mean that the departure can be anytime between the specified dates. Has to be in DD/MM/YYYY format.
+// Lat-Long-radius to find airports around destination; only takes kilometers...
+var flyTo = "34.05--118.24-150km" 
 
-var dateFrom = "01/01/2018"
-var dateTo = "01/01/2019"
+
+
+// ---------- ALL DATES MUST BE IN dd/mm/YYYY FORMAT
+
+// Required; default to one week before concert
+var dateFrom = "01/01/2018" 
+
+// Required; default to One day before the concert
+var dateTo = "01/01/2019" 
+
+// Optional; default to One day after the concert
+var returnFrom = "31/12/2018" 
+
+// Optional; default to the same as returnFrom
+var returnTo = "31/12/2018"
+
+
 
 // To and From query URLs
 
 var fromQueryURL = `https://api.skypicker.com/locations?term=${flyFromInput}`
-var toQueryURL = `https://api.skypicker.com/locations?term=${flyToInput}`
 
 // Locations API Destination Pull
-$.ajax({
-	url: toQueryURL,
-	method: "GET"
-}).then(function(destination) {
 
-	flyToFinal = destination.locations[0].code;
 
-	// Locations API Origin Pull
+	// Locations API Origin Pull 
+	// This converts the input to the official city code for use in flyFromFinal
 	$.ajax({
 		url: fromQueryURL,
 		method: "GET"
@@ -36,7 +44,7 @@ $.ajax({
 		flyFromFinal = origin.locations[0].code;
 
 		var queryURL =
-			`https://api.skypicker.com/flights?flyFrom=${flyFromFinal}&to=${flyToFinal}&dateFrom=${dateFrom}&dateTo=${dateTo}&partner=picky&limit=5&curr=USD`
+			`https://api.skypicker.com/flights?flyFrom=${flyFromFinal}&to=${flyTo}&dateFrom=${dateFrom}&dateTo=${dateTo}&returnFrom=${returnFrom}&returnTo=${returnTo}&partner=picky&limit=10&curr=USD`
 
 		// Flights API Pull
 		$.ajax({
@@ -44,15 +52,21 @@ $.ajax({
 			method: "GET"
 		}).then(function(flights) {
 
+		
 			console.log(queryURL)
 			console.log(flights)
 
 			var price = flights.data[0].conversion.USD
 
+			// Default sorts by price (low to high)
+
 			console.log("Flight Price: $" + price)
+			console.log("Flight Price: $" + flights.data[1].conversion.USD)
+			console.log("Flight Price: $" + flights.data[2].conversion.USD)
+			console.log("Flight Price: $" + flights.data[3].conversion.USD)
+			console.log("Flight Price: $" + flights.data[4].conversion.USD)
 
 		});
 
 	});
 
-});
