@@ -2,6 +2,12 @@ html {
     height: 0
 }
 
+body {
+    box-sizing: border-box;
+    position: relative;
+    font-family: 'Baloo Tammudu', cursive;
+}
+
 .container-fluid {
     position: absolute;
     height: 100%;
