@@ -5,31 +5,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 <style>
     #overlay {
-    position: fixed; /* Sit on top of the page content */
-    display: none; /* Hidden by default */
-    width: 800px; /* Full width (cover the whole page) */
-    height: 600px; /* Full height (cover the whole page) */
-    top: 0; 
-    left: 0;
+    position: fixed; 
+
+    width: 740px; 
+    height: 490px; 
+    top: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-    cursor: pointer; /* Add a pointer on hover */
+    left: 0;
+    margin: auto;
+
+    background-color: lemonchiffon;
+
+    z-index: 2;
+
+      display: flex;
+  align-items: center;
+  justify-content: center;
+
 }
+
+.close {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+
 </style>
 
 </head>
 <body>
+    <button id="test">Open Overlay</button>
     
-     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-
     <div id="overlay">
+            <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
     <div id="player"></div>
     </div>
+
 
 
     <script

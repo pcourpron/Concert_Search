@@ -1,3 +1,5 @@
+   off();
+   
    var bandName = "pink"
    
    
@@ -31,19 +33,22 @@
    }
 
 
-   function on() {
-    document.getElementById("overlay").style.display = "block";
+function on() {
+    document.getElementById("overlay").style.display = "flex";
 }
 
 function off() {
     document.getElementById("overlay").style.display = "none";
 }
 
-$(document).on("click", function(event) {
-    on();
-    
-});
+$(document).on("click", "#test", function(event) {
 
-$("#overlay").on("click", function(event) {
-    off(); 
-});
+    on();
+})
+
+
+$(".close").on("click", function(event) {
+
+   off();
+
+})
