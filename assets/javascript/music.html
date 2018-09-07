@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+</head>
+
+<!-- 
+_____________________________________________________________________________________________________
+
+So this is ajax call and audio widget (internal) build.
+
+var artist  - link to search query input
+var y and x can be changed
+
+Not much extra explanation needed? Let me know if I need to make any adjustments or anything. I feel like the internal audio player should be sufficient for us (we can change size and look if need be)?
+
+-----------------------------------------------------------------------------------------------------
+
+ -->
+
+<body>
+
+    <audio></audio>
+
+    <script>
+
+        // var artist = 
+        var musicKey = "ZTk2YjY4MjMtMDAzYy00MTg4LWE2MjYtZDIzNjJmMmM0YTdm";
+        var musicQurl = "https://api.napster.com/v2.2/search?query=weezer&type=artist,track&per_type_limit=1&isStreamableOnly=true&client_id=" + musicKey;
+
+        $.ajax({
+            method: "GET",
+            url: musicQurl
+        }).then(function (data) {
+
+            // connects to dom audio widget element
+            var y = $("audio");
+
+            // pulls the first natural preview version of one of artists songs from the ajax
+            var x = data.search.data.tracks[0].previewURL;
+
+            // attaches the ajax call preview song to the audio widget
+            y.attr("src", x)
+
+            // sets up the controls in the audio widget
+            y.attr("controls", "controls");
+
+        });
+
+    </script>
+
+</body>
+
+</html>
