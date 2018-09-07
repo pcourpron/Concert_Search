@@ -1,9 +1,42 @@
 html {
-    height: 0
+    height: 90%;
 }
 
 body {
+    box-sizing: border-box;
+    position: relative;
+    background-image: url("../images/bumperBG.jpg");
+    background-size: cover;
+    background-attachment: fixed;
     font-family: 'Baloo Tammudu', cursive;
+    height: 100vh;
+    background: no-repeat center cover;
+}
+
+#headTitle {
+    text-align: center;
+    margin: auto;
+    text-shadow: 2px 2px 5px rgb(0, 0, 0);
+    border-bottom: 5px solid lightslategray;
+    background-color: rgba(240, 240, 240, 0.651);
+    height: 35px;
+    padding: 20px 0px 50px 0px;
+}
+
+h1 {
+    margin: 0 0 8px 0;
+    -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+    color: rgba(0, 0, 0, 0.1);
+    background-image: url("../images/bumperBG.jpg");
+}
+
+.searchBox {
+    padding-top: 2%;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
 }
 
 .container-fluid {
@@ -17,8 +50,6 @@ body {
     top: 152px;
 }
 
-
-
 .container {
     height: 100%;
     width: 408px;
@@ -29,9 +60,6 @@ body {
     overflow-y:scroll;
     overflow-x:hidden;
     top:152px;
-
- 
-
 }
 
 #shrink {
