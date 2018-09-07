@@ -4,7 +4,7 @@ html {
 
 body {
     box-sizing: border-box;
-    position: relative;
+    /* position: relative; */
     background-image: url("../images/bumperBG.jpg");
     background-size: cover;
     background-attachment: fixed;
@@ -83,9 +83,25 @@ h1 {
 
 #info{
     z-index: -1;
-    height: 1000px;
 }
 #back {
     margin: 0 auto;
     width: 100%
+}
+
+.totalCost {
+    text-align: center;
+    margin: auto;
+    text-shadow: 2px 2px 5px rgb(0, 0, 0);
+    border-bottom: 5px solid lightslategray;
+    background-color: rgba(240, 240, 240, 0.651);
+    height: 35px;
+    padding: 20px 0 50px 0;
+    bottom: 10px;
+}
+
+#footer {
+    background-color: blue;
+    position: fixed;
+    bottom: 0;
 }
