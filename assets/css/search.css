@@ -33,6 +33,7 @@ h1 {
 
 .searchBox {
     padding-top: 2%;
+    padding-bottom: 5%;
     height: 50px;
     margin-left: auto;
     margin-right: auto;
@@ -48,9 +49,13 @@ h1 {
     left: 408px;
     right:0px;
     top: 152px;
+    border-top: 5px solid lightslategray;
+
 }
 
 .container {
+    border-top: 5px solid lightslategray;
+
     height: 100%;
     width: 408px;
     position: absolute;
@@ -89,15 +94,24 @@ h1 {
     width: 100%
 }
 
-.totalCost {
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+    color: rgba(0, 0, 0, 0.1);
+    background-image: url("../images/bumperBG.jpg");
+    border-top: 5px solid lightslategray;
+    height: 25px;
+    padding: 30px 10px 30px 10px;
+    z-index: 10;
     text-align: center;
     margin: auto;
-    text-shadow: 2px 2px 5px rgb(0, 0, 0);
-    border-bottom: 5px solid lightslategray;
-    background-color: rgba(240, 240, 240, 0.651);
-    height: 35px;
-    padding: 20px 0 50px 0;
-    bottom: 10px;
+}
+
+
+.totalCost {
 }
 
 #footer {
@@ -105,4 +119,5 @@ h1 {
     position: fixed;
     bottom: 0;
 }
+
 
