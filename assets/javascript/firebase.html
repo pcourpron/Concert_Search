@@ -4,30 +4,58 @@
 <head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Page Title</title>
+	<title>Firebase Test Page</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<style>
+	#current-user {
+		font-size: 24px;
+		font-weight: bold;
+	}
+</style>
 
+
+<body>
+	<p id="current-user"></p>
 	<form>
+
 
 		Username:
 		<input type="text" id="username"><br> Password:
 		<input type="text" id="password"><br>
 		<input type="submit" id="login" value="Log In"><br>
-        <input type="submit" id="register" value="Register">
-        
+		<input type="submit" id="register" value="Register">
 
+		<br>
+
+		<input type="submit" id="fav-band" value="What's My Favorite Band?"><br>
 
 	</form>
 
+
+	<table id="user-info">
+		<tr>
+			<th>Existing Users</th>
+			<th>Passwords</th>
+		</tr>
+
+
+	</table>
+
+
+	<!--Adds Firebase to app-->
 
 	<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
 
 	<script>
+		var currentUser;
+		var inputUsername = $("#username").val()
+		var inputPassword = $("#password").val()
+		// Firebase App Info 
+
 		firebase.initializeApp({
 			apiKey: 'AIzaSyBuWcwfnrVFPyABm96d6GIoHwwBXa_DAfk',
 			authDomain: 'iconcert-638ff.firebaseapp.com',
@@ -42,21 +70,51 @@
 			timestampsInSnapshots: true
 		});
 
+		var usersRef = db.collection("users")
+
+		usersRef.get().then(function(query) {
+			query.forEach(function(doc) {
+
+				console.log(doc.id, " => ", doc.data());
+
+				$("#user-info").append(`<tr><td>${doc.data().username}</td><td>${doc.data().password}</td></tr>`)
+
+			});
+		});
+
+		// ---------- Tracks Current User
+
+		var currentUserRef = db.collection("users").doc("current-user")
+
+		currentUserRef.get().then(function(doc) {
+			currentUser = doc.data().username;
+
+		}).then(function() {
+
+			$("#current-user").html("Current User: " + currentUser);
+
+		})
+
+		// ------------ Log-In
+
 		$(document).on("click", "#login", function(event) {
 			event.preventDefault();
 
+			// Takes the values of the contents of the text-boxes
 			var inputUsername = $("#username").val()
 			var inputPassword = $("#password").val()
+
+			// Checks iconcert-638ff/users/inputUsername
 			var usersRef = db.collection("users").doc(inputUsername);
 
 			usersRef.get().then(function(doc) {
 
-                console.log(doc);
+				console.log(doc);
 
 				if (doc.exists && inputPassword === doc.data().password) {
 					alert("Logged in!")
+					login();
 				} else {
-
 					alert("Incorrect username/password");
 				}
 
@@ -64,18 +122,22 @@
 
 		});
 
+		// ------------ Register New Account
+
 		$(document).on("click", "#register", function(event) {
 
-
 			event.preventDefault();
+
+			$("#user-info").empty();
+			$("#user-info").append(`		<tr>
+			<th>Existing Users</th>
+			<th>Passwords</th>
+		</tr>`)
 
 			var inputUsername = $("#username").val()
 			var inputPassword = $("#password").val()
 
-			var docRef = db.collection("users")
-
 			var usersRef = db.collection("users").doc(inputUsername);
-
 
 			usersRef.get().then(function(doc) {
 				if (doc.exists) {
@@ -84,18 +146,93 @@
 				} else {
 					alert("New User Created!")
 
-					docRef.doc(inputUsername).set({
+					// Sets inputs from username and password boxes into new account info on Firebase
+					// then appends list of usernames and passwords to the table
+					db.collection("users").doc(inputUsername).set({
 						password: inputPassword,
 						username: inputUsername
 
+					}, {
+						merge: true
+					}).then(function() {
 
+						var usersRef = db.collection("users")
+
+						usersRef.get().then(function(querySnapshot) {
+							querySnapshot.forEach(function(doc) {
+
+								console.log(doc.id, " => ", doc.data());
+
+								$("#user-info").append(`<tr><td>${doc.data().username}</td><td>${doc.data().password}</td></tr>`)
+
+							});
+						});
+
+					})
+
+				}
+			});
+
+		});
+
+		// ----------- Just Test Stuff
+
+		$(document).on("click", "#fav-band", function(event) {
+
+			event.preventDefault();
+
+			db.collection("users").get().then((querySnapshot) => {
+				querySnapshot.forEach((doc) => {
+					console.log(`${doc.id} => ${doc.data()}`);
+				});
+
+			});
+
+			var usersRef = db.collection("users");
+
+			var query = usersRef.where("password", "==", "lol");
+
+			query.get().then(function(results) {
+				if (results.empty) {
+					console.log("No documents found!")
+				} else {
+					results.forEach(function(doc) {
+						console.log("Document data: ", doc.data());
 					})
 				}
 			})
 
+			// Tries to get specific info on specific username
+
+			var usersRef = db.collection("users").doc("ajz003");
+
+			usersRef.get().then(function(doc) {
+
+				if (doc.exists) {
+					var concertLatLong = doc.data().favorites.concert.Location;
+					console.log(concertLatLong)
+
+				}
+			})
 
 		});
 
+		// ----------- Functions
+
+		function login() {
+
+			var inputUsername = $("#username").val()
+			var inputPassword = $("#password").val()
+
+			db.collection("users").doc("current-user").set({
+
+				username: inputUsername
+			});
+
+			currentUser = inputUsername
+
+			$("#current-user").html("Current User: " + currentUser);
+		}
 	</script>
 
 </body>
