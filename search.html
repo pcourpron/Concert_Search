@@ -12,7 +12,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    
+
     <script src='assets/javascript/hotels.js'></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXtwNcWQKwMAYBw-2F4T4FRAwWqj39dJE"></script>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
@@ -80,6 +80,8 @@
 
 
 
+<<<<<<< HEAD
+=======
             // Causes results to be pushed off screen or come back on
             $('#shrink').click(function () {
                 if ($('#shrink').text() === 'shrink') {
@@ -95,6 +97,7 @@
                     $('.container-fluid').css('left', '408px')
                 }
 
+>>>>>>> a1ceb23a0c09ee0b31c35a36b2495d9f03c76f1b
 
     <script>
         var venueMarkers = []
@@ -107,13 +110,13 @@
                 $('.container').css('left', '-408px')
                 $('#shrink').css('left', '0')
                 $('#shrink').text('grow')
-                $('.container-fluid').css('width', '100%').css('left', '0%')
+                $('.container-fluid').css('left', '0%')
             }
             else {
                 $('.container').css('left', '0')
                 $('#shrink').css('left', '408px')
                 $('#shrink').text('shrink')
-                $('.container-fluid').css('width', '70%').css('left', '408px')
+                $('.container-fluid').css('left', '408px')
             }
 
 
@@ -217,12 +220,12 @@
                 var title = $('<h4>').text(element.name).css('text-align', 'center').addClass('title')
                 var date = $('<p>').text('   ' + element.dates.start.localDate).addClass('date')
                 var time = $('<p>').text('Start Time: ' + hour + min).addClass('time')
-                var img = $('<img>').attr('src', element.images[7].url).css('width', '100px').css('display', 'block').css('height','100px').css('margin', '0 auto').css('border-radius','100px')
+                var img = $('<img>').attr('src', element.images[7].url).css('width', '100px').css('display', 'block').css('height', '100px').css('margin', '0 auto').css('border-radius', '100px')
                 var row = $('<div>').addClass('row border').attr('data-location', JSON.stringify(element._embedded.venues['0'].location))
                 var col = $('<div>').addClass('col-sm-8')
                 var imgCol = $('<div>').addClass('col-sm-4 d-flex align-items-center').css('height', '111px')
-                var calendar = $('<img>').attr('src',"open-iconic-master/svg/calendar.svg")
-                
+                var calendar = $('<img>').attr('src', "open-iconic-master/svg/calendar.svg")
+
                 date.prepend(calendar)
                 imgCol.append(img)
 
@@ -233,7 +236,7 @@
                     row.css('background-color', 'lemonchiffon')
                 }
                 col.append(title, date, time)
-                row.append(imgCol,col)
+                row.append(imgCol, col)
                 $('#results-col').append(row)
 
                 row.hover((function (marker, i) {
@@ -295,7 +298,7 @@
             var baseUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=yEtBYAcCK5MzWmE1UdE1NUheV74fQK8H&classificationName=Music'
             var destination
             var keyword = 'fleetwood mac'
-            var queryUrl = baseUrl + '&keyword=' + keyword + '&radius=50' 
+            var queryUrl = baseUrl + '&keyword=' + keyword + '&radius=50'
 
 
             //ajax call for ticketmaster

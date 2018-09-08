@@ -49,17 +49,18 @@ h1 {
     right:0px;
     top: 152px;
     bottom: 65px;
-
     border-top: 5px solid lightslategray;
-
-
 }
 
 .container {
+<<<<<<< HEAD
+    border-top: 5px solid lightslategray;
+=======
 
 
     border-top: 5px solid lightslategray;
 
+>>>>>>> a1ceb23a0c09ee0b31c35a36b2495d9f03c76f1b
     width: 408px;
     position: absolute;
     z-index: 10;
