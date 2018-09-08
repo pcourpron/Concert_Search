@@ -110,5 +110,14 @@ h1 {
     margin: auto;
 }
 
+
 .totalCost {
 }
+
+#footer {
+    background-color: blue;
+    position: fixed;
+    bottom: 0;
+}
+
+
