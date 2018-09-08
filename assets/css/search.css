@@ -2,6 +2,15 @@ html {
     height: 90%;
 }
 
+.cropcircle{
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    background:no-repeat center;
+    background-size: cover;
+
+}
+
 body {
     box-sizing: border-box;
     position: relative;
@@ -54,6 +63,10 @@ h1 {
 
 
 }
+.btn{
+    width:110px;
+    margin-top: 10px
+}
 
 .container {
 
@@ -73,7 +86,7 @@ h1 {
     transition-duration: .2s;
     z-index: 20;
     position:absolute;
-    left:408px;
+    left: 408px;
     top: 262px;
 }
 #results{

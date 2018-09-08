@@ -38,7 +38,7 @@ function hotelSearch(location) {
     var arrayNeighborhood = response.MetaData.HotelMetaData.Neighborhoods
     var centers = []
     arrayNeighborhood.forEach(element => {
-      var object = { center: element.Centroid, id: element.Id, radius: 1200 }
+      var object = { center: element.Centroid, id: element.Id, radius: 1000 }
       centers.push(object)
     })
     console.log(centers.length)
@@ -58,8 +58,8 @@ function hotelSearch(location) {
           myLatLng2 = new google.maps.LatLng({ lat: lat2, lng: long2 });
 
 
-          if (google.maps.geometry.spherical.computeDistanceBetween(myLatLng, myLatLng2) < centers[index].radius*1.4) {
-            var newCoordinate = { center: ((lat2 + lat1) / 2).toString() + ',' + ((long2 + long1) / 2).toString(), id: [centers[index].id, centers[index2].id], radius: centers[index].radius * 1.3 }
+          if (google.maps.geometry.spherical.computeDistanceBetween(myLatLng, myLatLng2) < centers[index].radius* 1.2) {
+            var newCoordinate = { center: ((lat2 + lat1) / 2).toString() + ',' + ((long2 + long1) / 2).toString(), id: [centers[index].id, centers[index2].id], radius: centers[index].radius * 1.2 }
             centers.splice(index2, 1)
 
             centers[index] = newCoordinate
