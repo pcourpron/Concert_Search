@@ -5,14 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>iConcert | Results</title>
-    <link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu" rel="stylesheet">
+    <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-        crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel='stylesheet' href='assets/css/search.css'>
     <script src='assets/javascript/hotels.js'></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXtwNcWQKwMAYBw-2F4T4FRAwWqj39dJE"></script>
@@ -27,11 +23,7 @@
 
 
 <body>
-
     <!-- <div class="container resultOverlay"> -->
-
-    <!-- <div class="container"> -->
-
     <div class="row form-row searchBox">
         <div class="col-sm-3">
             <input class="form-group form-control form-control-sm align-middle locationInput" type="text" placeholder="By Location ...">
@@ -60,15 +52,6 @@
     <div class='container' id='info'>
         <button id='back' class='btn btn-primary'>Back to Results</button>
 
-    
-    <div id="footer" class="row">
-            <div class="col-sm-12">
-                <div class="totalCost"></div>
-            </div>
-    </div>
-
-
-<!-- </div> -->
 
 
 
@@ -92,29 +75,6 @@
                     $('.container-fluid').css('width', '70%').css('left', '408px')
                 }
 
-            // Create a map object and specify the DOM element
-            // for display.
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: myLatLng,
-                zoom: 3.5
-            });
-            console.log(map.zoom)
-        }
-
-        $('#shrink').click(function () {
-            if ($('#shrink').text() === 'shrink') {
-                $('.container').css('left', '-408px')
-                $('#shrink').css('left', '0')
-                $('#shrink').text('grow')
-                $('.container-fluid').css('width', '100%').css('left', '0%')
-            }
-            else {
-                $('.container').css('left', '0')
-                $('#shrink').css('left', '408px')
-                $('#shrink').text('shrink')
-                $('.container-fluid').css('width', '70%').css('left', '408px')
-            }
-
 
 
             })
@@ -126,34 +86,14 @@
                 img.attr('src', $(this).children('.col-sm-4').children().attr('src')).css('width', '100%')
                 $('#info').append(img)
 
-
                 var row = $(this)
                 var title = $('<h3>').text(row.children('.col-sm-8').children('.title').text())
                 $('#info').append(title)
 
-        $(document).on('click', '.row', function () {
-            $('#info').css('z-index', '1000')
-            var img = $('<img>')
-            img.attr('src', $(this).children('.col-sm-4').children().attr('src')).css('width', '100%')
-            $('#info').append(img)
-
-            var row = $(this)
-            var title = $('<h3>').text(row.children('.col-sm-8').children('.title').text())
-            $('#info').append(title)
-
-
-
-
                 var location = JSON.parse(this.dataset.location)
                 hotelSearch(location)
 
-
             })
-
-        $(document).on('click', '#back', function () {
-            $('#info').css('z-index', '-1')
-        })
-
 
 
             //Causes the results page to show
@@ -164,27 +104,34 @@
                 for (var i = 0; i < venueMarkers.length; i++) {
                     venueMarkers[i].setMap(map);
                 }
+
                 for (var i = 0; i < currentHotels.length; i++) {
                     currentHotels[i].setMap(null);
-
                 }
+
+                currentVenue.forEach(element => {
+                    element.setMap(null)
+                })
+
+                currentVenue = []
                 currentHotels = []
                 map.fitBounds(bounds)
-               
+
+
+
             })
 
 
-    
-            // Takes the events and adds the markers 
+
+
             var map = new google.maps.Map(document.getElementById('map'), {
             });
+
             var bounds = new google.maps.LatLngBounds();
-            
+
             function addMarkers(events) {
 
-                var marker
-                
-
+                var i = 1
                 events.forEach(element => {
                     var location = element._embedded.venues['0'].location
                     var name = element.name
@@ -195,9 +142,57 @@
                     bounds.extend(marker.position);
 
                     venueMarkers.push(marker)
+
+
+                    var hour = element.dates.start.localTime.slice(0, 2)
+                    var min = element.dates.start.localTime.slice(2, 5)
+
+                    if (parseInt(hour) > 12) {
+                        hour = parseInt(hour) - 12
+                        min += ' PM'
+                    }
+                    else if (parseInt(hour) === 12) {
+                        min += ' PM'
+                    }
+                    else {
+                        min += ' AM'
+                    }
+
+
+                    // Adds results 
+                    var title = $('<h4>').text(element.name).css('text-align', 'center').addClass('title')
+                    var date = $('<p>').text('Date: ' + element.dates.start.localDate).addClass('date')
+                    var time = $('<p>').text('Start Time: ' + hour + min).addClass('time')
+                    var img = $('<img>').attr('src', element.images[7].url).css('width', '100').css('display', 'block').css('margin', '0 auto')
+                    var row = $('<div>').addClass('row border').attr('data-location', JSON.stringify(element._embedded.venues['0'].location))
+                    var col = $('<div>').addClass('col-sm-8')
+                    var imgCol = $('<div>').addClass('col-sm-4 d-flex align-items-center').css('height', '111px')
+
+                    imgCol.append(img)
+
+                    if (i % 2 === 0) {
+                        row.css('background-color', 'lightgrey')
+                    }
+                    else {
+                        row.css('background-color', 'lemonchiffon')
+                    }
+                    col.append(title, date, time)
+                    row.append(col, imgCol)
+                    $('#results-col').append(row)
+
+                    row.hover((function (marker, i) {
+                        return function () {
+                            marker.setAnimation(google.maps.Animation.BOUNCE);
+                        }
+                    })(marker, i), function (marker, i) {
+                        return function () {
+                            marker.setAnimation(null);
+                        }
+                    }(marker, i));
+
+                    i++
+
                 });
-
-
 
 
                 if (events.length <= 2) {
@@ -208,6 +203,8 @@
                         center: myLatLng,
                         zoom: 11
                     });
+
+
                     events.forEach(element => {
                         var name = element.name
                         var location = element._embedded.venues['0'].location
@@ -223,33 +220,6 @@
                 else {
                     map.fitBounds(bounds)
                 }
-            }
-
-            // add results to results pane
-            function addResults(events) {
-                var i = 1
-                events.forEach(element => {
-                    var title = $('<h4>').text(element.name).css('text-align', 'center').addClass('title')
-                    var date = $('<p>').text('Date: ' + element.dates.start.localDate).addClass('date')
-                    var time = $('<p>').text('Time: ' + element.dates.start.localTime).addClass('time')
-                    var img = $('<img>').attr('src', element.images[7].url).css('width', '100').css('display', 'block').css('margin', '0 auto')
-                    var row = $('<div>').addClass('row border').attr('data-location', JSON.stringify(element._embedded.venues['0'].location))
-                    var col = $('<div>').addClass('col-sm-8')
-                    var imgCol = $('<div>').addClass('col-sm-4 d-flex align-items-center').css('height', '111px')
-
-                    imgCol.append(img)
-                    if (i % 2 === 0) {
-                        row.css('background-color', 'lightgrey')
-                    }
-                    else {
-                        row.css('background-color', 'lemonchiffon')
-                    }
-                    col.append(title, date, time)
-                    row.append(col, imgCol)
-                    $('#results-col').append(row)
-                    i++
-
-                });
 
             }
 
@@ -278,41 +248,23 @@
                 }).then(function (response) {
                     console.log(response)
                     var events = response._embedded.events
+                    //sorts events by date
+                    events.sort(function (a, b) {
+                        return Date.parse(a.dates.start.localDate) - Date.parse(b.dates.start.localDate)
+                    })
+
+
+
+
                     console.log(events)
                     var marker
                     addMarkers(events)
-                    addResults(events)
+
                 })
             })
 
-        function addResults(events) {
-            var i = 1
-            events.forEach(element => {
-                var title = $('<h4>').text(element.name).css('text-align', 'center').addClass('title')
-                var date = $('<p>').text('Date: ' + element.dates.start.localDate).addClass('date')
-                var time = $('<p>').text('Time: ' + element.dates.start.localTime).addClass('time')
-                var img = $('<img>').attr('src', element.images[6].url).css('width', '100').css('display', 'block').css('margin', '0 auto')
-                var row = $('<div>').addClass('row border')
-                var col = $('<div>').addClass('col-sm-8')
-                var imgCol = $('<div>').addClass('col-sm-4 d-flex align-items-center').css('height', '111px')
-
-                imgCol.append(img)
-                if (i % 2 === 0) {
-                    row.css('background-color', 'lightgrey')
-                }
-                else {
-                    row.css('background-color', 'lemonchiffon')
-                }
-                col.append(title, date, time)
-                row.append(col, imgCol)
-                $('#results-col').append(row)
-                i++
-
-            });
 
 
-
-            
         </script>
 
 </body>
