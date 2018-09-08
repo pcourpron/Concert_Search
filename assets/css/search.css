@@ -1,0 +1,121 @@
+html {
+    height: 90%;
+}
+
+body {
+    box-sizing: border-box;
+    position: relative;
+    background-image: url("../images/bumperBG.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Baloo Tammudu', cursive;
+    height: 100vh;
+    background: no-repeat center cover;
+}
+
+#headTitle {
+    text-align: center;
+    margin: auto;
+    text-shadow: 2px 2px 5px rgb(0, 0, 0);
+    border-bottom: 5px solid lightslategray;
+    background-color: rgba(240, 240, 240, 0.651);
+    height: 35px;
+    padding: 20px 0px 50px 0px;
+}
+
+h1 {
+    margin: 0 0 8px 0;
+    -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+    color: rgba(0, 0, 0, 0.1);
+    background-image: url("../images/bumperBG.jpg");
+}
+
+.searchBox {
+    padding-top: 2%;
+    padding-bottom: 5%;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+}
+
+.container-fluid {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    transition: .2s;
+    left: 408px;
+    right:0px;
+    top: 152px;
+    bottom: 65px;
+
+    border-top: 5px solid lightslategray;
+
+
+}
+
+.container {
+
+
+    border-top: 5px solid lightslategray;
+
+    width: 408px;
+    position: absolute;
+    z-index: 10;
+    background-color: white;
+    transition: left .2s;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    top:152px;
+    bottom: 65px;
+}
+
+#shrink {
+    transition-duration: .2s;
+    z-index: 20;
+    position:absolute;
+    left:408px;
+    top: 262px;
+}
+#results{
+    overflow-y:auto;
+    overflow-x: unset;
+    width: 100%
+   
+}
+.border{
+   border-width: 0  0 1px 0 ;
+    border-color: lightgrey;
+    border-style:solid;
+}
+
+#info{
+    z-index: -1;
+}
+#back {
+    margin: 0 auto;
+    width: 100%
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    background-color: gray;
+    /* -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+    color: rgba(0, 0, 0, 0.1);
+    background-image: url("../images/bumperBG.jpg"); */
+    border-top: 5px solid lightslategray;
+    height: 25px;
+    padding: 30px 10px 30px 10px;
+    z-index: 25;
+    text-align: center;
+    margin: auto;
+}
+
+.totalCost {
+}
+
+
