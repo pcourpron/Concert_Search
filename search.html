@@ -80,6 +80,24 @@
 
 
 
+<<<<<<< HEAD
+=======
+            // Causes results to be pushed off screen or come back on
+            $('#shrink').click(function () {
+                if ($('#shrink').text() === 'shrink') {
+                    $('.container').css('left', '-408px')
+                    $('#shrink').css('left', '0')
+                    $('#shrink').text('grow')
+                    $('.container-fluid').css('left', '0%')
+                }
+                else {
+                    $('.container').css('left', '0')
+                    $('#shrink').css('left', '408px')
+                    $('#shrink').text('shrink')
+                    $('.container-fluid').css('left', '408px')
+                }
+
+>>>>>>> a1ceb23a0c09ee0b31c35a36b2495d9f03c76f1b
 
     <script>
         var venueMarkers = []

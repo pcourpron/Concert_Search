@@ -53,7 +53,14 @@ h1 {
 }
 
 .container {
+<<<<<<< HEAD
     border-top: 5px solid lightslategray;
+=======
+
+
+    border-top: 5px solid lightslategray;
+
+>>>>>>> a1ceb23a0c09ee0b31c35a36b2495d9f03c76f1b
     width: 408px;
     position: absolute;
     z-index: 10;
