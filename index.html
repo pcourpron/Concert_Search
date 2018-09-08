@@ -45,31 +45,64 @@ So here's some of the preliminary information that can be linked up through js:
     </header>
 
     <div class="container searchArea align-items-center">
-            <div class="row form-row formSearch">
-                <div class="col-sm-3">
-                    <input class="form-group form-control form-control-lg align-middle locationInput" type="text" placeholder="By Location ...">
-                </div>
-                <div class="col-sm-3">
-                    <input class="form-group form-control form-control-lg align-middle bandInput" type="text" placeholder="By Band/Genre ...">
-                </div>
-                <div class="col-sm-2">
-                    <select class="form-group form-control form-control-lg align-middle dateFromSelect">
-                        <option>Date From: </option>
-                    </select>
-                </div>
-                <div class="col-sm-2">
-                    <select class="form-group form-control form-control-lg align-middle dateToSelect">
-                        <option>Date To: </option>
-                    </select>
-                </div>
-                <div class="col-sm-2">
-                    <button type="submit" class="form-group btn btn-primary btn-lg btn-outline-dark align-middle submitForm">Submit</button>
-                </div>
+        <div class="row form-row formSearch">
+            <div class="col-sm-3">
+                <input class="form-group form-control form-control-lg align-middle locationInput" type="text" placeholder="By Location ...">
             </div>
-            <label>Search by whatever you're feeling, or whenever you have time to get out and explore new concerts!</label>
+            <div class="col-sm-3">
+                <input class="form-group form-control form-control-lg align-middle bandInput" type="text" placeholder="By Band/Genre ...">
+            </div>
+            <div class="col-sm-2">
+                <select class="form-group form-control form-control-lg align-middle dateFromSelect">
+                    <option>Date From: </option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <select class="form-group form-control form-control-lg align-middle dateToSelect">
+                    <option>Date To: </option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <button type="submit" class="form-group btn btn-primary btn-lg btn-outline-dark align-middle submitForm">Submit</button>
+            </div>
+        </div>
+        <label>Search by whatever you're feeling, or whenever you have time to get out and explore new concerts!</label>
     </div>
 
-    <script></script>
+    <script>
+
+        // ___________________________________________________________________________________________
+
+            // I listed the following variables as the inputs that will be saved into localStorage - you can ref to these when building api calls (pretty unclever names):
+            // var location  - location
+            // var band  - band/genre
+
+        // -------------------------------------------------------------------------------------------
+
+        // When users click "Submit"
+        $(".submitForm").on("click", function (event) {
+
+            // This line prevents the page from refreshing when a user hits "enter".
+            event.preventDefault();
+
+            // Grab the user input
+            var locationInput = $(".locationInput").val().trim();
+            var bandInput = $(".bandInput").val().trim();
+            // var dates
+
+
+            // Clear absolutely everything stored in localStorage using localStorage.clear()
+            localStorage.clear();
+
+            // Store the location and band into localStorage using "localStorage.setItem"
+            localStorage.setItem("location", location);
+            localStorage.setItem("band", band);
+
+            console.log(localStorage)
+
+        });
+
+    </script>
 </body>
 
 </html>

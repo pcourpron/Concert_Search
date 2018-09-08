@@ -57,11 +57,8 @@ h1 {
     left: 408px;
     right:0px;
     top: 152px;
-    bottom: 65px;
-
+    bottom: 0;
     border-top: 5px solid lightslategray;
-
-
 }
 .btn{
     width:110px;
@@ -69,8 +66,8 @@ h1 {
 }
 
 .container {
-
     border-top: 5px solid lightslategray;
+    border-right: 3px solid lightslategray;
     width: 408px;
     position: absolute;
     z-index: 10;
@@ -112,27 +109,21 @@ h1 {
 #footer {
     position: fixed;
     bottom: 0;
-    width: 100vw;
-    -webkit-background-clip: text;
+    width: 408px;
+    background-color: gray;
+    /* -webkit-background-clip: text;
    -webkit-text-fill-color: transparent;
     color: rgba(0, 0, 0, 0.1);
-    background-image: url("../images/bumperBG.jpg");
+    background-image: url("../images/bumperBG.jpg"); */
     border-top: 5px solid lightslategray;
     height: 25px;
     padding: 30px 10px 30px 10px;
-    z-index: 10;
+    z-index: 25;
     text-align: center;
     margin: auto;
 }
 
-
 .totalCost {
-}
-
-#footer {
-    background-color: blue;
-    position: fixed;
-    bottom: 0;
 }
 
 
