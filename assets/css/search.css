@@ -48,19 +48,13 @@ h1 {
     left: 408px;
     right:0px;
     top: 152px;
-    bottom: 65px;
+    bottom: 0;
     border-top: 5px solid lightslategray;
 }
 
 .container {
-<<<<<<< HEAD
     border-top: 5px solid lightslategray;
-=======
-
-
-    border-top: 5px solid lightslategray;
-
->>>>>>> a1ceb23a0c09ee0b31c35a36b2495d9f03c76f1b
+    border-right: 3px solid lightslategray;
     width: 408px;
     position: absolute;
     z-index: 10;
@@ -102,7 +96,7 @@ h1 {
 #footer {
     position: fixed;
     bottom: 0;
-    width: 100vw;
+    width: 408px;
     background-color: gray;
     /* -webkit-background-clip: text;
    -webkit-text-fill-color: transparent;
