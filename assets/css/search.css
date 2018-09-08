@@ -98,10 +98,11 @@ h1 {
     position: fixed;
     bottom: 0;
     width: 100vw;
-    -webkit-background-clip: text;
+    background-color: gray;
+    /* -webkit-background-clip: text;
    -webkit-text-fill-color: transparent;
     color: rgba(0, 0, 0, 0.1);
-    background-image: url("../images/bumperBG.jpg");
+    background-image: url("../images/bumperBG.jpg"); */
     border-top: 5px solid lightslategray;
     height: 25px;
     padding: 30px 10px 30px 10px;
