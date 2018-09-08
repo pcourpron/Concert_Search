@@ -49,7 +49,7 @@ h1 {
     left: 408px;
     right:0px;
     top: 152px;
-    bottom: 0px;
+    bottom: 65px;
 
     border-top: 5px solid lightslategray;
 
@@ -57,10 +57,7 @@ h1 {
 }
 
 .container {
-]
     border-top: 5px solid lightslategray;
-
-    height: 100%;
 
     width: 408px;
     position: absolute;
@@ -70,7 +67,7 @@ h1 {
     overflow-y:scroll;
     overflow-x:hidden;
     top:152px;
-    bottom: 0;
+    bottom: 65px;
 }
 
 #shrink {
@@ -112,19 +109,12 @@ h1 {
     border-top: 5px solid lightslategray;
     height: 25px;
     padding: 30px 10px 30px 10px;
-    z-index: 10;
+    z-index: 25;
     text-align: center;
     margin: auto;
 }
 
-
 .totalCost {
-}
-
-#footer {
-    background-color: blue;
-    position: fixed;
-    bottom: 0;
 }
 
 
