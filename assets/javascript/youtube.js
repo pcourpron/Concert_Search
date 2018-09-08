@@ -1,5 +1,13 @@
-   off();
-   
+on();
+
+
+    // ****** This is how we call the jqwidget window.
+   $(document).ready(function () {
+    $("#jqxwindow ").jqxWindow({ theme: 'highcontrast' });
+
+    $('#jqxwindow').jqxWindow({height:"435px"});
+    $('#jqxwindow').jqxWindow({width:"660px"});
+});
    var bandName = "pink"
    
    
@@ -36,19 +44,3 @@
 function on() {
     document.getElementById("overlay").style.display = "flex";
 }
-
-function off() {
-    document.getElementById("overlay").style.display = "none";
-}
-
-$(document).on("click", "#test", function(event) {
-
-    on();
-})
-
-
-$(".close").on("click", function(event) {
-
-   off();
-
-})

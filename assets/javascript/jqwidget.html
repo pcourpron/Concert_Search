@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+
+<head>
+    <title>jQuery Window CSS Styling Sample</title>
+    <link rel="stylesheet" href="../jqwidgets/styles/jqx.base.css" type="text/css" />
+    <link rel="stylesheet" href="../jqwidgets/styles/jqx.highcontrast.css" type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="../jqwidgets/jqxwindow.js"></script>
+</head>
+
+<body>
+    <div id='content'>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#jqxwindow ").jqxWindow({ height: 275, width: 450, theme: 'highcontrast' });
+            });
+        </script>
+        <div id='jqxwindow'>
+            <div>Header</div>
+            <div>Content</div>
+        </div>
+    </div>
+</body>
+
+</html>
