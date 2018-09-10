@@ -19,7 +19,8 @@
         Hotel Neighborhood:
         <input type="text" id="neighborhood"><br> Hotel Price:
         <input type="text" id="price"><br>
-        <input type="submit" id="set-hotel" value="Set Hotel">
+        <input type="submit" id="set-hotel" value="Set Hotel"><br>
+        <input type="submit" id="save-favorite" value="Save Favorite">
     </form>
 
 
@@ -28,6 +29,9 @@
 
 
     <script>
+
+
+        
 
         var currentUser;
         var inputUsername = $("#username").val()
@@ -121,11 +125,16 @@
 
             event.preventDefault();
 
-            db.collection("users").doc("ajz003").get()
+            var hotelLocationRef = db.collection("users").doc("testprofile").collection("savedTrips").doc("tripone");
+
+            hotelLocationRef.get()
                 .then(function (doc) {
 
-                    console.log("neighborhood id: " + doc.data().savedHotel.neighborhoodID)
-                    console.log("total price: " + doc.data().savedHotel.totalPrice)
+
+                    console.log(doc.data())
+
+                    console.log("neighborhood id: " + doc.data().hotel.location)
+                    console.log("total price: " + doc.data().hotel.price)
 
                 })
 
@@ -135,20 +144,34 @@
 
             event.preventDefault();
 
+
+
+
+
             var neighborhood = $("#neighborhood").val().trim();
             var price = $("#price").val().trim();
+            var tripRef = db.collection("users").doc("testprofile").collection("savedTrips").doc("tripone");
 
-            db.collection("users").doc("ajz003").set({
-                savedHotel: {
-                    neighborhoodID: neighborhood,
-                    totalPrice: price
-                }
+            tripRef.set({
+            concertID: "a",
+            concertPrice: "b",
+            flight: {
+                price: "c",
+                startingLocation: "d"
+            },
+            hotel: {
+                location: neighborhood,
+                price: price
+            }
             }, { merge: true})
                 .then(function () {
                     console.log("Hotel info successfully saved!");
                 });
 
         })
+
+
+    
 
         // --------- Functions
 
@@ -165,7 +188,15 @@
 
             console.log("Current User: " + currentUser)
         }
-    </script>
+
+
+
+
+
+        
+
+
+</script>
 
 </body>
 
