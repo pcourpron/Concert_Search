@@ -98,6 +98,8 @@
         var currentHotels = []
         var hotelCenters =[]
 
+
+
         // Causes results to be pushed off screen or come back on
         $('#shrink').click(function () {
             if ($('#shrink').text() === 'shrink') {
@@ -298,25 +300,51 @@
 
         //ajax call to google for lat and long of city
 
+
+        var destination = localStorage.getItem('locationLocal')  
+        var keyword = localStorage.getItem('band') 
+
+        if (destination === null){
+            var baseUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=yEtBYAcCK5MzWmE1UdE1NUheV74fQK8H&classificationName=Music'
+            var queryUrl = baseUrl + '&keyword=' + keyword + '&radius=50' 
+
+            $.ajax({
+                url: queryUrl,
+                method: 'GET'
+            }).then(function (response) {
+                
+                var events = response._embedded.events
+
+                //sorts events by date
+                events.sort(function (a, b) {
+                    return Date.parse(a.dates.start.localDate) - Date.parse(b.dates.start.localDate)
+                })
+
+                console.log(events)
+                var marker
+                addMarkers(events)
+
+            })
+        }
+        else{
+
         $.ajax({
-            url: 'https://maps.googleapis.com/maps/api/geocode/json?address=los angeles&key=AIzaSyCXtwNcWQKwMAYBw-2F4T4FRAwWqj39dJE',
+            url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+destination+'&key=AIzaSyCXtwNcWQKwMAYBw-2F4T4FRAwWqj39dJE',
             method: 'GET'
         }).then(function (response) {
             var latlong = response.results[0].geometry.location
             var latitude = latlong.lat
             var longitude = latlong.lng
             var baseUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=yEtBYAcCK5MzWmE1UdE1NUheV74fQK8H&classificationName=Music'
-            var destination
-            var keyword = 'rock'
-            var queryUrl = baseUrl + '&keyword=' + keyword + '&radius=50'
+            var queryUrl = baseUrl + '&keyword=' + keyword + '&radius=50' + '&latlong=' + latitude + ',' + longitude 
 
-
+            console.log(response)
             //ajax call for ticketmaster
             $.ajax({
                 url: queryUrl,
                 method: 'GET'
             }).then(function (response) {
-                console.log(response)
+                
                 var events = response._embedded.events
 
                 //sorts events by date
@@ -330,7 +358,7 @@
 
             })
         })
-
+}
 
 
     </script>
