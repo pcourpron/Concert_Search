@@ -30,7 +30,7 @@ h1 {
     background-image: url("../images/bumperBG.jpg");
 }
 
-input, btn, select {
+input, btn {
     text-align: center;
     margin: auto;
 }
@@ -40,7 +40,6 @@ input, btn, select {
     height: 50px;
     margin-left: auto;
     margin-right: auto;
-    width: 75%;
 }
 
 label {
