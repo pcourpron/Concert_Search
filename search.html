@@ -49,14 +49,15 @@
         </div>
     </div>
 
+    <!---->
+
     <div class='container-fluid' id='map'> </div>
     <button id='shrink'>shrink</button>
     <div class='container' id='results-col'> </div>
     <div class='container' id='info'>
         <button id='back' class='btn btn-primary'>Back to Results</button>
-
-
     </div>
+
 
     <!--
         ---------------------------------------------------------------------------------------------
@@ -85,6 +86,7 @@
         var venueMarkers = []
         var currentVenue = []
         var currentHotels = []
+        var hotelCenters =[]
 
         // Causes results to be pushed off screen or come back on
         $('#shrink').click(function () {
@@ -106,7 +108,7 @@
         })
 
         // Causes the info page to show
-        $(document).on('click', '.row', function () {
+        $(document).on('click', '.concert', function () {
             $('#info').css('z-index', '1000')
             var img = $('<img>')
             img.attr('src', $(this).children('.col-sm-4').children().attr('src')).css('width', '100%')
@@ -143,6 +145,12 @@
             currentHotels = []
             map.fitBounds(bounds)
 
+            hotelCenters.forEach(element =>{
+                element.setMap(null)
+                
+            })
+            hotelCenters=[]
+
 
 
         })
@@ -161,7 +169,6 @@
 
             var i = 1
             events.forEach(element => {
-                console.log(element._embedded.venues[0])
                 var location = element._embedded.venues[0].location
                 var name = element.name
                 marker = new google.maps.Marker({
@@ -210,7 +217,7 @@
                     var ticketRange = $('<p>').text('     ' + element.priceRanges[0].min + '$ - ' + element.priceRanges[0].max + '$')
                 }
                 var imgDiv = $('<div>').addClass('cropcircle').css('background-image', "url('" + element.images[7].url + "')")
-                var row = $('<div>').addClass('row border').attr('data-location', JSON.stringify(element._embedded.venues['0'].location))
+                var row = $('<div>').addClass('row border concert').attr('data-location', JSON.stringify(element._embedded.venues['0'].location))
                 var col = $('<div>').addClass('col-sm-8')
                 var imgCol = $('<div>').addClass('col-sm-4 d-flex align-items-center').css('height', '111px')
                 var calendar = $('<img>').attr('src', "open-iconic-master/svg/calendar.svg")
@@ -290,7 +297,7 @@
             var longitude = latlong.lng
             var baseUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=yEtBYAcCK5MzWmE1UdE1NUheV74fQK8H&classificationName=Music'
             var destination
-            var keyword = 'fleetwood'
+            var keyword = 'rock'
             var queryUrl = baseUrl + '&keyword=' + keyword + '&radius=50'
 
 
