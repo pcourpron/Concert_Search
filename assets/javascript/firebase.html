@@ -21,8 +21,7 @@
 	<p id="current-user"></p>
 	<form>
 
-
-		Username:
+		<input type="submit" id="clicked" value=""> Username:
 		<input type="text" id="username"><br> Password:
 		<input type="text" id="password"><br>
 		<input type="submit" id="login" value="Log In"><br>
@@ -72,8 +71,8 @@
 
 		var usersRef = db.collection("users")
 
-		usersRef.get().then(function(query) {
-			query.forEach(function(doc) {
+		usersRef.get().then(function (query) {
+			query.forEach(function (doc) {
 
 				console.log(doc.id, " => ", doc.data());
 
@@ -82,14 +81,22 @@
 			});
 		});
 
+
+		db.collection("users").doc("current-user")
+			.onSnapshot(function (doc) {
+				console.log("Current user: ", doc.data().username);
+			});
+
+
+
 		// ---------- Tracks Current User
 
 		var currentUserRef = db.collection("users").doc("current-user")
 
-		currentUserRef.get().then(function(doc) {
+		currentUserRef.get().then(function (doc) {
 			currentUser = doc.data().username;
 
-		}).then(function() {
+		}).then(function () {
 
 			$("#current-user").html("Current User: " + currentUser);
 
@@ -97,7 +104,7 @@
 
 		// ------------ Log-In
 
-		$(document).on("click", "#login", function(event) {
+		$(document).on("click", "#login", function (event) {
 			event.preventDefault();
 
 			// Takes the values of the contents of the text-boxes
@@ -107,24 +114,30 @@
 			// Checks iconcert-638ff/users/inputUsername
 			var usersRef = db.collection("users").doc(inputUsername);
 
-			usersRef.get().then(function(doc) {
 
-				console.log(doc);
+			usersRef.get().then(function (doc) {
 
-				if (doc.exists && inputPassword === doc.data().password) {
+				console.log(doc.data());
+
+				if (doc.exists && inputPassword === doc.data().password && currentUser !== inputUsername) {
 					alert("Logged in!")
 					login();
-				} else {
+				} else if (currentUser === inputUsername) {
+					alert("Already logged in!")
+				}
+
+				else {
 					alert("Incorrect username/password");
 				}
 
 			});
 
+
 		});
 
 		// ------------ Register New Account
 
-		$(document).on("click", "#register", function(event) {
+		$(document).on("click", "#register", function (event) {
 
 			event.preventDefault();
 
@@ -139,7 +152,7 @@
 
 			var usersRef = db.collection("users").doc(inputUsername);
 
-			usersRef.get().then(function(doc) {
+			usersRef.get().then(function (doc) {
 				if (doc.exists) {
 					alert("Username already exists!");
 
@@ -153,22 +166,22 @@
 						username: inputUsername
 
 					}, {
-						merge: true
-					}).then(function() {
+							merge: true
+						}).then(function () {
 
-						var usersRef = db.collection("users")
+							var usersRef = db.collection("users")
 
-						usersRef.get().then(function(querySnapshot) {
-							querySnapshot.forEach(function(doc) {
+							usersRef.get().then(function (querySnapshot) {
+								querySnapshot.forEach(function (doc) {
 
-								console.log(doc.id, " => ", doc.data());
+									console.log(doc.id, " => ", doc.data());
 
-								$("#user-info").append(`<tr><td>${doc.data().username}</td><td>${doc.data().password}</td></tr>`)
+									$("#user-info").append(`<tr><td>${doc.data().username}</td><td>${doc.data().password}</td></tr>`)
 
+								});
 							});
-						});
 
-					})
+						})
 
 				}
 			});
@@ -177,7 +190,7 @@
 
 		// ----------- Just Test Stuff
 
-		$(document).on("click", "#fav-band", function(event) {
+		$(document).on("click", "#fav-band", function (event) {
 
 			event.preventDefault();
 
@@ -192,11 +205,11 @@
 
 			var query = usersRef.where("password", "==", "lol");
 
-			query.get().then(function(results) {
+			query.get().then(function (results) {
 				if (results.empty) {
 					console.log("No documents found!")
 				} else {
-					results.forEach(function(doc) {
+					results.forEach(function (doc) {
 						console.log("Document data: ", doc.data());
 					})
 				}
@@ -206,7 +219,8 @@
 
 			var usersRef = db.collection("users").doc("ajz003");
 
-			usersRef.get().then(function(doc) {
+
+			usersRef.get().then(function (doc) {
 
 				if (doc.exists) {
 					var concertLatLong = doc.data().favorites.concert.Location;
@@ -217,6 +231,37 @@
 
 		});
 
+
+		$(document).on("click", "#clicked", function (event) {
+
+
+			event.preventDefault();
+
+
+
+			var clicksRef = db.collection("clicked").doc("lJxcnWUmCLUr8y59bsT2");
+
+			clicksRef.get().then(function (doc) {
+
+				console.log(doc.data())
+				var clickCounter = doc.data().clicks;
+				clickCounter++
+
+			})
+
+
+
+			return clicksRef.update({
+				clicks: clickCounter
+			})
+
+
+
+
+		})
+
+
+
 		// ----------- Functions
 
 		function login() {
@@ -224,12 +269,15 @@
 			var inputUsername = $("#username").val()
 			var inputPassword = $("#password").val()
 
-			db.collection("users").doc("current-user").set({
+			db.collection("users").doc(inputUsername).set({
 
-				username: inputUsername
+				isCurrentUser: true
 			});
 
+
+
 			currentUser = inputUsername
+
 
 			$("#current-user").html("Current User: " + currentUser);
 		}
