@@ -304,7 +304,7 @@
         var destination = localStorage.getItem('locationLocal')  
         var keyword = localStorage.getItem('band') 
 
-        if (destination === null){
+        if (destination === 'null'){
             var baseUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=yEtBYAcCK5MzWmE1UdE1NUheV74fQK8H&classificationName=Music'
             var queryUrl = baseUrl + '&keyword=' + keyword + '&radius=50' 
 
