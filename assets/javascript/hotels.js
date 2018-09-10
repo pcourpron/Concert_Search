@@ -34,14 +34,16 @@ function hotelSearch(location) {
     url: queryURL,
 
   }).then(function (response) {
+    var showHotel = []
     var arrayHotel = response.Result
     var arrayNeighborhood = response.MetaData.HotelMetaData.Neighborhoods
     var centers = []
+
+
     arrayNeighborhood.forEach(element => {
       var object = { center: element.Centroid, id: element.Id, radius: 1000 }
       centers.push(object)
     })
-    console.log(centers.length)
 
     for (let index = 0; index < centers.length; index++) {
       for (let index2 = 0; index2 < centers.length; index2++) {
@@ -58,7 +60,7 @@ function hotelSearch(location) {
           myLatLng2 = new google.maps.LatLng({ lat: lat2, lng: long2 });
 
 
-          if (google.maps.geometry.spherical.computeDistanceBetween(myLatLng, myLatLng2) < centers[index].radius* 1.2) {
+          if (google.maps.geometry.spherical.computeDistanceBetween(myLatLng, myLatLng2) < centers[index].radius * 1.2) {
             var newCoordinate = { center: ((lat2 + lat1) / 2).toString() + ',' + ((long2 + long1) / 2).toString(), id: [centers[index].id, centers[index2].id], radius: centers[index].radius * 1.2 }
             centers.splice(index2, 1)
 
@@ -70,13 +72,14 @@ function hotelSearch(location) {
         }
       }
     }
-    console.log(centers)
+
 
 
 
 
 
     centers.forEach(element => {
+
       var circleCenter = { lat: parseFloat(element.center.split(',')[0]), lng: parseFloat(element.center.split(',')[1]) }
       var cityCircle = new google.maps.Circle({
         strokeColor: '#0000FF',
@@ -86,39 +89,147 @@ function hotelSearch(location) {
         fillOpacity: 0.1,
         map: map,
         center: circleCenter,
-        radius: element.radius
+        radius: element.radius,
+        customInfo: element.id,
+        selected: false
       });
+
+      hotelCenters.push(cityCircle)
+      console.log(hotelCenters)
 
 
       google.maps.event.addListener(cityCircle, 'click', () => {
         if (cityCircle.fillOpacity === .1) {
-          cityCircle.setOptions({ fillOpacity: 0.7 })
+          cityCircle.setOptions({
+            fillOpacity: 0.7,
+            radius: cityCircle.radius * 2,
+            selected: true
+          })
+
+          showHotel.push(cityCircle.customInfo)
+          $('#info').children('.row').hide()
+          showHotel.forEach(element => {
+            $('#info').children('.' + element).show()
+          })
+
+
         }
         else {
-          cityCircle.setOptions({ fillOpacity: 0.1 })
+          cityCircle.setOptions({
+            fillOpacity: 0.1,
+            radius: cityCircle.radius / 2,
+            selected: false
+          })
+          var index = showHotel.indexOf(cityCircle.customInfo);
+          if (index > -1) {
+            showHotel.splice(index, 1);
+          }
+          $('#info').children('.row').hide()
+          showHotel.forEach(element => {
+            $('#info').children('.' + element).show()
+          })
+          if (showHotel.length === 0)
+            $('#info').children('.row').show()
+
         }
 
       });
 
     })
 
-    arrayHotel.forEach(element => {
-      var location1 = { latitude: element.NeighborhoodLatitude, longitude: element.NeighborhoodLongitude }
-
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(location1.latitude, location1.longitude),
-        map: map,
-        icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
-      })
-
-      currentHotels.push(marker)
-    });
+    var results = response.Result
+    console.log(results)
+    results.sort(function (a, b) {
+      return parseInt(a.TotalPrice) - parseInt(b.TotalPrice)
+    })
 
 
-    console.log(response)
-    console.log("City: " + response.Result[0].City)
-    console.log("Price: $" + response.Result[0].Price)
 
+    results.forEach(element => {
+      var lodgingType = ''
+      switch (element.LodgingTypeCode) {
+        case 'H':
+          lodgingType = ' Hotel'
+          break;
+        case 'C':
+          lodgingType = ' Condo'
+          break;
+        case 'A':
+          lodgingType = ' All Inclusive Resort'
+
+          break;
+
+        default:
+          break;
+      }
+
+      var stars = $('<p>').text(element.StarRating + ' Star' + lodgingType).css('text-align', 'center')
+      var nightPrice = $('<p>').text('Average Price Per Night: ' + element.AveragePricePerNight).css('text-align', 'center')
+      var totalPrice = $('<p>').text('Total Price: ' + element.TotalPrice).css('text-align', 'center')
+      var row = $('<div>').addClass('row border ' + element.NeighborhoodId)
+      row.append(stars, nightPrice, totalPrice)
+
+
+
+
+
+      // link row hover to color of circle
+      $(row).hover(function () {
+        hotelCenters.forEach(center => {
+          if (center.customInfo === element.NeighborhoodId) {
+            center.setOptions({
+              zIndex: 100
+            })
+            if (center.selected === true) {
+              center.setOptions({
+                fillColor: 'red',
+                fillOpacity: 1,
+                strokeColor: 'red',
+                radius: center.radius
+              })
+            }
+            else {
+              center.setOptions({
+                fillColor: 'red',
+                fillOpacity: 1,
+                strokeColor: 'red',
+                radius: center.radius * 2
+              })
+            }
+          }
+
+        })
+      }, function () {
+        hotelCenters.forEach(center => {
+          if (center.customInfo === element.NeighborhoodId) {
+            center.setOptions({
+              zIndex: 1
+            })
+            if (center.selected === true) {
+              center.setOptions({
+                fillColor: '#0000FF',
+                fillOpacity: .7,
+                strokeColor: '#0000FF',
+              })
+            }
+            else {
+              center.setOptions({
+                fillColor: '#0000FF',
+                fillOpacity: .1,
+                strokeColor: '#0000FF',
+                radius: center.radius / 2
+              })
+
+            }
+
+          }
+
+        })
+
+      }
+      )
+      $('#info').append(row)
+    })
 
 
   });
