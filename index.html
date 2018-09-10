@@ -81,21 +81,27 @@ So here's some of the preliminary information that can be linked up through js:
             // Grab the user input
             var locationLocal = $(".locationInput").val().trim();
             var band = $(".bandInput").val().trim();
-            // var dates
 
+            if (locationLocal === "null") {
+                // Clear absolutely everything stored in localStorage using localStorage.clear()
+                localStorage.clear();
+                // Store the location and band into localStorage using "localStorage.setItem"
+                localStorage.setItem("band", band);
+                console.log(localStorage);
+            }
 
-            // Clear absolutely everything stored in localStorage using localStorage.clear()
-            localStorage.clear();
+            else {
+                // Clear absolutely everything stored in localStorage using localStorage.clear()
+                localStorage.clear();
+                // Store the location and band into localStorage using "localStorage.setItem"
+                localStorage.setItem("locationLocal", locationLocal);
+                localStorage.setItem("band", band);
+                console.log(localStorage);
 
-            // Store the location and band into localStorage using "localStorage.setItem"
-            localStorage.setItem("locationLocal", locationLocal);
-            localStorage.setItem("band", band);
-
-            console.log(localStorage);
-
+            }
+            
             // At the end of "on.click", link to another local page
             window.location.href = "search.html";
-
         });
 
     </script>
