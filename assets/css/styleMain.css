@@ -32,11 +32,25 @@ h1 {
 
 input, btn {
     text-align: center;
-    margin: auto;
+    margin: 5px;
+}
+
+#overlay {
+    padding: 50px;
+    z-index: 2;
+}
+
+.fireLogIn, .fireSignUp {
+    margin: 10px;
 }
 
 .balls {
     width: auto;
+}
+
+.searchBox {
+    padding-top: 20px;
+    font-size: 18px;
 }
 
 .searchArea {

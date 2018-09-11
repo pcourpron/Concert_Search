@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
 
@@ -19,7 +20,9 @@
         Hotel Neighborhood:
         <input type="text" id="neighborhood"><br> Hotel Price:
         <input type="text" id="price"><br>
-        <input type="submit" id="set-hotel" value="Set Hotel">
+        <input type="submit" id="set-hotel" value="Set Hotel"><br>
+        <input type="submit" id="save-favorite" value="Save Favorite"><br>
+        <input type="submit" id="create" value="create">
     </form>
 
 
@@ -28,6 +31,9 @@
 
 
     <script>
+
+
+
 
         var currentUser;
         var inputUsername = $("#username").val()
@@ -121,14 +127,16 @@
 
             event.preventDefault();
 
-            db.collection("users").doc("ajz003").get()
+            var triponeRef = db.collection("users").doc("testprofile").collection("savedTrips").doc("tripone");
+
+            triponeRef.get()
                 .then(function (doc) {
 
-                    console.log("neighborhood id: " + doc.data().savedHotel.neighborhoodID)
-                    console.log("total price: " + doc.data().savedHotel.totalPrice)
+                    console.log(doc.data())
+                    console.log("neighborhood id: " + doc.data().hotel.location)
+                    console.log("total price: " + doc.data().hotel.price)
 
                 })
-
         })
 
         $(document).on("click", "#set-hotel", function (event) {
@@ -137,18 +145,69 @@
 
             var neighborhood = $("#neighborhood").val().trim();
             var price = $("#price").val().trim();
+            var tripRef = db.collection("users").doc("testprofile").collection("savedTrips").doc("tripone");
 
-            db.collection("users").doc("ajz003").set({
-                savedHotel: {
-                    neighborhoodID: neighborhood,
-                    totalPrice: price
+    // ---------- Dummy Trip
+
+            tripRef.set({
+                concertID: "a",
+                concertPrice: "b",
+                flight: {
+                    price: "c",
+                    startingLocation: "d"
+                },
+                hotel: {
+                    location: neighborhood,
+                    price: price
                 }
-            }, { merge: true})
+            }, { merge: true })
                 .then(function () {
                     console.log("Hotel info successfully saved!");
                 });
 
         })
+
+
+// ---------- Adds new trips        
+
+   var tripCounter = 0;
+
+$(document).on("click", "#create", function (event) {
+
+    event.preventDefault();
+
+        var currentUser;
+
+        db.collection("users").doc("current-user").get().then( function(user) {
+            currentUser = user.data().username
+            console.log(currentUser)
+
+
+        console.log("tripcounter: "+tripCounter)
+        var tripValue = "trip-"+tripCounter;
+        console.log("tripValue: "+tripValue)
+
+        var newTripRef = db.collection("users").doc(currentUser).collection("savedTrips").doc(tripValue);
+
+        newTripRef.set({
+            concertID: "a",
+                concertPrice: "b",
+                flight: {
+                    price: "c",
+                    startingLocation: "d"
+                },
+                hotel: {
+                    location: "e",
+                    price: "f"
+                }
+            }, { merge: true })
+                .then(function () {
+                    console.log("Hotel info successfully saved!");
+        })
+    
+        tripCounter++;
+    })
+})
 
         // --------- Functions
 
@@ -165,6 +224,7 @@
 
             console.log("Current User: " + currentUser)
         }
+
     </script>
 
 </body>

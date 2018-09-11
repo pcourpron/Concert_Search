@@ -12,11 +12,11 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="../jqwidgets/styles/jqx.base.css" type="text/css" />
-    <link rel="stylesheet" href="../jqwidgets/styles/jqx.highcontrast.css" type="text/css" />
+    <link rel="stylesheet" href="assets/jqwidgets/styles/jqx.base.css" type="text/css" />
+    <link rel="stylesheet" href="assets/jqwidgets/styles/jqx.highcontrast.css" type="text/css" />
 
-    <script type="text/javascript" src="../jqwidgets/jqxcore.js"></script>
-    <script type="text/javascript" src="../jqwidgets/jqxwindow.js"></script>
+
+
 
     <link rel="stylesheet" href="assets/css/styleMain.css">
 
@@ -34,7 +34,7 @@ So here's some of the preliminary information that can be linked up through js:
 .locationInput  - This is where the user can input a location to search.
 .bandInput  - This is where the user can input a band/genre to search.
 .submitForm  - This is for on.click, for the submit of previous information.
-
+.logIn  - This will be the variable to open the window that inputs to firebase (theoretically).
 
 -------------------------------------------------------------------------------------------------------
 
@@ -49,32 +49,35 @@ So here's some of the preliminary information that can be linked up through js:
     </header>
 
     <nav class="navbar navbar-expand-sm navbar-light bg-transparent searchBox">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-    
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="favorite.html">Saved Trips</a>
-                    </li>
-                    <li class="nav-item dropdown disabled">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            View
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Map</a>
-                            <a class="dropdown-item" href="#">List</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="favorite.html">Saved Trips</a>
+                </li>
+                <li class="nav-item dropdown disabled">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        View
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Map</a>
+                        <a class="dropdown-item" href="#">List</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline">
+                <button class="btn nav-item btn-success logIn" type="button">Log-In / Sign-Up</button>
+            </form>
+        </div>
+    </nav>
 
     <div class="container searchArea">
         <div class="row">
@@ -97,7 +100,13 @@ So here's some of the preliminary information that can be linked up through js:
         </div>
     </div>
 
+    <div id='jqxwindow'>
+        <div id="overlay">
+        </div>
+    </div>
 
+    <script type="text/javascript" src="assets/jqwidgets/jqxcore.js"></script>
+    <script type="text/javascript" src="assets/jqwidgets/jqxwindow.js"></script>
     <script>
 
         // ___________________________________________________________________________________________
@@ -139,6 +148,28 @@ So here's some of the preliminary information that can be linked up through js:
             // At the end of "on.click", link to another local page
             window.location.href = "search.html";
         });
+
+        $(".logIn").on("click", function (event) {
+            event.preventDefault();
+
+            $("#jqxwindow").jqxWindow({ theme: 'highcontrast' });
+            $('#jqxwindow').jqxWindow({ height: "475px" });
+            $('#jqxwindow').jqxWindow({ width: "550px" });
+            $('#jqxwindow').jqxWindow({ position: 'center' });
+            $('#jqxwindow').jqxWindow({ title: 'Log-In / Sign-Up' });
+
+            // Variables for firebase = #firstName, #lastName, #emailInput, #passInput, .fireLogIn, .fireSignUp
+
+            $("#overlay").html("<form><div class='row'><div class='col form-group'><input type='text' class='form-control' id='firstName' placeholder='First name'></div><div class='col form-group'><input type='text' class='form-control' id='lastName' placeholder='Last name'></div></div><div class='form-group'><label for='exampleInputEmail1'>Email address</label><input type='email' class='form-control' id='emailInput' aria-describedby='emailHelp' placeholder='Enter email'><small id='emailHelp' class='form-text text-muted'>We'll never share your email with anyone else.</small></div><div class='form-group'><label for='exampleInputPassword1'>Password</label><input type='password' class='form-control' id='passInput' placeholder='Password'></div><div class='row'><button type='submit' class='col btn btn-primary fireLogIn'>Log In</button><button type='submit' class='col btn btn-primary fireSignUp'>Sign Up</button></div></form>");
+        })
+
+        // For firebase connection ...
+        $(".fireLogIn").on("click", function () {
+
+        })
+        $(".fireSignUp").on("click", function () {
+
+        })
 
     </script>
 </body>
