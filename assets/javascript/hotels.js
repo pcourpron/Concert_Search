@@ -12,6 +12,8 @@ function hotelSearch(location) {
   })
   currentVenue.push(marker)
   var latLong = location.latitude + ',' + location.longitude
+  concertLat = location.latitude
+  conertLong = location.longitude
   // Latitude/Longitude (of LA!)
   var withinRadius = 15; // miles
   var startDate = "10/08/2018" // Required
@@ -166,7 +168,7 @@ function hotelSearch(location) {
       var stars = $('<p>').text(element.StarRating + ' Star' + lodgingType).css('text-align', 'center')
       var nightPrice = $('<p>').text('Average Price Per Night: ' + element.AveragePricePerNight).css('text-align', 'center')
       var totalPrice = $('<p>').text('Total Price: ' + element.TotalPrice).css('text-align', 'center')
-      var row = $('<div>').addClass('row border ' + element.NeighborhoodId +' hotelRow').attr('data-hood',element.NeighborhoodId)
+      var row = $('<div>').addClass('row border ' + element.NeighborhoodId +' hotelRow').attr('data-hood',element.NeighborhoodId).attr('data-price',element.TotalPrice)
       row.append(stars, nightPrice, totalPrice)
 
 

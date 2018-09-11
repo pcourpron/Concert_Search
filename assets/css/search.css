@@ -101,11 +101,13 @@ label {
 }
 
 .border{
-   border-width: 0  0 1px 0 ;
+   border-width: 1px  0 0 0 ;
     border-color: lightgrey;
     border-style:solid;
 }
-
+#flights {
+    z-index:-1
+}
 #info{
     z-index: -1;
 }
@@ -137,6 +139,10 @@ label {
 }
 
 .totalCost {
+}
+
+p{
+    margin: 10px 0
 }
 
 
