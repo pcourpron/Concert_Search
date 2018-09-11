@@ -64,12 +64,12 @@ label {
     bottom: 0;
     border-top: 5px solid lightslategray;
     margin-top: 5px;
-    width:unset
+    width: unset;
 }
 
-.btn{
-    
-    margin-top: 10px
+.btn {
+    width:110px;
+    margin-top: 10px;
 }
 
 .container {
@@ -106,15 +106,17 @@ label {
     border-color: lightgrey;
     border-style:solid;
 }
+
 #flights {
-    z-index:-1
+    z-index:-1;
 }
+
 #info{
     z-index: -1;
 }
 #back {
     margin: 0 auto;
-    width: 100%
+    width: 100%;
 }
 
 #footer {
@@ -142,12 +144,17 @@ label {
 .totalCost {
 }
 
-p{
+p {
     margin: 10px 0;
-    
+    display: block;
+}
+
+@media screen and (max-width: 768px) {
+    html {
+        height: 90%;
+    }    
 }
 
 .hotelRow{
     display: block
 }
-
