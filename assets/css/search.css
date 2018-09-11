@@ -68,7 +68,7 @@ label {
 }
 
 .btn{
-    width:110px;
+    
     margin-top: 10px
 }
 
@@ -144,7 +144,10 @@ label {
 
 p{
     margin: 10px 0;
-    display: block
+    
 }
 
+.hotelRow{
+    display: block
+}
 
