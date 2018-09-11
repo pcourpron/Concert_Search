@@ -35,8 +35,17 @@ input, btn {
     margin: 5px;
 }
 
+#overlay {
+    padding: 50px;
+}
+
 .balls {
     width: auto;
+}
+
+.searchBox {
+    padding-top: 20px;
+    font-size: 18px;
 }
 
 .searchArea {
