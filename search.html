@@ -10,8 +10,14 @@
 
     <link rel="icon" type="image/png" href="assets/images/bumperBG.jpg" sizes="16x16" />
     <link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu" rel="stylesheet">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel='stylesheet' href='assets/css/search.css'>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
 
 
 
@@ -22,15 +28,31 @@
     <script src='assets/javascript/flights.js'></script>
     
 </head>
-<header>
-    <div id="headTitle">
-        <h1>iConcert</h1>
-    </div>
-</header>
-
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark searchBox">
+    <header>
+        <div id="headTitle">
+            <h1>iConcert</h1>
+        </div>
+    </header>
+
+    <!-- 
+    __________________________________________________________________________________________________
+
+        So the variables in the form that exists in the navbar are important for pulling information to search with, obviously.
+
+        The query terms are wrapped in the following variables:
+
+        .locationInput
+        .bandInput
+        .startDateInput
+        .endDateInput
+         > .submitForm
+
+    --------------------------------------------------------------------------------------------------
+     -->
+
+    <nav class="navbar navbar-expand-sm navbar-light bg-transparent searchBox">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -42,25 +64,31 @@
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="favorite.html">Saved Trips</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        Account
+                        View
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Saved Trips</a>
+                        <a class="dropdown-item" href="#">Map</a>
+                        <a class="dropdown-item" href="#">List</a>
                     </div>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2 locationInput bandInput" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0 submitForm" type="submit">Search</button>
+            <form class="form-inline my-2 my-sm-0">
+                <input class="form-control mr-sm-2 locationInput" type="search" placeholder="Location" aria-label="Search">
+                <input class="form-control mr-sm-2 bandInput" type="search" placeholder="Artist" aria-label="Search">
+                <label for="start">Start </label>
+                <input type="date" id="start" class="form-control mr-sm-2 startDateInput" name="trip" value="2018-09-10" max="2020-12-31"
+                />
+                <label for="end">End </label>
+                <input type="date" id="end" class="form-control mr-sm-2 endDateInput" name="trip" value="2018-09-11" max="2020-12-31" />
+                <button class="btn my-2 my-sm-0 submitForm btn-dark" type="submit">Search</button>
             </form>
         </div>
     </nav>
-
 
     <div class='container-fluid' id='map'> </div>
     <button id='shrink'>shrink</button>
@@ -95,21 +123,66 @@
 
 
 
+
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+
     <script>
         var venueMarkers = []
         var currentVenue = []
         var currentHotels = []
-        var hotelCenters =[]
+        var hotelCenters = []
 
         var selectedConcert = ''
         var hotelNeighborhood
 
         var concertLat
         var concertLong
+
+
+        // When users click "Submit"
+        $(".submitForm").on("click", function (event) {
+
+            // This line prevents the page from refreshing when a user hits "enter".
+            event.preventDefault();
+
+            // Grab the user input
+            var locationLocal = $(".locationInput").val().trim();
+            var band = $(".bandInput").val().trim();
+            var startdate = $(".startDateInput").val();
+            var enddate = $(".endDateInput").val();
+
+            if (locationLocal === "null") {
+                // Clear absolutely everything stored in localStorage using localStorage.clear()
+                localStorage.clear();
+                // Store the location and band into localStorage using "localStorage.setItem"
+                localStorage.setItem("band", band);
+                console.log(localStorage);
+            }
+
+            else {
+                // Clear absolutely everything stored in localStorage using localStorage.clear()
+                localStorage.clear();
+                // Store the location and band into localStorage using "localStorage.setItem"
+                localStorage.setItem("locationLocal", locationLocal);
+                localStorage.setItem("band", band);
+                console.log(localStorage);
+
+            }
+
+            // At the end of "on.click", link to another local page
+            window.location.href = "search.html";
+        });
 
 
 
@@ -151,6 +224,7 @@
 
         })
 
+
          $(document).on('click','.hotelRow',function(){
              hotelNeighborhood = this.dataset.hood
              $('#info').css('z-index','-1')
@@ -158,6 +232,8 @@
             var flightFrom = $('<input>').attr('id','flightFrom'); 
             flights()
          })
+        
+
 
 
         //Causes the results page to show
@@ -181,12 +257,14 @@
             currentHotels = []
             map.fitBounds(bounds)
 
-            hotelCenters.forEach(element =>{
+            hotelCenters.forEach(element => {
                 element.setMap(null)
-                
+
             })
-            hotelCenters=[]
-           
+
+            hotelCenters = []
+
+          
 
 
 
@@ -254,7 +332,7 @@
                     var ticketRange = $('<p>').text('     ' + element.priceRanges[0].min + '$ - ' + element.priceRanges[0].max + '$')
                 }
                 var imgDiv = $('<div>').addClass('cropcircle').css('background-image', "url('" + element.images[7].url + "')")
-                var row = $('<div>').addClass('row border concert').attr('data-location', JSON.stringify(element._embedded.venues['0'].location)).attr('data-concertId',element.id)
+                var row = $('<div>').addClass('row border concert').attr('data-location', JSON.stringify(element._embedded.venues['0'].location)).attr('data-concertId', element.id)
                 var col = $('<div>').addClass('col-sm-8')
                 var imgCol = $('<div>').addClass('col-sm-4 d-flex align-items-center').css('height', '111px')
                 var calendar = $('<img>').attr('src', "open-iconic-master/svg/calendar.svg")
@@ -326,18 +404,18 @@
         //ajax call to google for lat and long of city
 
 
-        var destination = localStorage.getItem('locationLocal')  
-        var keyword = localStorage.getItem('band') 
+        var destination = localStorage.getItem('locationLocal')
+        var keyword = localStorage.getItem('band')
 
-        if (destination === 'null'){
+        if (destination === 'null') {
             var baseUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=yEtBYAcCK5MzWmE1UdE1NUheV74fQK8H&classificationName=Music'
-            var queryUrl = baseUrl + '&keyword=' + keyword + '&radius=50' 
+            var queryUrl = baseUrl + '&keyword=' + keyword + '&radius=50'
 
             $.ajax({
                 url: queryUrl,
                 method: 'GET'
             }).then(function (response) {
-                
+
                 var events = response._embedded.events
 
                 //sorts events by date
@@ -351,41 +429,46 @@
 
             })
         }
-        else{
+        else {
 
-        $.ajax({
-            url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+destination+'&key=AIzaSyCXtwNcWQKwMAYBw-2F4T4FRAwWqj39dJE',
-            method: 'GET'
-        }).then(function (response) {
-            var latlong = response.results[0].geometry.location
-            var latitude = latlong.lat
-            var longitude = latlong.lng
-            var baseUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=yEtBYAcCK5MzWmE1UdE1NUheV74fQK8H&classificationName=Music'
-            var queryUrl = baseUrl + '&keyword=' + keyword + '&radius=50' + '&latlong=' + latitude + ',' + longitude 
-
-            console.log(response)
-            //ajax call for ticketmaster
             $.ajax({
-                url: queryUrl,
+                url: 'https://maps.googleapis.com/maps/api/geocode/json?address=' + destination + '&key=AIzaSyCXtwNcWQKwMAYBw-2F4T4FRAwWqj39dJE',
                 method: 'GET'
             }).then(function (response) {
-                
-                var events = response._embedded.events
+                var latlong = response.results[0].geometry.location
+                var latitude = latlong.lat
+                var longitude = latlong.lng
+                var baseUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=yEtBYAcCK5MzWmE1UdE1NUheV74fQK8H&classificationName=Music'
+                var queryUrl = baseUrl + '&keyword=' + keyword + '&radius=50' + '&latlong=' + latitude + ',' + longitude
 
-                //sorts events by date
-                events.sort(function (a, b) {
-                    return Date.parse(a.dates.start.localDate) - Date.parse(b.dates.start.localDate)
+                console.log(response)
+                //ajax call for ticketmaster
+                $.ajax({
+                    url: queryUrl,
+                    method: 'GET'
+                }).then(function (response) {
+
+                    var events = response._embedded.events
+
+                    //sorts events by date
+                    events.sort(function (a, b) {
+                        return Date.parse(a.dates.start.localDate) - Date.parse(b.dates.start.localDate)
+                    })
+
+                    console.log(events)
+                    var marker
+                    addMarkers(events)
+
                 })
-
-                console.log(events)
-                var marker
-                addMarkers(events)
-
             })
+
+        }
+
         })
 
-       
+
 }
+
 
 
     </script>
