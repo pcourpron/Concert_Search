@@ -74,7 +74,7 @@ So here's some of the preliminary information that can be linked up through js:
                 </li>
             </ul>
             <form class="form-inline">
-                <button class="btn nav-item btn-success logIn" type="button">Log In / Sign Up</button>
+                <button class="btn nav-item btn-success logIn" type="button">Log-In / Sign-Up</button>
             </form>
         </div>
     </nav>
@@ -153,17 +153,21 @@ So here's some of the preliminary information that can be linked up through js:
             event.preventDefault();
 
             $("#jqxwindow").jqxWindow({ theme: 'highcontrast' });
-            $('#jqxwindow').jqxWindow({ height: "400px" });
+            $('#jqxwindow').jqxWindow({ height: "475px" });
             $('#jqxwindow').jqxWindow({ width: "550px" });
             $('#jqxwindow').jqxWindow({ position: 'center' });
+            $('#jqxwindow').jqxWindow({ title: 'Log-In / Sign-Up' });
 
-            // Variables for firebase = #firstName, #lastName, #emailInput, #passInput
+            // Variables for firebase = #firstName, #lastName, #emailInput, #passInput, .fireLogIn, .fireSignUp
 
-            $("#overlay").html("<form><div class='row'><div class='col form-group'><input type='text' class='form-control' id='firstName' placeholder='First name'></div><div class='col form-group'><input type='text' class='form-control' id='lastName' placeholder='Last name'></div></div><div class='form-group'><label for='exampleInputEmail1'>Email address</label><input type='email' class='form-control' id='emailInput' aria-describedby='emailHelp' placeholder='Enter email'><small id='emailHelp' class='form-text text-muted'>We'll never share your email with anyone else.</small></div><div class='form-group'><label for='exampleInputPassword1'>Password</label><input type='password' class='form-control' id='passInput' placeholder='Password'></div><button type='submit' class='btn btn-primary fireSubmit'>Submit</button></form>");
+            $("#overlay").html("<form><div class='row'><div class='col form-group'><input type='text' class='form-control' id='firstName' placeholder='First name'></div><div class='col form-group'><input type='text' class='form-control' id='lastName' placeholder='Last name'></div></div><div class='form-group'><label for='exampleInputEmail1'>Email address</label><input type='email' class='form-control' id='emailInput' aria-describedby='emailHelp' placeholder='Enter email'><small id='emailHelp' class='form-text text-muted'>We'll never share your email with anyone else.</small></div><div class='form-group'><label for='exampleInputPassword1'>Password</label><input type='password' class='form-control' id='passInput' placeholder='Password'></div><div class='row'><button type='submit' class='col btn btn-primary fireLogIn'>Log In</button><button type='submit' class='col btn btn-primary fireSignUp'>Sign Up</button></div></form>");
         })
 
         // For firebase connection ...
-        $(".fireSubmit").on("click", function () {
+        $(".fireLogIn").on("click", function () {
+
+        })
+        $(".fireSignUp").on("click", function () {
 
         })
 

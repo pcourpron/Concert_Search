@@ -37,6 +37,11 @@ input, btn {
 
 #overlay {
     padding: 50px;
+    z-index: 2;
+}
+
+.fireLogIn, .fireSignUp {
+    margin: 10px;
 }
 
 .balls {
