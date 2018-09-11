@@ -76,9 +76,10 @@ function flights() {
 				console.log(new Date(element.dTime * 1000).toDateString())
 				var departingTitle = $('<h4>').text('Departing Flight').css({
 					'text-align': 'center',
-					
+					'width': '100%'
+
 				})
-				var returningTitle = $('<h4>').text('Returning Flight').css({ 'text-align': 'center','width':'100%' })
+				var returningTitle = $('<h4>').text('Returning Flight').css({ 'text-align': 'center', 'width': '100%' })
 				var row = $('<div>').addClass('row border')
 				var row2 = $('<div>').addClass('row')
 				var departingTimeCols = $('<div>').addClass('col-sm-6')
@@ -86,7 +87,7 @@ function flights() {
 				var cities = $('<div>').addClass('col-sm-6')
 
 
-				departingTimeCols.append($('<p>').text('Departure: ' + flightGoDepartureTime + ', ' + flightGoDepartureDay ))
+				departingTimeCols.append($('<p>').text('Departure: ' + flightGoDepartureTime + ', ' + flightGoDepartureDay))
 				departingTimeCols.append($('<p>').text('Arrival: ' + flightGoArrivalTime + ', ' + flightGoDepartureDay2))
 				returningTimeCols.append($('<p>').text('Departure: ' + flightReturnDepartureTime + ', ' + flightReturnDay))
 				returningTimeCols.append($('<p>').text('Arrival: ' + flightReturnArrivalTime + ', ' + flightReturnDay2))
@@ -98,9 +99,9 @@ function flights() {
 
 
 
-				row.append(departingTitle,departingTimeCols, cities)
-				row2.append( returningTitle, returningTimeCols,$('<p>').text('Flight Cost: ' + element.conversion.USD + '$').css('margin-top','20px'))
-				$('#flights').append( row,row2)
+				row.append(departingTitle, departingTimeCols, cities)
+				row2.append(returningTitle, returningTimeCols, $('<p>').text('Flight Cost: ' + element.conversion.USD + '$').css({ 'margin-top': '20px', 'color':'red' }))
+				$('#flights').append(row, row2)
 				console.log('hi')
 			});
 

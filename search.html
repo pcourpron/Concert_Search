@@ -10,23 +10,18 @@
 
     <link rel="icon" type="image/png" href="assets/images/bumperBG.jpg" sizes="16x16" />
     <link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu" rel="stylesheet">
-<<<<<<< HEAD
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel='stylesheet' href='assets/css/search.css'>
-
-=======
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
->>>>>>> 01ce6253ae9d3d4a953fafa6a63002931cbb8e2e
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
     <script src='assets/javascript/hotels.js'></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXtwNcWQKwMAYBw-2F4T4FRAwWqj39dJE"></script>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
     <script src='assets/javascript/flights.js'></script>
-    
+    <link rel='stylesheet' href='assets/css/search.css'>
+
 </head>
 
 <body>
@@ -90,10 +85,6 @@
         </div>
     </nav>
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 01ce6253ae9d3d4a953fafa6a63002931cbb8e2e
     <div class='container-fluid' id='map'> </div>
     <button id='shrink'>shrink</button>
     <div class='container' id='results-col'> </div>
@@ -127,20 +118,8 @@
 
 
 
-<<<<<<< HEAD
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   
-=======
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
-
->>>>>>> 01ce6253ae9d3d4a953fafa6a63002931cbb8e2e
     <script>
         var venueMarkers = []
         var currentVenue = []
@@ -228,7 +207,6 @@
 
         })
 
-<<<<<<< HEAD
          $(document).on('click','.hotelRow',function(){
              hotelNeighborhood = this.dataset.hood
              $('#info').css('z-index','-1')
@@ -236,11 +214,6 @@
             var flightFrom = $('<input>').attr('id','flightFrom'); 
             flights()
          })
-=======
-        $(document).on('click', '.hotelRow', function () {
-            hotelNeighborhood = this.dataset.hood
-        })
->>>>>>> 01ce6253ae9d3d4a953fafa6a63002931cbb8e2e
 
 
         //Causes the results page to show
@@ -268,12 +241,7 @@
                 element.setMap(null)
 
             })
-<<<<<<< HEAD
             hotelCenters = []
-=======
-            hotelCenters=[]
-
->>>>>>> fdae51123d4eb3498b08b937a65659e933ea17bb
 
 
 
@@ -338,7 +306,7 @@
                     var ticketRange = $('<p>').text('Price Not Available')
                 }
                 else {
-                    var ticketRange = $('<p>').text('     ' + element.priceRanges[0].min + '$ - ' + element.priceRanges[0].max + '$')
+                    var ticketRange = $('<p>').text('     $' + element.priceRanges[0].min + ' - $' + element.priceRanges[0].max)
                 }
                 var imgDiv = $('<div>').addClass('cropcircle').css('background-image', "url('" + element.images[7].url + "')")
                 var row = $('<div>').addClass('row border concert').attr('data-location', JSON.stringify(element._embedded.venues['0'].location)).attr('data-concertId', element.id)
@@ -470,14 +438,7 @@
 
                 })
             })
-<<<<<<< HEAD
         }
-=======
-        })
-
-
-}
->>>>>>> fdae51123d4eb3498b08b937a65659e933ea17bb
 
 
     </script>
