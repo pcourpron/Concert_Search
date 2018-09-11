@@ -2,6 +2,8 @@
 
 function hotelSearch(location) {
 
+  $("#info")
+
   for (var i = 0; i < venueMarkers.length; i++) {
     venueMarkers[i].setMap(null);
   }
@@ -79,8 +81,10 @@ function hotelSearch(location) {
 
 
 
-
+    $('#hotelsLoading').remove()
+    $('#loadingGif').remove()
     centers.forEach(element => {
+
 
       var circleCenter = { lat: parseFloat(element.center.split(',')[0]), lng: parseFloat(element.center.split(',')[1]) }
       var cityCircle = new google.maps.Circle({
