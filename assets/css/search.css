@@ -64,6 +64,7 @@ label {
     bottom: 0;
     border-top: 5px solid lightslategray;
     margin-top: 5px;
+    width:unset
 }
 
 .btn{
