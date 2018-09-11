@@ -2,8 +2,9 @@
 
 function hotelSearch(location) {
 
-  $("#info")
 
+  $("#info").children('.row').remove()
+ 
   for (var i = 0; i < venueMarkers.length; i++) {
     venueMarkers[i].setMap(null);
   }
