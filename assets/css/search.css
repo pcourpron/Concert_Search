@@ -72,8 +72,13 @@ label {
     
     margin-top: 10px ;
     margin-bottom: 10px;
-
 }
+
+#buttonsHotel {
+    display: flex;
+    justify-content: space-around;
+}
+
 .container {
     background-image: url("../images/bumperBG.jpg");
     margin-top: 5px;
@@ -129,7 +134,7 @@ label {
     width: 408px;
     text-align: center;
     margin: auto;
-    text-shadow: 2px 2px 5px rgb(0, 0, 0);
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
     background-color: rgba(240, 240, 240, 0.651);
     border-top: 5px solid lightslategray;
     height: 25px;
