@@ -49,8 +49,8 @@ So here's some of the preliminary information that can be linked up through js:
     </header>
 
     <nav class="navbar navbar-expand-sm navbar-light bg-transparent searchBox">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -63,8 +63,8 @@ So here's some of the preliminary information that can be linked up through js:
                     <a class="nav-link" href="favorite.html">Saved Trips</a>
                 </li>
                 <li class="nav-item dropdown disabled">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         View
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -105,9 +105,38 @@ So here's some of the preliminary information that can be linked up through js:
         </div>
     </div>
 
+    <!--Firebase Set-up Script-->
+
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
+
     <script type="text/javascript" src="assets/jqwidgets/jqxcore.js"></script>
     <script type="text/javascript" src="assets/jqwidgets/jqxwindow.js"></script>
     <script>
+
+
+        // Firebase App Info 
+
+        firebase.initializeApp({
+            apiKey: 'AIzaSyBuWcwfnrVFPyABm96d6GIoHwwBXa_DAfk',
+            authDomain: 'iconcert-638ff.firebaseapp.com',
+            projectId: 'iconcert-638ff'
+        });
+
+        // Initialize Cloud Firestore through Firebase
+        var db = firebase.firestore();
+
+        // Disable deprecated features
+        db.settings({
+            timestampsInSnapshots: true
+        });
+
+        // Firebase Variable Set-up
+
+        var usersRef = db.collection("users")
+        var currentUser;
+
+
 
         // ___________________________________________________________________________________________
 
@@ -164,12 +193,102 @@ So here's some of the preliminary information that can be linked up through js:
         })
 
         // For firebase connection ...
-        $(".fireLogIn").on("click", function () {
+        $(document).on("click", ".fireLogIn", function (event) {
+
+
+            event.preventDefault();
+
+            // Takes the values of the contents of the text-boxes
+            var inputFirstName = $("#firstName").val().trim();
+            var inputLastName = $("#lastName").val().trim();
+            var inputEmail = $("#emailInput").val().trim();
+            var inputPassword = $("#passInput").val().trim();
+
+            // Checks iconcert-638ff/users/inputUsername
+            var inputRef = usersRef.doc(inputEmail);
+
+            inputRef.get().then(function (doc) {
+
+                console.log(doc);
+
+                if (doc.exists && inputPassword === doc.data().password) {
+                    alert("Logged in!")
+                    currentUser = doc.data().email;
+                    console.log("current user: " + currentUser);
+                    login();
+
+                } else {
+                    alert("Incorrect username/password");
+                }
+
+            });
 
         })
-        $(".fireSignUp").on("click", function () {
+
+        $(document).on("click", ".fireSignUp", function (event) {
+
+            event.preventDefault();
+
+            var inputFirstName = $("#firstName").val().trim();
+            var inputLastName = $("#lastName").val().trim();
+            var inputEmail = $("#emailInput").val().trim();
+            var inputPassword = $("#passInput").val().trim();
+
+            console.log("inputfirstname" + inputFirstName)
+
+            var inputRef = usersRef.doc(inputEmail);
+
+            inputRef.get().then(function (doc) {
+                if (doc.exists) {
+                    alert("Username already exists!");
+
+                } else {
+                    alert("New User Created!")
+
+                    currentUser = inputEmail;
+                    console.log("current user: " + currentUser);
+                    login();
+
+                    // Sets inputs from username and password boxes into new account info on Firebase
+                    // then appends list of usernames and passwords to the table
+                    inputRef.set({
+                        password: inputPassword,
+                        email: inputEmail,
+                        firstName: inputFirstName,
+                        lastName: inputLastName
+
+                    }, {
+                            merge: true
+                        // report all user info
+                        }).then(function () {
+                            var usersRef = db.collection("users")
+
+                            usersRef.get().then(function (querySnapshot) {
+                                querySnapshot.forEach(function (doc) {
+
+                                    console.log(doc.id, " => ", doc.data());
+
+                                });
+                            });
+                        })
+                }
+            });
 
         })
+
+// -------------- Functions
+
+
+    // Sets "current-user" on Firebase to the current user
+
+    function login() {
+
+        usersRef.doc("current-user").set({
+            username: currentUser
+        })
+
+    }
+
 
     </script>
 </body>
