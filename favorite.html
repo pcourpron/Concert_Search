@@ -23,6 +23,9 @@
     <script type="text/javascript" src="../jqwidgets/jqxcore.js"></script>
     <script type="text/javascript" src="../jqwidgets/jqxwindow.js"></script>
 
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
+
     <style>
         html {
             height: 90%;
@@ -99,6 +102,7 @@ For reference on the fill - here are the variables based on the choices of the p
     <nav class="navbar navbar-expand-sm navbar-light bg-transparent searchBox" style="z-index: 100;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
+
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -118,7 +122,54 @@ For reference on the fill - here are the variables based on the choices of the p
             We could just put the music and youtube stuff below and leave it out of the search page?
          -->
 
-    <div class="container d-flex justify-content-center align-middle favCard">
+
+     <!-- Favorite Cards get appended to this container: -->
+    <div class="container-fluid d-flex justify-content-start align-middle" id="cards">
+
+
+    </div>
+
+    </div>
+    
+<script>
+
+    firebase.initializeApp({
+        apiKey: 'AIzaSyBuWcwfnrVFPyABm96d6GIoHwwBXa_DAfk',
+        authDomain: 'iconcert-638ff.firebaseapp.com',
+        projectId: 'iconcert-638ff'
+    });
+
+    // Initialize Cloud Firestore through Firebase
+    var db = firebase.firestore();
+
+    // Disable deprecated features
+    db.settings({
+        timestampsInSnapshots: true
+    });
+
+    var tripCounter = 0
+
+    function init() {
+
+        var currentUser;
+        var length = 0;
+
+        // Sets the currentUser to the currentUser as specified from Firebase
+        db.collection("users").doc("current-user").get().then(function(user) {
+            currentUser = user.data().username
+            var tripValue = "trip-" + tripCounter;
+
+            // Gets number of trips stored for current user and logs it as "length"
+            db.collection("users").doc(currentUser).collection("savedTrips").get().then(snapshot => {
+                length = snapshot.size;
+
+            }).then(function() {
+
+                // Spits out a favorite card for each trip
+                for (var i = 0; i < length; i++) {
+
+                // Card HTML
+                    $("#cards").append(`    <div class="container d-flex justify-content-center align-middle favCard">
         <div class="card d-flex" style="width: 18rem;">
             <img class="card-img-top favImage" src=".../100px180/?text=Image cap" alt="Card image cap">
             <div class="card-body">
@@ -135,7 +186,18 @@ For reference on the fill - here are the variables based on the choices of the p
                 <a href="#" class="card-link favFlightLink">#flight link</a>
             </div>
         </div>
-    </div>
+    </div>`)
+                }
+            })
+
+        })
+    }
+    
+// Initializes the app
+
+        init();
+
+</script>
 </body>
 
 </html>
