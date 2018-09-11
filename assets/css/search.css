@@ -41,12 +41,16 @@ h1 {
 }
 
 .searchBox {
+    font-size: 18px;
     /* padding-top: 2%;
     padding-bottom: 5%;
     height: 50px;
     margin-left: auto;
     margin-right: auto; */
-    width: 75%;
+}
+
+label {
+    padding: 5px;
 }
 
 .container-fluid {
@@ -59,13 +63,16 @@ h1 {
     top: 152px;
     bottom: 0;
     border-top: 5px solid lightslategray;
+    margin-top: 5px;
 }
+
 .btn{
     width:110px;
     margin-top: 10px
 }
 
 .container {
+    margin-top: 5px;
     border-top: 5px solid lightslategray;
     border-right: 3px solid lightslategray;
     width: 408px;
@@ -86,12 +93,13 @@ h1 {
     left: 408px;
     top: 262px;
 }
+
 #results{
     overflow-y:auto;
     overflow-x: unset;
-    width: 100%
-   
+    width: 100%;
 }
+
 .border{
    border-width: 0  0 1px 0 ;
     border-color: lightgrey;
@@ -121,6 +129,11 @@ h1 {
     z-index: 25;
     text-align: center;
     margin: auto;
+}
+
+.endDateInput, .startDateInput {
+    width: 120px!important;
+    font-size: 10px;
 }
 
 .totalCost {
