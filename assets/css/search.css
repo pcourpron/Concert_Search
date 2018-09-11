@@ -64,10 +64,11 @@ label {
     bottom: 0;
     border-top: 5px solid lightslategray;
     margin-top: 5px;
+    width:unset
 }
 
 .btn{
-    width:110px;
+    
     margin-top: 10px
 }
 
@@ -101,7 +102,7 @@ label {
 }
 
 .border{
-   border-width: 1px  0 0 0 ;
+    border-width: 1px 0 0 0;
     border-color: lightgrey;
     border-style:solid;
 }
@@ -142,7 +143,11 @@ label {
 }
 
 p{
-    margin: 10px 0
+    margin: 10px 0;
+    
 }
 
+.hotelRow{
+    display: block
+}
 

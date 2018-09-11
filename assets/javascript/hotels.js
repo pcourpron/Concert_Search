@@ -97,7 +97,6 @@ function hotelSearch(location) {
       });
 
       hotelCenters.push(cityCircle)
-      console.log(hotelCenters)
 
 
       google.maps.event.addListener(cityCircle, 'click', () => {
@@ -109,9 +108,11 @@ function hotelSearch(location) {
           })
 
           showHotel.push(cityCircle.customInfo)
-          $('#info').children('.row').hide()
+          $('#info').children('.hotelRow').hide()
+          
           showHotel.forEach(element => {
             $('#info').children('.' + element).show()
+          
           })
 
 
@@ -140,7 +141,6 @@ function hotelSearch(location) {
     })
 
     var results = response.Result
-    console.log(results)
     results.sort(function (a, b) {
       return parseInt(a.TotalPrice) - parseInt(b.TotalPrice)
     })
@@ -165,10 +165,16 @@ function hotelSearch(location) {
           break;
       }
 
+      // Text for labels
+
       var stars = $('<p>').text(element.StarRating + ' Star' + lodgingType).css('text-align', 'center')
-      var nightPrice = $('<p>').text('Average Price Per Night: ' + element.AveragePricePerNight).css('text-align', 'center')
-      var totalPrice = $('<p>').text('Total Price: ' + element.TotalPrice).css('text-align', 'center')
-      var row = $('<div>').addClass('row border ' + element.NeighborhoodId +' hotelRow').attr('data-hood',element.NeighborhoodId).attr('data-price',element.TotalPrice)
+      var nightPrice = $('<p>').text('Average Price Per Night: $' + element.AveragePricePerNight).css('text-align', 'center')
+      var totalPrice = $('<p>').text('Total Price: $' + element.TotalPrice).css('text-align', 'center')
+      var row = $('<div>').addClass('row border ' + element.NeighborhoodId + ' hotelRow').attr({ 
+        'data-hood': element.NeighborhoodId, 
+        'data-price': element.TotalPrice })
+
+      
       row.append(stars, nightPrice, totalPrice)
 
 
