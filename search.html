@@ -131,8 +131,28 @@
 
     <!-- </div> -->
 
+    
 
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
     <script>
+
+        // Start Firebase 
+         firebase.initializeApp({
+            apiKey: 'AIzaSyBuWcwfnrVFPyABm96d6GIoHwwBXa_DAfk',
+            authDomain: 'iconcert-638ff.firebaseapp.com',
+            projectId: 'iconcert-638ff'
+        });
+
+        // Initialize Cloud Firestore through Firebase
+        var db = firebase.firestore();
+
+        // Disable deprecated features
+        db.settings({
+            timestampsInSnapshots: true
+        });
+
+
         var venueMarkers = []
         var currentVenue = []
         var currentHotels = []
@@ -140,6 +160,12 @@
 
         var selectedConcert = ''
         var selectedConcertCity
+        var selectedConcertImage
+        var selectedHotelPrice
+        var selectedFlightPrice
+        var keyword
+
+
         var hotelNeighborhood
 
         var concertLat
@@ -147,6 +173,50 @@
 
         var minTotal = 0
         var maxTotal = 0
+
+        
+        
+
+        $(document).on('click','#save',function(){
+            var loginId = localStorage.getItem('loginId')
+            
+            var inputRef = db.collection('login').doc(loginId)
+
+            
+            inputRef.get().then(function(doc){
+                if (doc.data().concerts === undefined){
+                    var array = []
+                }
+                else {
+                    var array = doc.data().concerts
+                }
+                var object = {}
+                object.concert = selectedConcert
+                object.maxPrice = maxTotal
+                object.minPrice = minTotal
+                object.imgUrl = selectedConcertImage
+                object.hotel = parseInt(selectedHotelPrice)
+                object.flight = selectedFlightPrice
+                object.keyword = keyword
+
+                
+
+                
+                
+                
+                array.push(object)
+                var inputRef = db.collection('login').doc(loginId)
+            console.log('hi')
+             inputRef.set({
+                 concerts: array
+                }
+            )
+            })
+
+
+
+            
+        })
 
 
         // When users click "Submit"
@@ -163,7 +233,7 @@
 
             if (locationLocal === "null") {
                 // Clear absolutely everything stored in localStorage using localStorage.clear()
-                localStorage.clear();
+                
                 // Store the location and band into localStorage using "localStorage.setItem"
                 localStorage.setItem("band", band);
                 console.log(localStorage);
@@ -171,7 +241,7 @@
 
             else {
                 // Clear absolutely everything stored in localStorage using localStorage.clear()
-                localStorage.clear();
+                
                 // Store the location and band into localStorage using "localStorage.setItem"
                 localStorage.setItem("locationLocal", locationLocal);
                 localStorage.setItem("band", band);
@@ -207,7 +277,8 @@
         // Causes the info page to show
         $(document).on('click', '.concert', function () {
             $('#info').css('z-index', '1000')
-            
+            selectedConcertImage = this.dataset.image
+            console.log(selectedConcertImage)
             var row = $(this)
             var title = $('<h3>').text(row.children('.col-sm-8').children('.title').text()).css('text-align', 'center')
             $('#info').append(title)
@@ -246,6 +317,8 @@
 
         $(document).on('click', '.hotelRow', function () {
             hotelNeighborhood = this.dataset.hood
+            selectedHotelPrice = this.dataset.price
+
             $('#info').css('z-index', '-1')
             $('#flights').css('z-index', '10')
             var flightFrom = $('<input>').attr('id', 'flightFrom');
@@ -401,7 +474,9 @@
                     'data-name': element.name,
                     'data-min':element.priceRanges[0].min ,
                     'data-max': element.priceRanges[0].max,
-                    'data-city': element._embedded.venues[0].city.name})
+                    'data-city': element._embedded.venues[0].city.name,
+                    'data-image':element.images[7].url
+                    })
 
                 }
                 else {
@@ -409,7 +484,8 @@
                     'data-name': element.name,
                     'data-min':0 ,
                     'data-max':0,
-                    'data-city': element._embedded.venues[0].city.name})
+                    'data-city': element._embedded.venues[0].city.name,
+                    'data-image':element.images[7].url})
 
                 }
                 var col = $('<div>').addClass('col-sm-8 conInfo')
@@ -484,7 +560,7 @@
 
 
         var destination = localStorage.getItem('locationLocal')
-        var keyword = localStorage.getItem('band')
+        keyword = localStorage.getItem('band')
 
         if (destination === 'null') {
             var baseUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=yEtBYAcCK5MzWmE1UdE1NUheV74fQK8H&classificationName=Music'

@@ -12,7 +12,7 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
@@ -69,8 +69,8 @@ So here's some of the preliminary information that can be linked up through js:
                     <a class="nav-link" href="favorite.html">Saved Trips</a>
                 </li>
                 <li class="nav-item dropdown disabled">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
                         View
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -140,6 +140,7 @@ So here's some of the preliminary information that can be linked up through js:
         // Firebase Variable Set-up
 
         var usersRef = db.collection("users")
+        var loginRef = db.collection('login')
         var currentUser;
 
 
@@ -185,7 +186,7 @@ So here's some of the preliminary information that can be linked up through js:
         });
 
         $(".logIn").on("click", function () {
-            
+
             $("#jqxwindow").jqxWindow({ theme: 'highcontrast' });
             $('#jqxwindow').jqxWindow({ height: "475px" });
             $('#jqxwindow').jqxWindow({ width: "550px" });
@@ -193,7 +194,7 @@ So here's some of the preliminary information that can be linked up through js:
             $('#jqxwindow').jqxWindow({ title: 'Log-In / Sign-Up' });
 
             $("#jqxwindow").jqxWindow('open')
-            
+
             // Variables for firebase = #firstName, #lastName, #emailInput, #passInput, .fireLogIn, .fireSignUp
 
             $("#overlay").html("<form><div class='row'><div class='col form-group'><input type='text' class='form-control' id='firstName' placeholder='First name'></div><div class='col form-group'><input type='text' class='form-control' id='lastName' placeholder='Last name'></div></div><div class='form-group'><label for='exampleInputEmail1'>Email address</label><input type='email' class='form-control' id='emailInput' aria-describedby='emailHelp' placeholder='Enter email'><small id='emailHelp' class='form-text text-muted'>We'll never share your email with anyone else.</small></div><div class='form-group'><label for='exampleInputPassword1'>Password</label><input type='password' class='form-control' id='passInput' placeholder='Password'></div><div class='row'><button type='submit' class='col btn btn-primary fireLogIn'>Log In</button><button type='submit' class='col btn btn-primary fireSignUp'>Sign Up</button></div></form>");
@@ -210,6 +211,8 @@ So here's some of the preliminary information that can be linked up through js:
             var inputLastName = $("#lastName").val().trim();
             var inputEmail = $("#emailInput").val().trim();
             var inputPassword = $("#passInput").val().trim();
+
+
 
             // Checks iconcert-638ff/users/inputUsername
             var inputRef = usersRef.doc(inputEmail);
@@ -241,9 +244,11 @@ So here's some of the preliminary information that can be linked up through js:
             var inputEmail = $("#emailInput").val().trim();
             var inputPassword = $("#passInput").val().trim();
 
+
             console.log("inputfirstname" + inputFirstName)
 
             var inputRef = usersRef.doc(inputEmail);
+            
 
             inputRef.get().then(function (doc) {
                 if (doc.exists) {
@@ -253,8 +258,12 @@ So here's some of the preliminary information that can be linked up through js:
                     alert("New User Created!")
 
                     currentUser = inputEmail;
-                    console.log("current user: " + currentUser);
                     login();
+
+                    var loginId = (Math.floor(Math.random() * 100000000)).toString()
+                    localStorage.setItem('loginId', loginId)
+                    var loginInputRef = loginRef.doc(loginId)
+
 
                     // Sets inputs from username and password boxes into new account info on Firebase
                     // then appends list of usernames and passwords to the table
@@ -262,39 +271,35 @@ So here's some of the preliminary information that can be linked up through js:
                         password: inputPassword,
                         email: inputEmail,
                         firstName: inputFirstName,
-                        lastName: inputLastName
+                        lastName: inputLastName,
 
                     }, {
                             merge: true
-                        // report all user info
-                        }).then(function () {
-                            var usersRef = db.collection("users")
-
-                            usersRef.get().then(function (querySnapshot) {
-                                querySnapshot.forEach(function (doc) {
-
-                                    console.log(doc.id, " => ", doc.data());
-
-                                });
-                            });
+                            // report all user info
                         })
+
+                    loginInputRef.set({
+                        login: loginId
+                    }), {
+                            merge: true
+                        }
                 }
             });
 
         })
 
-// -------------- Functions
+        // -------------- Functions
 
 
-    // Sets "current-user" on Firebase to the current user
+        // Sets "current-user" on Firebase to the current user
 
-    function login() {
+        function login() {
 
-        usersRef.doc("current-user").set({
-            username: currentUser
-        })
+            usersRef.doc("current-user").set({
+                username: currentUser
+            })
 
-    }
+        }
 
 
     </script>

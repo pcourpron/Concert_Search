@@ -100,6 +100,8 @@ function flights() {
 
 				var flightTotal =element.conversion.USD
 
+				selectedFlightPrice = flightTotal
+
 				flightRow.append(departingTitle, departingTimeCols, cities)
 				flightRow2.append(returningTitle, returningTimeCols, $('<p>').text('Flight Cost: ' + flightTotal + '$').css({ 'margin-top': '20px', 'color':'red' }))
 				$('#flights').append(flightRow, flightRow2)
