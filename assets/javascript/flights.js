@@ -73,7 +73,6 @@ function flights() {
 
 
 
-				console.log(new Date(element.dTime * 1000).toDateString())
 				var departingTitle = $('<h4>').text('Departing Flight').css({
 					'text-align': 'center',
 					'width': '100%'
@@ -102,7 +101,6 @@ function flights() {
 				row.append(departingTitle, departingTimeCols, cities)
 				row2.append(returningTitle, returningTimeCols, $('<p>').text('Flight Cost: ' + element.conversion.USD + '$').css({ 'margin-top': '20px', 'color':'red' }))
 				$('#flights').append(row, row2)
-				console.log('hi')
 			});
 
 		});

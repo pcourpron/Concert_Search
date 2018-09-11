@@ -18,7 +18,7 @@
 
     <script src='assets/javascript/hotels.js'></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXtwNcWQKwMAYBw-2F4T4FRAwWqj39dJE"></script>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
     <script src='assets/javascript/flights.js'></script>
     <link rel='stylesheet' href='assets/css/search.css'>
 
@@ -89,11 +89,13 @@
     <button id='shrink'>shrink</button>
     <div class='container' id='results-col'> </div>
     <div class='container' id='info'>
-        <button id='back' class='btn btn-primary'>Back to Results</button>
-    </div>
-    <div class='container' id = 'flights'>
-            <button id='back' class='btn btn-primary'>Back to Results</button>
+        <button id='backResults' class='btn btn-primary btn-lg'>Back to Results</button>
+        <button id='toFlights' class='btn btn-primary btn-lg'>Skip to Flights</button>
 
+    </div>
+    
+    <div class='container' id = 'flights'>
+            <button id='backHotels' class='btn btn-primary'>Back to Hotels</button>
     </div>
 
 
@@ -109,7 +111,10 @@
 
     <div id="footer" class="row">
         <div class="col-sm-12">
-            <div class="totalCost"></div>
+            <div class="totalCost">
+                <h4>Total Cost: <span id='sum'></span></h4>
+            </div>
+
         </div>
     </div>
 
@@ -128,6 +133,9 @@
 
         var concertLat
         var concertLong
+
+        var minTotal = 0
+        var maxTotal = 0
 
 
         // When users click "Submit"
@@ -193,7 +201,7 @@
             $('#info').append(img)
 
             var row = $(this)
-            var title = $('<h3>').text(row.children('.col-sm-8').children('.title').text())
+            var title = $('<h3>').text(row.children('.col-sm-8').children('.title').text()).css('text-align','center')
             $('#info').append(title)
 
             var location = JSON.parse(this.dataset.location)
@@ -202,20 +210,47 @@
             selectedConcert = this.dataset.concertid
             console.log(selectedConcert)
 
+
+            //update Total cost
+            minTotal += parseFloat(this.dataset.min)
+            maxTotal += parseFloat(this.dataset.max)
+            $('#sum').text('     $' + minTotal + ' - $' + maxTotal)
+
         })
+
+        //hotel picked going to flights
 
          $(document).on('click','.hotelRow',function(){
              hotelNeighborhood = this.dataset.hood
              $('#info').css('z-index','-1')
              $('#flights').css('z-index','10')
             var flightFrom = $('<input>').attr('id','flightFrom'); 
+            minTotal += Math.ceil(parseFloat(this.dataset.price))
+            maxTotal += Math.ceil(parseFloat(this.dataset.price))
+            $('#sum').text('     $' + minTotal + ' - $' + maxTotal)
+            hotelCenters.forEach(element => {
+                element.setMap(null)
+
+            })
+
+            flights()
+         })
+
+         $(document).on('click','#toFlights',function(){
+             
+             $('#info').css('z-index','-1')
+             $('#flights').css('z-index','10')
+            var flightFrom = $('<input>').attr('id','flightFrom'); 
+            hotelCenters.forEach(element => {
+                element.setMap(null)
+            })
             flights()
          })
 
 
         //Causes the results page to show
 
-        $(document).on('click', '#back', function () {
+        $(document).on('click', '#backResults', function () {
             $('#info').css('z-index', '-1')
             currentVenue[0].setMap(null)
             for (var i = 0; i < venueMarkers.length; i++) {
@@ -240,9 +275,19 @@
             })
             hotelCenters = []
 
+        })
 
+        $(document).on('click', '#backHotels', function () {
+            $('#flights').css('z-index', '-1')
+            $('#info').css('z-index', '10')
+
+            hotelCenters.forEach(element => {
+                element.setMap(map)
+
+            })
 
         })
+
 
 
 
@@ -306,7 +351,20 @@
                     var ticketRange = $('<p>').text('     $' + element.priceRanges[0].min + ' - $' + element.priceRanges[0].max)
                 }
                 var imgDiv = $('<div>').addClass('cropcircle').css('background-image', "url('" + element.images[7].url + "')")
-                var row = $('<div>').addClass('row border concert').attr('data-location', JSON.stringify(element._embedded.venues['0'].location)).attr('data-concertId', element.id)
+                
+                if (element.priceRanges!== undefined){
+                var row = $('<div>').addClass('row border concert').attr('data-location', JSON.stringify(element._embedded.venues['0'].location)).attr({
+                    'data-concertId': element.id,
+                    'data-min':element.priceRanges[0].min ,
+                    'data-max': element.priceRanges[0].max})
+                }
+                else{
+                    var row = $('<div>').addClass('row border concert').attr('data-location', JSON.stringify(element._embedded.venues['0'].location)).attr({
+                    'data-concertId': element.id,
+                    'data-min':0 ,
+                    'data-max':0})
+
+                }
                 var col = $('<div>').addClass('col-sm-8')
                 var imgCol = $('<div>').addClass('col-sm-4 d-flex align-items-center').css('height', '111px')
                 var calendar = $('<img>').attr('src', "open-iconic-master/svg/calendar.svg")
