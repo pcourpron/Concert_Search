@@ -27,8 +27,23 @@ Not much extra explanation needed? Let me know if I need to make any adjustments
 
 <body>
 
-    <audio></audio>
+<!-- for dark backgrounds -->
+    <div class="audioplay-object">
+        <div class="audioplay-button"></div>
+        <audio class="audioplay-player" data-apskin="classic">
+        </audio>
+    </div>
 
+    <!-- for light backgrounds -->
+    <div class="audioplay-object">
+        <div class="audioplay-button"></div>
+        <audio class="audioplay-player">
+        </audio>
+    </div>
+
+    <!-- <audio></audio> -->
+
+    <script src="https://strangecube.com/audioplay2/player/js/audioplay-2.0.0.min.js"></script>
     <script>
 
         // var artist = 
@@ -50,7 +65,7 @@ Not much extra explanation needed? Let me know if I need to make any adjustments
             y.attr("src", x)
 
             // sets up the controls in the audio widget
-            y.attr("controls", "controls");
+            // y.attr("controls", "controls");
 
         });
 
