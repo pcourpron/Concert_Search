@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
+        <link rel='stylesheet' href='assets/css/search.css'>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
@@ -32,7 +34,6 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-    <link rel='stylesheet' href='assets/css/search.css'>
 
 </head>
 
@@ -94,13 +95,29 @@
     <button id='shrink'>shrink</button>
     <div class='container' id='results-col'> </div>
     <div class='container' id='info'>
+        <div id = 'buttonsHotel'>
         <button id='backResults' class='btn justify-content-center btn-primary btn-sm'>Back to Results</button>
         <button id='toFlights' class='btn justify-content-center btn-primary btn-sm'>Skip to Flights</button>
+    </div>
+        <label for="start">Start </label>
+    
+
+                <input type="date" id="startHotel" class="form-control mr-sm-2 startDateInput" name="trip" value="2018-09-10" max="2020-12-31"/>
+                <label for="end">End </label>
+                <input type="date" id="endHotel" class="form-control mr-sm-2 endDateInput" name="trip" value="2018-09-11" max="2020-12-31" />
+                <button class="btn my-2 my-sm-0 submitForm btn-dark" type="submit">Search</button>
+            
     </div>
 
     
     <div class='container' id = 'flights'>
             <button id='backHotels' class='btn btn-primary btn-lg'>Back to Hotels</button>
+
+            <input type="date" id="startHotel" class="form-control mr-sm-2 startDateInput" name="trip" value="2018-09-10" max="2020-12-31"/>
+            <label for="end">End </label>
+            <input type="date" id="endHotel" class="form-control mr-sm-2 endDateInput" name="trip" value="2018-09-11" max="2020-12-31" />
+            <button class="btn my-2 my-sm-0 submitForm btn-dark" type="submit">Search</button>
+        
     </div>
     <div class='container' id = 'final'>
             <button id='backFlights' class='btn btn-primary btn-lg'>Back to Flights</button>
@@ -136,6 +153,32 @@
     <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
     <script>
+        var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+            
+            if(dd<10) {
+                dd = '0'+dd
+            } 
+            
+            if(mm<10) {
+                mm = '0'+mm
+            } 
+            
+            today = yyyy + '-' + mm + '-' + dd;
+            dd2 = dd +1 
+            
+            $('#start').val(today)
+            
+    </script>
+
+
+    <script>
+        console.log($('.startDateInput').val())
+        if (localStorage.getItem('loginId')===null){
+            $('#save').hide()
+        }
 
         // Start Firebase 
          firebase.initializeApp({
@@ -195,7 +238,7 @@
                 object.maxPrice = maxTotal
                 object.minPrice = minTotal
                 object.imgUrl = selectedConcertImage
-                object.hotel = parseInt(selectedHotelPrice)
+                object.hotel = parseFloat(selectedHotelPrice)
                 object.flight = selectedFlightPrice
                 object.keyword = keyword
 
@@ -309,8 +352,8 @@
 
 
             //update Total cost
-            minTotal += parseFloat(this.dataset.min)
-            maxTotal += parseFloat(this.dataset.max)
+            minTotal += parseInt(this.dataset.min)
+            maxTotal += parseInt(this.dataset.max)
             $('#sum').text('     $' + minTotal + ' - $' + maxTotal)
 
         })
@@ -324,8 +367,8 @@
             $('#info').css('z-index', '-1')
             $('#flights').css('z-index', '10')
             var flightFrom = $('<input>').attr('id', 'flightFrom');
-            minTotal += Math.ceil(parseFloat(this.dataset.price))
-            maxTotal += Math.ceil(parseFloat(this.dataset.price))
+            minTotal += parseInt(this.dataset.price)
+            maxTotal += parseInt(this.dataset.price)
             $('#sum').text('     $' + minTotal + ' - $' + maxTotal)
             hotelCenters.forEach(element => {
                 element.setMap(null)
@@ -369,6 +412,8 @@
 
         $(document).on('click', '#backResults', function () {
             $('#info').css('z-index', '-1')
+            $('#info').children('h3').remove()
+          
             currentVenue[0].setMap(null)
             for (var i = 0; i < venueMarkers.length; i++) {
                 venueMarkers[i].setMap(map);
@@ -392,19 +437,27 @@
             })
             hotelCenters = []
 
+
+
         })
 
         $(document).on('click', '#backHotels', function () {
             $('#flights').css('z-index', '-1')
-            $('#info').css('z-index', '10')
+            $('#info').css('z-index', '100')
+
+            minTotal -= parseInt(selectedHotelPrice)
+            maxTotal -= parseInt(selectedHotelPrice)
+            $('#sum').text('     $' + minTotal + ' - $' + maxTotal)
+
+            selectedHotelPrice = 0
+
 
             hotelCenters.forEach(element => {
                 element.setMap(map)
-
             })
 
         })
-
+   
 
 
 
@@ -564,7 +617,7 @@
         var destination = localStorage.getItem('locationLocal')
         keyword = localStorage.getItem('band')
 
-        if (destination === 'null') {
+        if (destination === '') {
             var baseUrl = 'https://app.ticketmaster.com/discovery/v2/events?apikey=yEtBYAcCK5MzWmE1UdE1NUheV74fQK8H&classificationName=Music'
             var queryUrl = baseUrl + '&keyword=' + keyword + '&radius=50'
 
