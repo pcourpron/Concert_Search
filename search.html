@@ -13,12 +13,20 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
 
     <script src='assets/javascript/hotels.js'></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXtwNcWQKwMAYBw-2F4T4FRAwWqj39dJE"></script>
-    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXtwNcWQKwMAYBw-2F4T4FRAwWqj39dJE&libraries=geometry">
+</script>
     <script src='assets/javascript/flights.js'></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
@@ -50,13 +58,15 @@
          > .submitForm
 
     --------------------------------------------------------------------------------------------------
-     -->
+
 
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent searchBox" style='z-index: 100;'>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
@@ -87,6 +97,7 @@
         <button id='backResults' class='btn btn-primary btn-lg'>Back to Results</button>
         <button id='toFlights' class='btn btn-primary btn-lg'>Skip to Flights</button>
     </div>
+
     
     <div class='container' id = 'flights'>
             <button id='backHotels' class='btn btn-primary btn-lg'>Back to Hotels</button>
@@ -94,6 +105,7 @@
     <div class='container' id = 'final'>
             <button id='backFlights' class='btn btn-primary btn-lg'>Back to Flights</button>
             <button id='save' class='btn btn-primary btn-lg'>Save Itinerary!</button>
+
     </div>
 
 
@@ -110,7 +122,7 @@
     <div id="footer" class="row">
         <div class="col-sm-12">
             <div class="totalCost">
-                <h4>Total Cost: <span id='sum'></span></h4>
+                <h4 id="tC">Total Cost: <span id='sum'></span></h4>
             </div>
 
         </div>
@@ -119,7 +131,7 @@
 
     <!-- </div> -->
 
-  
+
     <script>
         var venueMarkers = []
         var currentVenue = []
@@ -197,7 +209,7 @@
             $('#info').css('z-index', '1000')
             
             var row = $(this)
-            var title = $('<h3>').text(row.children('.col-sm-8').children('.title').text()).css('text-align','center')
+            var title = $('<h3>').text(row.children('.col-sm-8').children('.title').text()).css('text-align', 'center')
             $('#info').append(title)
 
             var loadingHotels =  $('<h4>').text('Hotels loading, please wait.').attr('id','hotelsLoading')
@@ -232,11 +244,11 @@
 
         //hotel picked going to flights
 
-         $(document).on('click','.hotelRow',function(){
-             hotelNeighborhood = this.dataset.hood
-             $('#info').css('z-index','-1')
-             $('#flights').css('z-index','10')
-            var flightFrom = $('<input>').attr('id','flightFrom'); 
+        $(document).on('click', '.hotelRow', function () {
+            hotelNeighborhood = this.dataset.hood
+            $('#info').css('z-index', '-1')
+            $('#flights').css('z-index', '10')
+            var flightFrom = $('<input>').attr('id', 'flightFrom');
             minTotal += Math.ceil(parseFloat(this.dataset.price))
             maxTotal += Math.ceil(parseFloat(this.dataset.price))
             $('#sum').text('     $' + minTotal + ' - $' + maxTotal)
@@ -258,13 +270,13 @@
             })
             $('#flights').append(flightsLoading,loadingimg)
             flights()
-         })
+        })
 
-         $(document).on('click','#toFlights',function(){
-             
-             $('#info').css('z-index','-1')
-             $('#flights').css('z-index','10')
-            var flightFrom = $('<input>').attr('id','flightFrom'); 
+        $(document).on('click', '#toFlights', function () {
+
+            $('#info').css('z-index', '-1')
+            $('#flights').css('z-index', '10')
+            var flightFrom = $('<input>').attr('id', 'flightFrom');
             hotelCenters.forEach(element => {
                 element.setMap(null)
             })
@@ -275,7 +287,7 @@
             })
             $('#flights').append(flightsLoading,loadingimg)
             flights()
-         })
+        })
 
 
         //Causes the results page to show
@@ -382,6 +394,7 @@
                     var ticketRange = $('<p>').text('     $' + element.priceRanges[0].min + ' - $' + element.priceRanges[0].max)
                 }
                 var imgDiv = $('<div>').addClass('cropcircle').css('background-image', "url('" + element.images[7].url + "')")
+
                 
                 if (element.priceRanges!== undefined){
                 var row = $('<div>').addClass('row border concert').attr('data-location', JSON.stringify(element._embedded.venues['0'].location)).attr({
@@ -389,15 +402,17 @@
                     'data-min':element.priceRanges[0].min ,
                     'data-max': element.priceRanges[0].max,
                     'data-city': element._embedded.venues[0].city.name})
+
                 }
-                else{
+                else {
                     var row = $('<div>').addClass('row border concert').attr('data-location', JSON.stringify(element._embedded.venues['0'].location)).attr({
                     'data-name': element.name,
                     'data-min':0 ,
                     'data-max':0,
                     'data-city': element._embedded.venues[0].city.name})
+
                 }
-                var col = $('<div>').addClass('col-sm-8')
+                var col = $('<div>').addClass('col-sm-8 conInfo')
                 var imgCol = $('<div>').addClass('col-sm-4 d-flex align-items-center').css('height', '111px')
                 var calendar = $('<img>').attr('src', "open-iconic-master/svg/calendar.svg")
                 var pin = $('<img>').attr('src', 'open-iconic-master/svg/location.svg')

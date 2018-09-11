@@ -64,14 +64,15 @@ label {
     bottom: 0;
     border-top: 5px solid lightslategray;
     margin-top: 5px;
-    width:unset
+    width: unset;
 }
+
 
 .btn{
     
     margin-top: 10px ;
     margin-bottom: 10px;
-}
+
 
 .container {
     margin-top: 5px;
@@ -97,20 +98,25 @@ label {
 }
 
 
+
 .rowBorder{
+
+
     border-width: 1px 0 0 0;
     border-color: lightgrey;
     border-style:solid;
 }
+
 #flights {
-    z-index:-1
+    z-index: -1;
 }
+
 #info{
     z-index: -1;
 }
 #back {
     margin: 0 auto;
-    width: 100%
+    width: 100%;
 }
 
 #footer {
@@ -138,14 +144,76 @@ label {
 .totalCost {
 }
 
-p{
+p {
     margin: 10px 0;
+    display: block;
+}
+
+@media screen and (max-width: 768px) {
+    html {
+        height: 100vh;
+    }    
+
+    body {
+        height: 100%;
+        width: 100vw;
+    }
+
+    #navbarSupportedContent {
+        padding: 10px;
+        border: 5px solid lightslategray;
+        border-radius: 15px;
+        background-color: rgba(240, 240, 240, 0.651);
+    }
+
+    .container-fluid {
+        display: none;
+        width: 100vw;
+    }
+
+    h4 {
+        font-size: 18px;
+        float: right;
+        max-width: 150px;
+    }
+
+    h4:last-child {
+        float: none;
+        margin: auto;
+        text-align: center;
+    }
     
+    .conInfo {
+        float: left;
+        margin: auto;
+        padding: 5px 10px 0 5px;
+    }
+
+    .concert {
+        padding: 5px;
+        font-size: 10px;
+    }
+
+    #shrink {
+        display: none;
+    }
+
+    #results-col, #info, #flights {
+        width: 100vw;
+        border-right: none;
+    }
+
+    #footer {
+        width: 100vw;
+        text-align: center;
+        margin: auto;
+    }
 }
 
 .hotelRow{
     display: block
 }
+
 #final{
     z-index:-2
 }
