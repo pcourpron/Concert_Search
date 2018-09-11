@@ -152,5 +152,9 @@ p {
 @media screen and (max-width: 768px) {
     html {
         height: 90%;
-    }
+    }    
+}
+
+.hotelRow{
+    display: block
 }
