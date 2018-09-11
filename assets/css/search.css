@@ -64,7 +64,7 @@ label {
     bottom: 0;
     border-top: 5px solid lightslategray;
     margin-top: 5px;
-    width:unset
+    width: unset;
 }
 
 .btn{
@@ -147,4 +147,8 @@ p{
     display: block
 }
 
-
+@media screen and (max-width: 768px) {
+    html {
+        height: 100%;
+    }
+}
