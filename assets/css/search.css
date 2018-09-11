@@ -95,12 +95,6 @@ label {
     top: 262px;
 }
 
-#results{
-    overflow-y:auto;
-    overflow-x: unset;
-    width: 100%;
-}
-
 .border{
     border-width: 1px 0 0 0;
     border-color: lightgrey;
@@ -108,7 +102,7 @@ label {
 }
 
 #flights {
-    z-index:-1;
+    z-index: -1;
 }
 
 #info{
@@ -151,8 +145,63 @@ p {
 
 @media screen and (max-width: 768px) {
     html {
-        height: 90%;
+        height: 100vh;
     }    
+
+    body {
+        height: 100%;
+        width: 100vw;
+    }
+
+    #navbarSupportedContent {
+        padding: 10px;
+        border: 5px solid lightslategray;
+        border-radius: 15px;
+        background-color: rgba(240, 240, 240, 0.651);
+    }
+
+    .container-fluid {
+        display: none;
+        width: 100vw;
+    }
+
+    h4 {
+        font-size: 18px;
+        float: right;
+        max-width: 150px;
+    }
+
+    h4:last-child {
+        float: none;
+        margin: auto;
+        text-align: center;
+    }
+    
+    .conInfo {
+        float: left;
+        margin: auto;
+        padding: 5px 10px 0 5px;
+    }
+
+    .concert {
+        padding: 5px;
+        font-size: 10px;
+    }
+
+    #shrink {
+        display: none;
+    }
+
+    #results-col, #info, #flights {
+        width: 100vw;
+        border-right: none;
+    }
+
+    #footer {
+        width: 100vw;
+        text-align: center;
+        margin: auto;
+    }
 }
 
 .hotelRow{

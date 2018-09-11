@@ -14,7 +14,13 @@
         crossorigin="anonymous">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 
     <script src='assets/javascript/hotels.js'></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXtwNcWQKwMAYBw-2F4T4FRAwWqj39dJE"></script>
@@ -46,13 +52,13 @@
          > .submitForm
 
     --------------------------------------------------------------------------------------------------
-     -->
 
-     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
+    <nav class="navbar navbar-expand-sm navbar-light bg-transparent searchBox" style="z-index: 100;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
@@ -61,16 +67,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="favorite.html">Saved Trips</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        View
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Map</a>
-                        <a class="dropdown-item" href="#">List</a>
-                    </div>
                 </li>
             </ul>
             <form class="form-inline my-2 my-sm-0">
@@ -94,9 +90,9 @@
         <button id='toFlights' class='btn btn-primary btn-lg'>Skip to Flights</button>
 
     </div>
-    
-    <div class='container' id = 'flights'>
-            <button id='backHotels' class='btn btn-primary'>Back to Hotels</button>
+
+    <div class='container' id='flights'>
+        <button id='backHotels' class='btn btn-primary'>Back to Hotels</button>
     </div>
 
 
@@ -113,7 +109,7 @@
     <div id="footer" class="row">
         <div class="col-sm-12">
             <div class="totalCost">
-                <h4>Total Cost: <span id='sum'></span></h4>
+                <h4 id="tC">Total Cost: <span id='sum'></span></h4>
             </div>
 
         </div>
@@ -122,7 +118,7 @@
 
     <!-- </div> -->
 
-  
+
     <script>
         var venueMarkers = []
         var currentVenue = []
@@ -202,7 +198,7 @@
             $('#info').append(img)
 
             var row = $(this)
-            var title = $('<h3>').text(row.children('.col-sm-8').children('.title').text()).css('text-align','center')
+            var title = $('<h3>').text(row.children('.col-sm-8').children('.title').text()).css('text-align', 'center')
             $('#info').append(title)
 
             var location = JSON.parse(this.dataset.location)
@@ -221,11 +217,11 @@
 
         //hotel picked going to flights
 
-         $(document).on('click','.hotelRow',function(){
-             hotelNeighborhood = this.dataset.hood
-             $('#info').css('z-index','-1')
-             $('#flights').css('z-index','10')
-            var flightFrom = $('<input>').attr('id','flightFrom'); 
+        $(document).on('click', '.hotelRow', function () {
+            hotelNeighborhood = this.dataset.hood
+            $('#info').css('z-index', '-1')
+            $('#flights').css('z-index', '10')
+            var flightFrom = $('<input>').attr('id', 'flightFrom');
             minTotal += Math.ceil(parseFloat(this.dataset.price))
             maxTotal += Math.ceil(parseFloat(this.dataset.price))
             $('#sum').text('     $' + minTotal + ' - $' + maxTotal)
@@ -235,18 +231,18 @@
             })
 
             flights()
-         })
+        })
 
-         $(document).on('click','#toFlights',function(){
-             
-             $('#info').css('z-index','-1')
-             $('#flights').css('z-index','10')
-            var flightFrom = $('<input>').attr('id','flightFrom'); 
+        $(document).on('click', '#toFlights', function () {
+
+            $('#info').css('z-index', '-1')
+            $('#flights').css('z-index', '10')
+            var flightFrom = $('<input>').attr('id', 'flightFrom');
             hotelCenters.forEach(element => {
                 element.setMap(null)
             })
             flights()
-         })
+        })
 
 
         //Causes the results page to show
@@ -352,21 +348,23 @@
                     var ticketRange = $('<p>').text('     $' + element.priceRanges[0].min + ' - $' + element.priceRanges[0].max)
                 }
                 var imgDiv = $('<div>').addClass('cropcircle').css('background-image', "url('" + element.images[7].url + "')")
-                
-                if (element.priceRanges!== undefined){
-                var row = $('<div>').addClass('row border concert').attr('data-location', JSON.stringify(element._embedded.venues['0'].location)).attr({
-                    'data-concertId': element.id,
-                    'data-min':element.priceRanges[0].min ,
-                    'data-max': element.priceRanges[0].max})
-                }
-                else{
+
+                if (element.priceRanges !== undefined) {
                     var row = $('<div>').addClass('row border concert').attr('data-location', JSON.stringify(element._embedded.venues['0'].location)).attr({
-                    'data-concertId': element.id,
-                    'data-min':0 ,
-                    'data-max':0})
+                        'data-concertId': element.id,
+                        'data-min': element.priceRanges[0].min,
+                        'data-max': element.priceRanges[0].max
+                    })
+                }
+                else {
+                    var row = $('<div>').addClass('row border concert').attr('data-location', JSON.stringify(element._embedded.venues['0'].location)).attr({
+                        'data-concertId': element.id,
+                        'data-min': 0,
+                        'data-max': 0
+                    })
 
                 }
-                var col = $('<div>').addClass('col-sm-8')
+                var col = $('<div>').addClass('col-sm-8 conInfo')
                 var imgCol = $('<div>').addClass('col-sm-4 d-flex align-items-center').css('height', '111px')
                 var calendar = $('<img>').attr('src', "open-iconic-master/svg/calendar.svg")
                 var pin = $('<img>').attr('src', 'open-iconic-master/svg/location.svg')
