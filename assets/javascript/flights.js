@@ -58,7 +58,8 @@ function flights() {
 		}).then(function (flights) {
 			console.log(flights)
 			flights = flights.data
-
+			$('#flightsLoading').hide()
+			$('#loadingGif').hide()
 			flights.forEach(element => {
 				var flightGoDepartureTime = new Date(element.dTime * 1000).toTimeString().substring(0, 5)
 				var flightGoDepartureDay = new Date(element.aTime * 1000).toDateString()
@@ -75,12 +76,13 @@ function flights() {
 
 				var departingTitle = $('<h4>').text('Departing Flight').css({
 					'text-align': 'center',
-					'width': '100%'
+					'width': '100%',
+					'margin-top': '10px'
 
 				})
 				var returningTitle = $('<h4>').text('Returning Flight').css({ 'text-align': 'center', 'width': '100%' })
-				var row = $('<div>').addClass('row border')
-				var row2 = $('<div>').addClass('row')
+				var flightRow = $('<div>').addClass('row rowBorder')
+				var flightRow2 = $('<div>').addClass('row')
 				var departingTimeCols = $('<div>').addClass('col-sm-6')
 				var returningTimeCols = $('<div>').addClass('col-sm-6')
 				var cities = $('<div>').addClass('col-sm-6')
@@ -96,11 +98,42 @@ function flights() {
 				cities.append($('<p>').text('Flight Duration: ' + flightduration))
 
 
+				var flightTotal =element.conversion.USD
+
+				flightRow.append(departingTitle, departingTimeCols, cities)
+				flightRow2.append(returningTitle, returningTimeCols, $('<p>').text('Flight Cost: ' + flightTotal + '$').css({ 'margin-top': '20px', 'color':'red' }))
+				$('#flights').append(flightRow, flightRow2)
+
+				function finalPage(){
+					//show final page
+					$('#final').css('z-index','10')
+					$('#flights').css('z-index','-1')
+
+					//add flight cost
+					minTotal += flightTotal
+					maxTotal += flightTotal
+
+					$('#sum').text('$'+minTotal + ' - '+'$'+maxTotal)
+
+					var finalHeader = $('<h3>').text('Final Itinerary').css('text-align','center');
+					var concert = $('<h4>').text('Concert: '+ selectedConcert)
+					var city = $('<h4>').text('City: ' + selectedCity )
+					var totalRange = $('<p>').text( 'Trip Cost: $' + minTotal + ' - $'+ maxTotal)
+					
+
+					$('#final').append(finalHeader, concert,city, totalRange)
+				}
 
 
-				row.append(departingTitle, departingTimeCols, cities)
-				row2.append(returningTitle, returningTimeCols, $('<p>').text('Flight Cost: ' + element.conversion.USD + '$').css({ 'margin-top': '20px', 'color':'red' }))
-				$('#flights').append(row, row2)
+				flightRow.click(function(){
+					finalPage()
+
+				})
+				flightRow2.click(function(){
+					finalPage()
+				})
+
+				
 			});
 
 		});
