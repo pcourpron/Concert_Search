@@ -72,8 +72,13 @@ label {
     
     margin-top: 10px ;
     margin-bottom: 10px;
-
 }
+
+#buttonsHotel {
+    display: flex;
+    justify-content: space-around;
+}
+
 .container {
     background-image: url("../images/bumperBG.jpg");
     margin-top: 5px;
@@ -129,7 +134,7 @@ label {
     width: 408px;
     text-align: center;
     margin: auto;
-    text-shadow: 2px 2px 5px rgb(0, 0, 0);
+    text-shadow: 1px 1px 2px rgb(0, 0, 0);
     background-color: rgba(240, 240, 240, 0.651);
     border-top: 5px solid lightslategray;
     height: 25px;
@@ -157,7 +162,7 @@ p {
     display: block;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 772px) {
     html {
         height: 100vh;
     }    
@@ -187,6 +192,11 @@ p {
         background-color: rgba(255, 255, 255, 0.812);
     }
 
+    .container {
+        right: 0;
+        left: 0;
+    }
+
     .container-fluid {
         display: none;
         width: 100vw;
@@ -199,6 +209,7 @@ p {
     }
 
    #footer h4 {
+       float: none;
         margin: auto;
         text-align: center;
     }
