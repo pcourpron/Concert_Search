@@ -25,7 +25,7 @@ function hotelSearch(location) {
   var maxNightsStay = 4
   // Right now this sets it to a 3 to 4 night stay.
 
-  var queryURL = 'http://cors-anywhere.herokuapp.com/' + 'http://api.hotwire.com/v1/search/hotel?apikey=dkvkbmxbs5nzer7hmg6bfd26&rooms=1&adults=2&children=0&dest==' + latLong + '&startdate=' + startDate + '&enddate=' + endDate + '&format=JSON'
+  var queryURL = 'https://cors-anywhere.herokuapp.com/' + 'https://api.hotwire.com/v1/search/hotel?apikey=dkvkbmxbs5nzer7hmg6bfd26&rooms=1&adults=2&children=0&dest==' + latLong + '&startdate=' + startDate + '&enddate=' + endDate + '&format=JSON'
   map.setCenter(new google.maps.LatLng(parseFloat(location.latitude), parseFloat(location.longitude)))
   map.setZoom(10.4)
 
