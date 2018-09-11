@@ -69,7 +69,8 @@ label {
 
 .btn{
     
-    margin-top: 10px
+    margin-top: 10px ;
+    margin-bottom: 10px;
 }
 
 .container {
@@ -95,13 +96,8 @@ label {
     top: 262px;
 }
 
-#results{
-    overflow-y:auto;
-    overflow-x: unset;
-    width: 100%;
-}
 
-.border{
+.rowBorder{
     border-width: 1px 0 0 0;
     border-color: lightgrey;
     border-style:solid;
@@ -150,4 +146,8 @@ p{
 .hotelRow{
     display: block
 }
+#final{
+    z-index:-2
+}
+
 
