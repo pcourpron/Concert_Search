@@ -31,6 +31,15 @@
             height: 90%;
         }
 
+        .navbar-nav {
+    font-size: 18px;
+}
+
+.searchBox {
+    padding-top: 20px;
+    font-size: 18px;
+}
+
         body {
             box-sizing: border-box;
             position: relative;
@@ -166,8 +175,8 @@ For reference on the fill - here are the variables based on the choices of the p
     </header>
 
     <nav class="navbar navbar-expand-xl navbar-light bg-transparent searchBox" style="z-index: 100;">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 
 
             <span class="navbar-toggler-icon"></span>
@@ -182,6 +191,9 @@ For reference on the fill - here are the variables based on the choices of the p
                     <a class="nav-link" href="favorite.html">Saved Trips <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
+            <form class="form-inline">
+                <button class="btn nav-item btn-success logIn" type="button">Log-In / Sign-Up</button>
+            </form>
         </div>
     </nav>
 
@@ -236,7 +248,7 @@ For reference on the fill - here are the variables based on the choices of the p
                 $("#cards").empty();
 
                 if (doc.data().concerts === undefined) {
-   $("#cards").html(` 
+                    $("#cards").html(` 
 <div class="card d-flex" style="width: 18rem;">
 <div class="card-body">
 <h5 class="card-title favBand">You have no concerts saved!</h5>
@@ -304,6 +316,21 @@ For reference on the fill - here are the variables based on the choices of the p
 
         }
 
+        $(".logIn").on("click", function () {
+
+            $("#jqxwindow").jqxWindow({ theme: 'highcontrast' });
+            $('#jqxwindow').jqxWindow({ height: "475px" });
+            $('#jqxwindow').jqxWindow({ width: "550px" });
+            $('#jqxwindow').jqxWindow({ position: 'center' });
+            $('#jqxwindow').jqxWindow({ title: 'Log-In / Sign-Up' });
+
+            $("#jqxwindow").jqxWindow('open')
+
+            // Variables for firebase = #firstName, #lastName, #emailInput, #passInput, .fireLogIn, .fireSignUp
+
+            $("#overlay").html("<form><div class='row'><div class='col form-group'><input type='text' class='form-control' id='firstName' placeholder='First name'></div><div class='col form-group'><input type='text' class='form-control' id='lastName' placeholder='Last name'></div></div><div class='form-group'><label for='exampleInputEmail1'>Email address</label><input type='email' class='form-control' id='emailInput' aria-describedby='emailHelp' placeholder='Enter email'><small id='emailHelp' class='form-text text-muted'>We'll never share your email with anyone else.</small></div><div class='form-group'><label for='exampleInputPassword1'>Password</label><input type='password' class='form-control' id='passInput' placeholder='Password'></div><div class='row'><button type='submit' class='col btn btn-primary fireLogIn'>Log In</button><button type='submit' class='col btn btn-primary fireSignUp'>Sign Up</button></div></form>");
+        })
+
 
 
         // Tries to initiate the app. If there is no loginID in localStorage...
@@ -330,7 +357,7 @@ For reference on the fill - here are the variables based on the choices of the p
         var keyword = 'beyonce'
         // var artist = 
         var musicKey = "ZTk2YjY4MjMtMDAzYy00MTg4LWE2MjYtZDIzNjJmMmM0YTdm";
-        var musicQurl = "https://api.napster.com/v2.2/search?query="+keyword+"&type=artist,track&per_type_limit=1&isStreamableOnly=true&client_id=" + musicKey;
+        var musicQurl = "https://api.napster.com/v2.2/search?query=" + keyword + "&type=artist,track&per_type_limit=1&isStreamableOnly=true&client_id=" + musicKey;
 
         $.ajax({
             method: "GET",
