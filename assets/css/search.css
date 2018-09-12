@@ -67,6 +67,18 @@ label {
     width: unset;
 }
 
+.submitForm {
+    margin: auto;
+    float: right;
+}
+
+h3 {
+    float: left;
+    padding: 10px;
+    text-align: center;
+    margin: auto;
+}
+
 
 .btn{
     
@@ -75,6 +87,12 @@ label {
 }
 
 #buttonsHotel {
+    display: flex;
+    justify-content: space-around;
+    margin: 5px;
+}
+
+#searchDate {
     display: flex;
     justify-content: space-around;
 }
@@ -144,6 +162,7 @@ label {
 }
 
 #tC {
+    padding-bottom: 25px;
     text-align: center;
     margin: 0 0 8px 0;
     -webkit-background-clip: text;
@@ -209,12 +228,14 @@ p {
     }
 
    #footer h4 {
-       float: none;
+        float: none;
         margin: auto;
         text-align: center;
     }
 
     #sum {
+        margin: auto;
+        text-align: center;
     }
     
     .conInfo {
