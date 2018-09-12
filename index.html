@@ -223,9 +223,10 @@ So here's some of the preliminary information that can be linked up through js:
 
                 if (doc.exists && inputPassword === doc.data().password) {
                     alert("Logged in!")
-                    currentUser = doc.data().email;
-                    console.log("current user: " + currentUser);
-                    login();
+                    var loginId = doc.data().id
+                    localStorage.setItem('loginId', loginId);
+                    $("#jqxwindow").jqxWindow('close')
+
 
                 } else {
                     alert("Incorrect username/password");
@@ -256,10 +257,7 @@ So here's some of the preliminary information that can be linked up through js:
 
                 } else {
                     alert("New User Created!")
-
-                    currentUser = inputEmail;
-                    login();
-
+                    $("#jqxwindow").jqxWindow('close')
                     var loginId = (Math.floor(Math.random() * 100000000)).toString()
                     localStorage.setItem('loginId', loginId)
                     var loginInputRef = loginRef.doc(loginId)
@@ -272,6 +270,7 @@ So here's some of the preliminary information that can be linked up through js:
                         email: inputEmail,
                         firstName: inputFirstName,
                         lastName: inputLastName,
+                        id: loginId
 
                     }, {
                             merge: true
@@ -290,16 +289,6 @@ So here's some of the preliminary information that can be linked up through js:
 
         // -------------- Functions
 
-
-        // Sets "current-user" on Firebase to the current user
-
-        function login() {
-
-            usersRef.doc("current-user").set({
-                username: currentUser
-            })
-
-        }
 
 
     </script>
