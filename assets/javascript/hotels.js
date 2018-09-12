@@ -1,6 +1,6 @@
 // Hotel Deals API Documentation: http://developer.hotwire.com/docs/read/Hotel_Deals_API
 
-function hotelSearch(location) {
+function hotelSearch(location,start,end) {
 
 
   $("#info").children('.row').remove()
@@ -19,14 +19,11 @@ function hotelSearch(location) {
   conertLong = location.longitude
   // Latitude/Longitude (of LA!)
   var withinRadius = 15; // miles
-  var startDate = "10/08/2018" // Required
-  var endDate = "10/15/2018" // Optional; if paired with a start date, it looks for an exact stay length from start to end dates.
+  var startDate = start// Required
+  var endDate = end // Optional; if paired with a start date, it looks for an exact stay length from start to end dates.
 
-
-  // duration   (&duration=5~*   # any checkin/checkout dates and length of stay of 5 nights or more)
-  var minNightsStay = 3
-  var maxNightsStay = 4
-  // Right now this sets it to a 3 to 4 night stay.
+console.log(startDate)
+  
 
   var queryURL = 'https://cors-anywhere.herokuapp.com/' + 'https://api.hotwire.com/v1/search/hotel?apikey=dkvkbmxbs5nzer7hmg6bfd26&rooms=1&adults=2&children=0&dest==' + latLong + '&startdate=' + startDate + '&enddate=' + endDate + '&format=JSON'
   map.setCenter(new google.maps.LatLng(parseFloat(location.latitude), parseFloat(location.longitude)))
@@ -39,6 +36,7 @@ function hotelSearch(location) {
     url: queryURL,
 
   }).then(function (response) {
+    console.log(response)
     var showHotel = []
     var arrayHotel = response.Result
     var arrayNeighborhood = response.MetaData.HotelMetaData.Neighborhoods
