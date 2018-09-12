@@ -31,23 +31,24 @@ function flights(from,end,start) {
 	// ---------- ALL DATES MUST BE IN dd/mm/YYYY FORMAT
 
 	// Required; default to one week before concert
-	var dateFrom = "10/10/2018"
+	var dateFrom = start
 
 	// Required; default to One day before the concert
-	var dateTo = "10/10/2018"
+	var dateTo = start
 
 
 	// Optional; default to One day after the concert
-	var returnFrom = "10/11/2018"
+	var returnFrom = end
 
 	// Optional; default to the same as returnFrom
-	var returnTo = "10/11/2018"
+	var returnTo = end
 
 
 
 	// To and From query URLs
 
 	var fromQueryURL = `https://api.skypicker.com/locations?term=${flyFromInput}`
+	console.log(fromQueryURL)
 
 	// Locations API Destination Pull
 
@@ -64,27 +65,27 @@ function flights(from,end,start) {
 
 		var queryURL =
 			`https://api.skypicker.com/flights?flyFrom=${flyFromFinal}&to=${flyTo}&dateFrom=${dateFrom}&dateTo=${dateTo}&returnFrom=${returnFrom}&returnTo=${returnTo}&partner=picky&limit=10&curr=USD`
-
+			console.log(queryURL)
 		// Flights API Pull
 		$.ajax({
 			url: queryURL,
 			method: "GET"
 		}).then(function (flights) {
 			console.log(flights)
-			console.log(queryURL)
+			
 			flights = flights.data
 			$('#flightsLoading').hide()
 			$('#loadingGif').hide()
 			flights.forEach(element => {
 				var flightGoDepartureTime = new Date(element.dTime * 1000).toTimeString().substring(0, 5)
-				var flightGoDepartureDay = new Date(element.aTime * 1000).toDateString()
-				var flightGoDepartureDay2 = new Date(element.dTime * 1000).toDateString()
+				var flightGoDepartureDay = new Date(element.dTime * 1000).toDateString()
+				var flightGoDepartureDay2 = new Date(element.aTime * 1000).toDateString()
 				var flightGoArrivalTime = new Date(element.aTime * 1000).toTimeString().substring(0, 5)
 				var flightduration = element.fly_duration
 				var returnLength = parseInt(element.route.length) - 1
-				var flightReturnDepartureTime = new Date(element.route[returnLength].aTime * 1000).toTimeString().substring(0, 5)
+				var flightReturnDepartureTime = new Date(element.route[returnLength].dTime * 1000).toTimeString().substring(0, 5)
 				var flightReturnArrivalTime = new Date(element.route[returnLength].aTime * 1000).toTimeString().substring(0, 5)
-				var flightReturnDay = new Date(element.route[returnLength].aTime * 1000).toDateString()
+				var flightReturnDay = new Date(element.route[returnLength].dTime * 1000).toDateString()
 				var flightReturnDay2 = new Date(element.route[returnLength].aTime * 1000).toDateString()
 
 
@@ -132,13 +133,13 @@ function flights(from,end,start) {
 
 					$('#sum').text('$' + minTotal + ' - ' + '$' + maxTotal)
 
-					var finalHeader = $('<h3>').text('Final Itinerary').css('text-align', 'center');
-					var concert = $('<h4>').text('Concert: ' + selectedConcert)
-					var city = $('<h4>').text('City: ' + selectedCity)
-					var totalRange = $('<p>').text('Trip Cost: $' + minTotal + ' - $' + maxTotal)
+					var finalHeader = $('<h3>').text('Final Itinerary').css({'text-align':'center','width':'100%'});
+					var concert = $('<h4>').text('Concert: ' + selectedConcert).css('width','100%')
+					var city = $('<h4>').text('City: ' + selectedCity).css('width','100%')
+					var totalRange = $('<p>').text('Trip Cost: $' + minTotal + ' - $' + maxTotal).css('width','100%')
 
 
-					$('#final').append(finalHeader, concert, city, totalRange)
+					$('#final').append(finalHeader, concert, '<br>',city,'<br>', totalRange)
 				}
 
 

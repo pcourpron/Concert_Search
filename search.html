@@ -123,31 +123,16 @@
 
         <button id='backHotels' class='btn btn-primary btn-sm'>Back to Hotels</button>
 
-        <input type="date" id="startHotel" class="form-control mr-sm-2 startDateInput" name="trip" value="2018-09-10" max="2020-12-31"
-        />
-        <label for="end">End </label>
-        <input type="date" id="endHotel" class="form-control mr-sm-2 endDateInput" name="trip" value="2018-09-11" max="2020-12-31"
-        />
-        <button class="btn my-2 my-sm-0 submitForm btn-dark" type="submit">Search</button>
+        <input type="text" id="startFlight" class="form-control mr-sm-2"/>
+       
+        <button class="btn my-2 my-sm-0 btn-dark" id='flightSubmit'>Search</button>
 
     </div>
     <div class='container' id='final'>
         <button id='backFlights' class='btn btn-primary btn-sm'>Back to Flights</button>
         <button id='save' class='btn btn-primary btn-sm'>Save Itinerary!</button>
-
-        <button id='backHotels' class='btn btn-primary btn-lg'>Back to Hotels</button>
-
-        <input type="text" id="startFlight" class="form-control mr-sm-2"/>
-        
-        <button id= 'flightSubmit' class="btn my-2 my-sm-0 btn-dark" >Search</button>
-
     </div>
-    <div class='container' id='final'>
-        <button id='backFlights' class='btn btn-primary btn-lg'>Back to Flights</button>
-        <button id='save' class='btn btn-primary btn-lg'>Save Itinerary!</button>
-
-
-    </div>
+   
 
 
     <!--
@@ -321,8 +306,8 @@
 
     
 
-            flightStart = startmonth + '/' + (parseInt(startday-1)) + '/' + startyear
-            flightEnd = endmonth + '/' + (parseInt(endday)-1) + '/' + endyear
+            flightStart = (parseInt(startday-1)) + '/'+startmonth  + '/' + startyear
+            flightEnd =   (parseInt(endday)-1)+'/' + endmonth  + '/' + endyear
 
             hotelSearch(locationConcert, start, end)
 
@@ -433,8 +418,10 @@
             console.log(selectedConcertImage)
 
             var row = $(this)
-            var title = $('<h3>').text(row.children('.col-sm-8').children('.title').text()).css('text-align', 'center')
-            $('#searchDate').append(title)
+            var date = $('<h5>').text(this.dataset.date).css('margin','0')
+            var title = $('<h3>').text(row.children('.col-sm-8').children('.title').text()).css({'text-align': 'center','width':'100%'})
+            $('#searchDate').append(title,'<br>',date)
+
 
 
             var loadingHotels = $('<h4>').text('Hotels loading, please wait.').attr('id', 'hotelsLoading')
@@ -478,7 +465,7 @@
         $(document).on('click', '.hotelRow', function () {
             hotelNeighborhood = this.dataset.hood
             selectedHotelPrice = this.dataset.price
-
+            var from = $('#startFlight').val()
             $('#info').css('z-index', '-1')
             $('#flights').css('z-index', '10')
             var flightFrom = $('<input>').attr('id', 'flightFrom');
@@ -502,28 +489,27 @@
                     margin: '0 auto',
                     display: 'block'
                 })
-            $('#flights').append(flightsLoading, loadingimg)
-            flights()
 
+           
+                
         })
 
         $(document).on('click','#flightSubmit',function(){
             var start = $('#startFlight').val()
-            flights(start)
+            flights(start,flightEnd,flightStart)
 
         })
 
         $(document).on('click', '#toFlights', function () {
             $('#info').css('z-index', '-1')
             $('#flights').css('z-index', '10')
-            var flightFrom = $('<input>').attr('id', 'flightFrom');
             hotelCenters.forEach(element => {
                 element.setMap(null)
             })
 
 
            var flightFrom =$('#startFlight').val()
-            flights(flightFrom)
+            flights(flightFrom,flightEnd,flightStart)
 
         })
 
@@ -532,7 +518,12 @@
 
         $(document).on('click', '#backResults', function () {
             $('#info').css('z-index', '-1')
-            $('#info').children('h3').remove()
+            $('#searchDate').children('h3').remove()
+            $('#searchDate').children('h5').remove()
+            minTotal -= minTotal
+            maxTotal -= maxTotal
+            $('#sum').text('     $' + minTotal + ' - $' + maxTotal)
+
 
             currentVenue[0].setMap(null)
             for (var i = 0; i < venueMarkers.length; i++) {
@@ -556,6 +547,7 @@
 
             })
             hotelCenters = []
+            
 
 
 
@@ -650,7 +642,8 @@
                         'data-min': element.priceRanges[0].min,
                         'data-max': element.priceRanges[0].max,
                         'data-city': element._embedded.venues[0].city.name,
-                        'data-image': element.images[7].url
+                        'data-image': element.images[7].url,
+                        'data-date': element.dates.start.localDate
                     })
 
                 }
@@ -660,7 +653,9 @@
                         'data-min': 0,
                         'data-max': 0,
                         'data-city': element._embedded.venues[0].city.name,
-                        'data-image': element.images[7].url
+                        'data-image': element.images[7].url,
+                        'data-date': element.dates.start.localDate
+
                     })
 
                 }
