@@ -2,17 +2,31 @@
 // Locations API link to get airport codes/city codes: https://docs.kiwi.com/locations/#locations-collection
 
 
-function flights() {
-	var concertLat = 34.0522
-	var concertLong = 118.2437
+function flights(from,end,start) {
+	var flightsLoading = $('<h4>').text('Flights loading, please wait.').attr('id', 'flightsLoading')
+	var loadingimg = $('<img>').attr({
+		id: 'loadingGif',
+		src: 'https://gifer.com/i/4V0b.gif'
+	})
+		.css({
+			height: '100px',
+			width: '100px',
+			margin: '0 auto',
+			display: 'block'
+		})
+	$('#flights').append(flightsLoading, loadingimg)
+
+	var concertLat = locationConcert.latitude
+	var concertLong = locationConcert.longitude
+	
 	// Spelled wrong to test their corrections
-	var flyFromInput = "Shanghai"
+	var flyFromInput = from
 	var flyFromFinal;
 
 	// Lat-Long-radius to find airports around destination; only takes kilometers...
-	var flyTo = concertLat + '--' + concertLong + "-150km"
+	var flyTo = concertLat + '-' + concertLong + "-150km"
 
-
+	console.log(flyTo)
 
 	// ---------- ALL DATES MUST BE IN dd/mm/YYYY FORMAT
 
@@ -57,6 +71,7 @@ function flights() {
 			method: "GET"
 		}).then(function (flights) {
 			console.log(flights)
+			console.log(queryURL)
 			flights = flights.data
 			$('#flightsLoading').hide()
 			$('#loadingGif').hide()
@@ -98,44 +113,44 @@ function flights() {
 				cities.append($('<p>').text('Flight Duration: ' + flightduration))
 
 
-				var flightTotal =element.conversion.USD
+				var flightTotal = element.conversion.USD
 
 				selectedFlightPrice = flightTotal
 
 				flightRow.append(departingTitle, departingTimeCols, cities)
-				flightRow2.append(returningTitle, returningTimeCols, $('<p>').text('Flight Cost: ' + flightTotal + '$').css({ 'margin-top': '20px', 'color':'red' }))
+				flightRow2.append(returningTitle, returningTimeCols, $('<p>').text('Flight Cost: ' + flightTotal + '$').css({ 'margin-top': '20px', 'color': 'red' }))
 				$('#flights').append(flightRow, flightRow2)
 
-				function finalPage(){
+				function finalPage() {
 					//show final page
-					$('#final').css('z-index','10')
-					$('#flights').css('z-index','-1')
+					$('#final').css('z-index', '10')
+					$('#flights').css('z-index', '-1')
 
 					//add flight cost
 					minTotal += flightTotal
 					maxTotal += flightTotal
 
-					$('#sum').text('$'+minTotal + ' - '+'$'+maxTotal)
+					$('#sum').text('$' + minTotal + ' - ' + '$' + maxTotal)
 
-					var finalHeader = $('<h3>').text('Final Itinerary').css('text-align','center');
-					var concert = $('<h4>').text('Concert: '+ selectedConcert)
-					var city = $('<h4>').text('City: ' + selectedCity )
-					var totalRange = $('<p>').text( 'Trip Cost: $' + minTotal + ' - $'+ maxTotal)
-					
+					var finalHeader = $('<h3>').text('Final Itinerary').css('text-align', 'center');
+					var concert = $('<h4>').text('Concert: ' + selectedConcert)
+					var city = $('<h4>').text('City: ' + selectedCity)
+					var totalRange = $('<p>').text('Trip Cost: $' + minTotal + ' - $' + maxTotal)
 
-					$('#final').append(finalHeader, concert,city, totalRange)
+
+					$('#final').append(finalHeader, concert, city, totalRange)
 				}
 
 
-				flightRow.click(function(){
+				flightRow.click(function () {
 					finalPage()
 
 				})
-				flightRow2.click(function(){
+				flightRow2.click(function () {
 					finalPage()
 				})
 
-				
+
 			});
 
 		});
