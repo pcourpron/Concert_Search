@@ -94,7 +94,7 @@
     </nav>
 
     <div class='container-fluid' id='map'> </div>
-    <button id='shrink'>shrink</button>
+    <button id='shrink'><</button>
     <div class='container' id='results-col'> </div>
     <div class='container' id='info'>
         <div id='buttonsHotel'>
@@ -393,16 +393,16 @@
 
         // Causes results to be pushed off screen or come back on
         $('#shrink').click(function () {
-            if ($('#shrink').text() === 'shrink') {
+            if ($('#shrink').text() === '<') {
                 $('.container').css('left', '-508px')
                 $('#shrink').css('left', '0')
-                $('#shrink').text('grow')
+                $('#shrink').text('>')
                 $('.container-fluid').css('left', '0%')
             }
             else {
                 $('.container').css('left', '0')
                 $('#shrink').css('left', '408px')
-                $('#shrink').text('shrink')
+                $('#shrink').text('<')
                 $('.container-fluid').css('left', '408px')
             }
 
