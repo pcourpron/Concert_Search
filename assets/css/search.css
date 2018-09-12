@@ -174,7 +174,7 @@ h3 {
 }
 
 #footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 408px;
     text-align: center;
