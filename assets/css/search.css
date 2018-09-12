@@ -2,6 +2,10 @@ html {
     height: 90%;
 }
 
+.navbar-nav {
+    font-size: 18px;
+}
+
 .cropcircle{
     width: 100px;
     height: 100px;
@@ -67,6 +71,13 @@ label {
     width: unset;
 }
 
+.concert {
+    padding: 10px 5px 5px 5px;
+    font-size: 14px;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
 .submitForm {
     margin: auto;
     float: right;
@@ -95,23 +106,38 @@ h3 {
 #searchDate {
     display: flex;
     justify-content: space-around;
-    flex-wrap: wrap
+    flex-wrap: wrap;
+}
+
+#searchDate2 {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .container {
-    background-image: url("../images/bumperBG.jpg");
+    background-color: lemonchiffon;
     margin-top: 5px;
     border-top: 5px solid lightslategray;
     border-right: 3px solid lightslategray;
     width: 408px;
     position: absolute;
     z-index: 10;
-    background-color: white;
     transition: left .2s;
     overflow-y:scroll;
     overflow-x:hidden;
     top:152px;
     bottom: 65px;
+}
+
+#backHotels {
+    display: flex;
+    justify-content: center;
+}
+
+#searchHotel {
+    padding: 0 10px 0 10px;
+    margin: auto;
 }
 
 #shrink {
@@ -163,6 +189,10 @@ h3 {
 }
 
 #tC {
+    position: absolute;
+    top: -10px;
+    left: 20%;
+    font-size: 22px;
     padding-bottom: 25px;
     text-align: center;
     margin: 0 0 8px 0;
@@ -229,14 +259,11 @@ p {
     }
 
    #footer h4 {
-        float: none;
-        margin: auto;
         text-align: center;
-    }
-
-    #sum {
-        margin: auto;
-        text-align: center;
+        font-size: 12px;
+        top: -20px;
+    left: 28%;
+    position: absolute;
     }
     
     .conInfo {
