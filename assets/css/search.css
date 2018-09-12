@@ -186,6 +186,7 @@ h3 {
     padding: 30px 10px 30px 10px;
     z-index: 25;
     margin: auto;
+        transition: .2s;
 }
 
 #tC {
