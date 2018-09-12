@@ -12,13 +12,13 @@
     <link href="https://fonts.googleapis.com/css?family=Baloo+Tammudu" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
-        <link rel='stylesheet' href='assets/css/search.css'>
+    <link rel='stylesheet' href='assets/css/search.css'>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
@@ -60,7 +60,7 @@
     ------->
 
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-transparent searchBox" style='z-index: 1000;'>
+    <nav class="navbar navbar-expand-xl navbar-light bg-transparent searchBox" style='z-index: 1000;'>
 
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -95,33 +95,39 @@
     <button id='shrink'>shrink</button>
     <div class='container' id='results-col'> </div>
     <div class='container' id='info'>
-        <div id = 'buttonsHotel'>
-        <button id='backResults' class='btn justify-content-center btn-primary btn-sm'>Back to Results</button>
-        <button id='toFlights' class='btn justify-content-center btn-primary btn-sm'>Skip to Flights</button>
-    </div>
-        <label for="start">Start </label>
-    
-
-                <input type="date" id="startHotel" class="form-control mr-sm-2 startDateInput" name="trip" value="2018-09-10" max="2020-12-31"/>
-                <label for="end">End </label>
-                <input type="date" id="endHotel" class="form-control mr-sm-2 endDateInput" name="trip" value="2018-09-11" max="2020-12-31" />
-                <button class="btn my-2 my-sm-0 submitForm btn-dark" type="submit">Search</button>
-            
-    </div>
-
-    
-    <div class='container' id = 'flights'>
-            <button id='backHotels' class='btn btn-primary btn-lg'>Back to Hotels</button>
-
-            <input type="date" id="startHotel" class="form-control mr-sm-2 startDateInput" name="trip" value="2018-09-10" max="2020-12-31"/>
+        <div id='buttonsHotel'>
+            <button id='backResults' class='btn justify-content-center btn-primary btn-sm'>Back to Results</button>
+            <button id='toFlights' class='btn justify-content-center btn-primary btn-sm'>Skip to Flights</button>
+        </div>
+        <div id="searchDate">
+            <label for="start">Start </label>
+            <input type="date" id="startHotel" class="form-control mr-sm-2 startDateInput" name="trip" value="2018-09-10" max="2020-12-31"
+            />
             <label for="end">End </label>
-            <input type="date" id="endHotel" class="form-control mr-sm-2 endDateInput" name="trip" value="2018-09-11" max="2020-12-31" />
-            <button class="btn my-2 my-sm-0 submitForm btn-dark" type="submit">Search</button>
-        
+            <input type="date" id="endHotel" class="form-control mr-sm-2 endDateInput" name="trip" value="2018-09-11" max="2020-12-31"
+            />
+            <div>
+                <button class="btn my-2 my-sm-0 submitForm btn-dark" type="submit">Search</button>
+            </div>
+        </div>
+
     </div>
-    <div class='container' id = 'final'>
-            <button id='backFlights' class='btn btn-primary btn-lg'>Back to Flights</button>
-            <button id='save' class='btn btn-primary btn-lg'>Save Itinerary!</button>
+
+
+    <div class='container' id='flights'>
+        <button id='backHotels' class='btn btn-primary btn-sm'>Back to Hotels</button>
+
+        <input type="date" id="startHotel" class="form-control mr-sm-2 startDateInput" name="trip" value="2018-09-10" max="2020-12-31"
+        />
+        <label for="end">End </label>
+        <input type="date" id="endHotel" class="form-control mr-sm-2 endDateInput" name="trip" value="2018-09-11" max="2020-12-31"
+        />
+        <button class="btn my-2 my-sm-0 submitForm btn-dark" type="submit">Search</button>
+
+    </div>
+    <div class='container' id='final'>
+        <button id='backFlights' class='btn btn-primary btn-sm'>Back to Flights</button>
+        <button id='save' class='btn btn-primary btn-sm'>Save Itinerary!</button>
 
     </div>
 
@@ -137,9 +143,9 @@
      -->
 
     <div id="footer" class="row">
-        <div class="col-sm-12">
+        <div class="col-sm">
             <div class="totalCost">
-                <h4 id="tC">Total Cost:   <span id='sum'></span></h4>
+                <h4 id="tC">Total Cost: <span id='sum'></span></h4>
             </div>
 
         </div>
@@ -148,40 +154,40 @@
 
     <!-- </div> -->
 
-    
+
 
     <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
     <script>
         var today = new Date();
-            var dd = today.getDate();
-            var mm = today.getMonth()+1; //January is 0!
-            var yyyy = today.getFullYear();
-            
-            if(dd<10) {
-                dd = '0'+dd
-            } 
-            
-            if(mm<10) {
-                mm = '0'+mm
-            } 
-            
-            today = yyyy + '-' + mm + '-' + dd;
-            dd2 = dd +1 
-            
-            $('#start').val(today)
-            
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+
+        today = yyyy + '-' + mm + '-' + dd;
+        dd2 = dd + 1
+
+        $('#start').val(today)
+
     </script>
 
 
     <script>
         console.log($('.startDateInput').val())
-        if (localStorage.getItem('loginId')===null){
+        if (localStorage.getItem('loginId') === null) {
             $('#save').hide()
         }
 
         // Start Firebase 
-         firebase.initializeApp({
+        firebase.initializeApp({
             apiKey: 'AIzaSyBuWcwfnrVFPyABm96d6GIoHwwBXa_DAfk',
             authDomain: 'iconcert-638ff.firebaseapp.com',
             projectId: 'iconcert-638ff'
@@ -217,17 +223,17 @@
         var minTotal = 0
         var maxTotal = 0
 
-        
-        
 
-        $(document).on('click','#save',function(){
+
+
+        $(document).on('click', '#save', function () {
             var loginId = localStorage.getItem('loginId')
-            
+
             var inputRef = db.collection('login').doc(loginId)
 
-            
-            inputRef.get().then(function(doc){
-                if (doc.data().concerts === undefined){
+
+            inputRef.get().then(function (doc) {
+                if (doc.data().concerts === undefined) {
                     var array = []
                 }
                 else {
@@ -242,23 +248,23 @@
                 object.flight = selectedFlightPrice
                 object.keyword = keyword
 
-                
 
-                
-                
-                
+
+
+
+
                 array.push(object)
                 var inputRef = db.collection('login').doc(loginId)
-            console.log('hi')
-             inputRef.set({
-                 concerts: array
+                console.log('hi')
+                inputRef.set({
+                    concerts: array
                 }
-            )
+                )
             })
 
 
 
-            
+
         })
 
 
@@ -276,7 +282,7 @@
 
             if (locationLocal === "null") {
                 // Clear absolutely everything stored in localStorage using localStorage.clear()
-                
+
                 // Store the location and band into localStorage using "localStorage.setItem"
                 localStorage.setItem("band", band);
                 console.log(localStorage);
@@ -284,7 +290,7 @@
 
             else {
                 // Clear absolutely everything stored in localStorage using localStorage.clear()
-                
+
                 // Store the location and band into localStorage using "localStorage.setItem"
                 localStorage.setItem("locationLocal", locationLocal);
                 localStorage.setItem("band", band);
@@ -320,31 +326,31 @@
         // Causes the info page to show
         $(document).on('click', '.concert', function () {
             $('#info').css('z-index', '150')
-            
+
             selectedConcertImage = this.dataset.image
             console.log(selectedConcertImage)
-            
+
             var row = $(this)
             var title = $('<h3>').text(row.children('.col-sm-8').children('.title').text()).css('text-align', 'center')
             $('#info').append(title)
 
-            var loadingHotels =  $('<h4>').text('Hotels loading, please wait.').attr('id','hotelsLoading')
+            var loadingHotels = $('<h4>').text('Hotels loading, please wait.').attr('id', 'hotelsLoading')
             var loadingimg = $('<img>').attr({
                 id: 'loadingGif',
                 src: 'https://gifer.com/i/4V0b.gif'
             })
-            .css({
-                height: '100px',
-                width: '100px',
-                margin: '0 auto',
-                display: 'block'
-            })
-            
-            $('#info').append(loadingHotels,loadingimg)
-            
+                .css({
+                    height: '100px',
+                    width: '100px',
+                    margin: '0 auto',
+                    display: 'block'
+                })
+
+            $('#info').append(loadingHotels, loadingimg)
+
 
             var location = JSON.parse(this.dataset.location)
-            
+
             hotelSearch(location)
 
             selectedConcert = this.dataset.name
@@ -374,19 +380,19 @@
                 element.setMap(null)
 
             })
-            
-            var flightsLoading = $('<h4>').text('Flights loading, please wait.').attr('id','flightsLoading')
+
+            var flightsLoading = $('<h4>').text('Flights loading, please wait.').attr('id', 'flightsLoading')
             var loadingimg = $('<img>').attr({
                 id: 'loadingGif',
                 src: 'https://gifer.com/i/4V0b.gif'
             })
-            .css({
-                height: '100px',
-                width: '100px',
-                margin: '0 auto',
-                display: 'block'
-            })
-            $('#flights').append(flightsLoading,loadingimg)
+                .css({
+                    height: '100px',
+                    width: '100px',
+                    margin: '0 auto',
+                    display: 'block'
+                })
+            $('#flights').append(flightsLoading, loadingimg)
             flights()
         })
 
@@ -398,12 +404,12 @@
             hotelCenters.forEach(element => {
                 element.setMap(null)
             })
-            var flightsLoading = $('<h4>').text('Flights loading, please wait.').attr('id','flightsLoading')
+            var flightsLoading = $('<h4>').text('Flights loading, please wait.').attr('id', 'flightsLoading')
             var loadingimg = $('<img>').attr({
                 id: 'loadingGif',
                 src: 'https://gifer.com/i/4V0b.gif'
             })
-            $('#flights').append(flightsLoading,loadingimg)
+            $('#flights').append(flightsLoading, loadingimg)
             flights()
         })
 
@@ -413,7 +419,7 @@
         $(document).on('click', '#backResults', function () {
             $('#info').css('z-index', '-1')
             $('#info').children('h3').remove()
-          
+
             currentVenue[0].setMap(null)
             for (var i = 0; i < venueMarkers.length; i++) {
                 venueMarkers[i].setMap(map);
@@ -457,7 +463,7 @@
             })
 
         })
-   
+
 
 
 
@@ -523,24 +529,25 @@
                 }
                 var imgDiv = $('<div>').addClass('cropcircle').css('background-image', "url('" + element.images[7].url + "')")
 
-                
-                if (element.priceRanges!== undefined){
-                var row = $('<div>').addClass('row border concert').attr('data-location', JSON.stringify(element._embedded.venues['0'].location)).attr({
-                    'data-name': element.name,
-                    'data-min':element.priceRanges[0].min ,
-                    'data-max': element.priceRanges[0].max,
-                    'data-city': element._embedded.venues[0].city.name,
-                    'data-image':element.images[7].url
+
+                if (element.priceRanges !== undefined) {
+                    var row = $('<div>').addClass('row border concert').attr('data-location', JSON.stringify(element._embedded.venues['0'].location)).attr({
+                        'data-name': element.name,
+                        'data-min': element.priceRanges[0].min,
+                        'data-max': element.priceRanges[0].max,
+                        'data-city': element._embedded.venues[0].city.name,
+                        'data-image': element.images[7].url
                     })
 
                 }
                 else {
                     var row = $('<div>').addClass('row border concert').attr('data-location', JSON.stringify(element._embedded.venues['0'].location)).attr({
-                    'data-name': element.name,
-                    'data-min':0 ,
-                    'data-max':0,
-                    'data-city': element._embedded.venues[0].city.name,
-                    'data-image':element.images[7].url})
+                        'data-name': element.name,
+                        'data-min': 0,
+                        'data-max': 0,
+                        'data-city': element._embedded.venues[0].city.name,
+                        'data-image': element.images[7].url
+                    })
 
                 }
                 var col = $('<div>').addClass('col-sm-8 conInfo')
