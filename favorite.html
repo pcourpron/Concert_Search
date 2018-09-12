@@ -278,7 +278,12 @@ For reference on the fill - here are the variables based on the choices of the p
                 <h5 class="card-title favBand">${title}</h5>
             </div>
             <div class="card-body">
-                <p>Insert Twitter/Sound Clip Here?</p>
+                    <div class="audioplay-object">
+        <div class="audioplay-button"></div>
+        <audio class="audioplay-player">
+        </audio>
+    </div>
+                
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item favConcert">Hotel: $${hotelPrice}</li>
@@ -317,6 +322,33 @@ For reference on the fill - here are the variables based on the choices of the p
 </div>`)
             }
         }
+
+    </script>
+    <script src="https://strangecube.com/audioplay2/player/js/audioplay-2.0.0.min.js"></script>
+    <script>
+        var keyword = 'beyonce'
+        // var artist = 
+        var musicKey = "ZTk2YjY4MjMtMDAzYy00MTg4LWE2MjYtZDIzNjJmMmM0YTdm";
+        var musicQurl = "https://api.napster.com/v2.2/search?query="+keyword+"&type=artist,track&per_type_limit=1&isStreamableOnly=true&client_id=" + musicKey;
+
+        $.ajax({
+            method: "GET",
+            url: musicQurl
+        }).then(function (data) {
+
+            // connects to dom audio widget element
+            var y = $("audio");
+
+            // pulls the first natural preview version of one of artists songs from the ajax
+            var x = data.search.data.tracks[0].previewURL;
+
+            // attaches the ajax call preview song to the audio widget
+            y.attr("src", x)
+
+            // sets up the controls in the audio widget
+            // y.attr("controls", "controls");
+
+        });
 
     </script>
 </body>

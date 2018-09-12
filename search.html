@@ -151,6 +151,8 @@
 
     <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
+
+    <!--Gets today's date-->
     <script>
         var today = new Date();
         var dd = today.getDate();
@@ -175,6 +177,9 @@
 
 
     <script>
+        $("#backFlights").click(function(){
+
+        })
         console.log($('.startDateInput').val())
         if (localStorage.getItem('loginId') === null) {
             $('#save').hide()
