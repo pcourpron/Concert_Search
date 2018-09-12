@@ -60,7 +60,7 @@
     ------->
 
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-transparent searchBox" style='z-index: 1000;'>
+    <nav class="navbar navbar-expand-xl navbar-light bg-transparent searchBox" style='z-index: 1000;'>
 
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -99,6 +99,11 @@
             <button id='backResults' class='btn justify-content-center btn-primary btn-sm'>Back to Results</button>
             <button id='toFlights' class='btn justify-content-center btn-primary btn-sm'>Skip to Flights</button>
         </div>
+
+        <div id="searchDate">
+            
+     
+
         <label for="start">Start </label>
         <input type="date" id="startHotel" class="form-control mr-sm-2 startDateInput" name="trip" value="2018-09-10" max="2020-12-31"
         />
@@ -106,11 +111,28 @@
         <input type="date" id="endHotel" class="form-control mr-sm-2 endDateInput" name="trip" value="2018-09-11" max="2020-12-31"
         />
         <button id='searchHotel' class="btn my-2 my-sm-0 btn-dark">Search</button>
+      </div>
+
 
     </div>
 
 
     <div class='container' id='flights'>
+
+        <button id='backHotels' class='btn btn-primary btn-sm'>Back to Hotels</button>
+
+        <input type="date" id="startHotel" class="form-control mr-sm-2 startDateInput" name="trip" value="2018-09-10" max="2020-12-31"
+        />
+        <label for="end">End </label>
+        <input type="date" id="endHotel" class="form-control mr-sm-2 endDateInput" name="trip" value="2018-09-11" max="2020-12-31"
+        />
+        <button class="btn my-2 my-sm-0 submitForm btn-dark" type="submit">Search</button>
+
+    </div>
+    <div class='container' id='final'>
+        <button id='backFlights' class='btn btn-primary btn-sm'>Back to Flights</button>
+        <button id='save' class='btn btn-primary btn-sm'>Save Itinerary!</button>
+
         <button id='backHotels' class='btn btn-primary btn-lg'>Back to Hotels</button>
 
         <input type="text" id="startFlight" class="form-control mr-sm-2"/>
@@ -121,6 +143,7 @@
     <div class='container' id='final'>
         <button id='backFlights' class='btn btn-primary btn-lg'>Back to Flights</button>
         <button id='save' class='btn btn-primary btn-lg'>Save Itinerary!</button>
+
 
     </div>
 
@@ -136,7 +159,7 @@
      -->
 
     <div id="footer" class="row">
-        <div class="col-sm-12">
+        <div class="col-sm">
             <div class="totalCost">
                 <h4 id="tC">Total Cost: <span id='sum'></span></h4>
             </div>
@@ -169,7 +192,7 @@
         dd2 = dd + 1
 
         $('#start').val(today)
-        
+
 
     </script>
 
@@ -221,6 +244,7 @@
         var minTotal = 0
         var maxTotal = 0
         var locationConcert
+
 
         var latitude
         var longitude
@@ -296,6 +320,7 @@
             hotelSearch(locationConcert, start, end)
 
         })
+
         $(document).on('click', '#save', function () {
             var loginId = localStorage.getItem('loginId')
 
@@ -405,9 +430,30 @@
             $('#info').append(title)
 
 
+            var loadingHotels = $('<h4>').text('Hotels loading, please wait.').attr('id', 'hotelsLoading')
+            var loadingimg = $('<img>').attr({
+                id: 'loadingGif',
+                src: 'https://gifer.com/i/4V0b.gif'
+            })
+                .css({
+                    height: '100px',
+                    width: '100px',
+                    margin: '0 auto',
+                    display: 'block'
+                })
+
+            $('#info').append(loadingHotels, loadingimg)
+
+
+            var location = JSON.parse(this.dataset.location)
+
+            hotelSearch(location)
+
+
 
             locationConcert = JSON.parse(this.dataset.location)
             console.log(locationConcert)
+
 
             selectedConcert = this.dataset.name
             selectedCity = this.dataset.city
@@ -437,8 +483,21 @@
 
             })
 
-            
-     
+
+            var flightsLoading = $('<h4>').text('Flights loading, please wait.').attr('id', 'flightsLoading')
+            var loadingimg = $('<img>').attr({
+                id: 'loadingGif',
+                src: 'https://gifer.com/i/4V0b.gif'
+            })
+                .css({
+                    height: '100px',
+                    width: '100px',
+                    margin: '0 auto',
+                    display: 'block'
+                })
+            $('#flights').append(flightsLoading, loadingimg)
+            flights()
+
         })
 
         $(document).on('click','#flightSubmit',function(){
@@ -454,8 +513,11 @@
             hotelCenters.forEach(element => {
                 element.setMap(null)
             })
+
+
            var flightFrom =$('#startFlight').val()
             flights(flightFrom)
+
         })
 
 
